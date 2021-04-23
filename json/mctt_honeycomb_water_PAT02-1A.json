@@ -1,0 +1,179 @@
+{
+	"9C65F9361C00": {
+		"CA225443": {
+			"1": {
+				"0": {
+					"00000002": {
+						"name": "JKEY_ISSUEID_ADDING",
+						"value": 97
+					},
+					"00000003": {
+						"name": "JKEY_ISSUEID_REMOVING",
+						"value": 97
+					},
+					"00000008": {
+						"name": "JKEY_ISSUEID_ADDING",
+						"value": 97
+					},
+					"name": "Endpoint ID"
+				},
+				"Protocol ID": 2,
+				"lastbeattime_utc": 1618381311,
+				"name": "Node ID",
+				"protocol_name": "ZWAVES2"
+			},
+			"2": {
+				"0": {
+					"00000002": {
+						"name": "JKEY_ISSUEID_ADDING",
+						"value": 98
+					},
+					"00000010": {
+						"app_ver": "1.14",
+						"category": 0,
+						"generic": 7,
+						"instr_icon": 3077,
+						"interval": 86400,
+						"lib_type": 3,
+						"listen": 0,
+						"name": "JKEY_ISSUEID_NODE",
+						"node_type": 0,
+						"pid": 31,
+						"propty": 5,
+						"propty_name": "S0 (0x01)/Security (0x04)",
+						"proto_ver": "4.05",
+						"ptype": 2,
+						"role_type": 6,
+						"s2_grnt_keys": 128,
+						"s2_grnt_keys_name": "S0 (0x80)/Non-Security",
+						"s2_keys_valid": 1,
+						"sensor": 0,
+						"sleep_cap": 1,
+						"specific": 1,
+						"usr_icon": 3077,
+						"value": 93,
+						"vid": 316,
+						"zwplus_ver": 1
+					},
+					"00010006": {
+						"name": "Flood Sensor",
+						"val": "idle"
+					},
+					"00010008": {
+						"name": "Tamper Sensor",
+						"val": "idle"
+					},
+					"00030001": {
+						"name": "Temperature Sensor",
+						"type": 1,
+						"type_name": "ZW_SENSOR_TYPE_TEMP",
+						"unit": 1,
+						"unit_name": "Fahrenheit",
+						"value": 74.2
+					},
+					"00030005": {
+						"name": "Humidity Sensor",
+						"type": 5,
+						"type_name": "ZW_SENSOR_TYPE_HUMD",
+						"unit": 0,
+						"unit_name": "%",
+						"value": 76.4
+					},
+					"00097001": {
+						"0": {
+							"size": 1,
+							"use_default": 0,
+							"value": 0
+						},
+						"1": {
+							"size": 1,
+							"use_default": 0,
+							"value": 0
+						},
+						"10": {
+							"size": 1,
+							"use_default": 0,
+							"value": 12
+						},
+						"13": {
+							"size": 1,
+							"use_default": 0,
+							"value": 12
+						},
+						"14": {
+							"size": 1,
+							"use_default": 0,
+							"value": 12
+						},
+						"15": {
+							"size": 1,
+							"use_default": 0,
+							"value": 12
+						},
+						"2": {
+							"size": 1,
+							"use_default": 0,
+							"value": 255
+						},
+						"20": {
+							"size": 1,
+							"use_default": 0,
+							"value": 30
+						},
+						"21": {
+							"size": 1,
+							"use_default": 0,
+							"value": 1
+						},
+						"23": {
+							"size": 1,
+							"use_default": 0,
+							"value": 5
+						},
+						"5": {
+							"size": 1,
+							"use_default": 0,
+							"value": 0
+						},
+						"6": {
+							"size": 1,
+							"use_default": 0,
+							"value": 0
+						},
+						"7": {
+							"size": 1,
+							"use_default": 0,
+							"value": 0
+						},
+						"name": "Configuration"
+					},
+					"00098001": {
+						"name": "Battery",
+						"value": 100
+					},
+					"00098401": {
+						"cur": 86400,
+						"def": 86400,
+						"interval": 1800,
+						"max": 432000,
+						"min": 1800,
+						"name": "Wakeup Interval",
+						"notify": 0
+					},
+					"00098402": {
+						"name": "Wakeup Sensor"
+					},
+					"name": "Endpoint ID"
+				},
+				"Protocol ID": 2,
+				"lastbeattime_utc": 1618381309,
+				"name": "Node ID",
+				"protocol_name": "ZWAVES2",
+				"ready": 1,
+				"status": "alive"
+			},
+			"name": "UUID"
+		},
+		"name": "MAC Address"
+	}
+}

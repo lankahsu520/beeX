@@ -1,0 +1,95 @@
+{
+	"9C65F9361C00": {
+		"E380D91E": {
+			"1": {
+				"0": {
+					"00000002": {
+						"name": "JKEY_ISSUEID_ADDING",
+						"value": 97
+					},
+					"00000003": {
+						"name": "JKEY_ISSUEID_REMOVING",
+						"value": 97
+					},
+					"00000004": {
+						"name": "JKEY_ISSUEID_ABORTING",
+						"value": 97
+					},
+					"name": "Endpoint ID"
+				},
+				"Protocol ID": 2,
+				"lastbeattime_utc": 1618378518,
+				"name": "Node ID",
+				"protocol_name": "ZWAVES2"
+			},
+			"2": {
+				"0": {
+					"00000002": {
+						"name": "JKEY_ISSUEID_ADDING",
+						"value": 98
+					},
+					"00000010": {
+						"app_ver": "1.02",
+						"category": 0,
+						"generic": 17,
+						"instr_icon": 1536,
+						"interval": -1,
+						"lib_type": 3,
+						"listen": 1,
+						"name": "JKEY_ISSUEID_NODE",
+						"node_type": 0,
+						"pid": 49,
+						"propty": 5,
+						"propty_name": "S0 (0x01)/Security (0x04)",
+						"proto_ver": "4.38",
+						"ptype": 5,
+						"role_type": 5,
+						"s2_grnt_keys": 128,
+						"s2_grnt_keys_name": "S0 (0x80)/Non-Security",
+						"s2_keys_valid": 1,
+						"sensor": 0,
+						"sleep_cap": 0,
+						"specific": 1,
+						"usr_icon": 1536,
+						"value": 93,
+						"vid": 316,
+						"zwplus_ver": 1
+					},
+					"00092601": {
+						"curr_val": 99,
+						"dur": 254,
+						"name": "Dimmer",
+						"tgt_val": 254
+					},
+					"00097001": {
+						"1": {
+							"size": 1,
+							"use_default": 0,
+							"value": 1
+						},
+						"2": {
+							"size": 1,
+							"use_default": 0,
+							"value": 1
+						},
+						"4": {
+							"size": 1,
+							"use_default": 0,
+							"value": 1
+						},
+						"name": "Configuration"
+					},
+					"name": "Endpoint ID"
+				},
+				"Protocol ID": 2,
+				"lastbeattime_utc": 1618378516,
+				"name": "Node ID",
+				"protocol_name": "ZWAVES2",
+				"ready": 1,
+				"status": "alive"
+			},
+			"name": "UUID"
+		},
+		"name": "MAC Address"
+	}
+}

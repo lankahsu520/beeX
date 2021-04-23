@@ -1,0 +1,130 @@
+{
+	"9C65F9361C00": {
+		"C5F1B8AC": {
+			"1": {
+				"0": {
+					"00000002": {
+						"name": "JKEY_ISSUEID_ADDING",
+						"value": 97
+					},
+					"name": "Endpoint ID"
+				},
+				"Protocol ID": 2,
+				"lastbeattime_utc": 1618381030,
+				"name": "Node ID",
+				"protocol_name": "ZWAVES2"
+			},
+			"2": {
+				"0": {
+					"00000002": {
+						"name": "JKEY_ISSUEID_ADDING",
+						"value": 98
+					},
+					"00000010": {
+						"app_ver": "1.28",
+						"category": 0,
+						"generic": 7,
+						"instr_icon": 3079,
+						"interval": 86400,
+						"lib_type": 6,
+						"listen": 0,
+						"name": "JKEY_ISSUEID_NODE",
+						"node_type": 0,
+						"pid": 80,
+						"propty": 5,
+						"propty_name": "S0 (0x01)/Security (0x04)",
+						"proto_ver": "4.38",
+						"ptype": 2,
+						"role_type": 6,
+						"s2_grnt_keys": 128,
+						"s2_grnt_keys_name": "S0 (0x80)/Non-Security",
+						"s2_keys_valid": 1,
+						"sensor": 0,
+						"sleep_cap": 1,
+						"specific": 1,
+						"usr_icon": 3079,
+						"value": 93,
+						"vid": 316,
+						"zwplus_ver": 1
+					},
+					"00010008": {
+						"name": "Tamper Sensor",
+						"val": "idle"
+					},
+					"0001000C": {
+						"name": "Motion Sensor",
+						"val": "on"
+					},
+					"00097001": {
+						"10": {
+							"size": 1,
+							"use_default": 0,
+							"value": 12
+						},
+						"2": {
+							"size": 1,
+							"use_default": 0,
+							"value": 255
+						},
+						"20": {
+							"size": 1,
+							"use_default": 0,
+							"value": 30
+						},
+						"3": {
+							"size": 1,
+							"use_default": 0,
+							"value": 80
+						},
+						"6": {
+							"size": 1,
+							"use_default": 0,
+							"value": 5
+						},
+						"7": {
+							"size": 1,
+							"use_default": 0,
+							"value": 4
+						},
+						"8": {
+							"size": 1,
+							"use_default": 0,
+							"value": 3
+						},
+						"9": {
+							"size": 1,
+							"use_default": 0,
+							"value": 4
+						},
+						"name": "Configuration"
+					},
+					"00098001": {
+						"name": "Battery",
+						"value": 100
+					},
+					"00098401": {
+						"cur": 86400,
+						"def": 86400,
+						"interval": 1800,
+						"max": 432000,
+						"min": 1800,
+						"name": "Wakeup Interval",
+						"notify": 0
+					},
+					"00098402": {
+						"name": "Wakeup Sensor"
+					},
+					"name": "Endpoint ID"
+				},
+				"Protocol ID": 2,
+				"lastbeattime_utc": 1618381028,
+				"name": "Node ID",
+				"protocol_name": "ZWAVES2",
+				"ready": 1,
+				"status": "alive"
+			},
+			"name": "UUID"
+		},
+		"name": "MAC Address"
+	}
+}
