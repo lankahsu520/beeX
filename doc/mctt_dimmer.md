@@ -26,7 +26,7 @@ void zwifd_act_switch_multilevel(Commander_t *commander, uint8_t val, uint8_t du
    ```
 #### Sample
    ```
-reporter_set_nodeid(reporter, UID_to_NODEID(uid), epid);
+reporter_set_nodeid_ex(reporter, UID_to_NODEID(uid), epid);
 commander_cp_to(commander, reporter);
 commander_cp_frm(commander, master_reporter_get());
 zwifd_act_switch_multilevel(commander, val, dur);
@@ -51,7 +51,7 @@ void zwifd_switch_multilevel_report(Reporter_t *reporter, zwlevel_dat_p val_p, t
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
 zwifd_switch_multilevel_report(ZWARE_REPORTER(), val_p, ts);
    ```
 

@@ -22,6 +22,7 @@ $ make
    ```
 
 # Example or Usage
+- beex_123 - an example. automatically trigger tamper notification and receive the notification.
 
 
 # License

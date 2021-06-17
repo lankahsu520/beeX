@@ -66,7 +66,7 @@ void zwifd_alrm_water_off_report_bin(Reporter_t *reporter)
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
 zwifd_alrm_water_report(ZWARE_REPORTER(), alarm_info);
 
 zwifd_alrm_water_leak_report_bin(ZWARE_REPORTER());

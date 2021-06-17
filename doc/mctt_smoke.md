@@ -1,8 +1,8 @@
-# Tamper
+# Smoke
 ## Sequence
 
    ```sequence
-   dongle --> echo: MCTT (JKEY_ISSUEID_TAMPER)
+   dongle --> echo: MCTT (JKEY_ISSUEID_SMOKE)
    ```
 
 ## API
@@ -10,9 +10,9 @@
 #define JVAL_METHODID_EVENT                      0
 #define JVAL_METHODID_PUT                        1
 
-#define JKEY_ISSUEID_TAMPER                      0x00010008 // tamper
+#define JKEY_ISSUEID_SMOKE                       0x00010002 // smoke
    ```
-### Command - JVAL_METHODID_PUT & JKEY_ISSUEID_TAMPER
+### Command - JVAL_METHODID_PUT & JKEY_ISSUEID_SMOKE
    ```
 
    ```
@@ -20,7 +20,7 @@
    ```
 
    ```
-### Report - JVAL_METHODID_EVENT & JKEY_ISSUEID_TAMPER
+### Report - JVAL_METHODID_EVENT & JKEY_ISSUEID_SMOKE
    ```
 typedef struct
 {
@@ -54,32 +54,33 @@ static void zwifd_alrm_xxx_report(Reporter_t *reporter, uint32_t issueid, uint16
 	}
 	n_issueitem.data_len = idx;
 
-void zwifd_alrm_tamper_report(Reporter_t *reporter, zwalrm_p alrm_p)
-void zwifd_alrm_tamper_open_report_bin(Reporter_t *reporter)
+void zwifd_alrm_smoke_report(Reporter_t *reporter, zwalrm_p alrm_p)
+void zwifd_alrm_smoke_on_report_bin(Reporter_t *reporter)
 	zwalrm_t alrm = {0};
-	alrm.ex_type = ZW_ALRM_BURGLAR;
-	alrm.ex_event = ZW_ALRM_EVT_TMPR_COVER;
-void zwifd_alrm_tamper_closed_report_bin(Reporter_t *reporter)
+	alrm.ex_type = ZW_ALRM_SMOKE;
+	alrm.ex_event = ZW_ALRM_EVT_SMOKE;
+void zwifd_alrm_smoke_off_report_bin(Reporter_t *reporter)
 	zwalrm_t alrm = {0};
-	alrm.ex_type = ZW_ALRM_BURGLAR;
+	alrm.ex_type = ZW_ALRM_SMOKE;
 	alrm.ex_event = ZW_ALRM_EVT_INACTIVE_CLEAR;
    ```
 #### Sample
    ```
 reporter_set_nodeid_ex(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
-zwifd_alrm_tamper_report(ZWARE_REPORTER(), alarm_info);
+zwifd_alrm_smoke_report(ZWARE_REPORTER(), alarm_info);
 
-zwifd_alrm_tamper_open_report_bin(ZWARE_REPORTER());
-zwifd_alrm_tamper_closed_report_bin(ZWARE_REPORTER());
+zwifd_alrm_smoke_on_report_bin(ZWARE_REPORTER());
+zwifd_alrm_smoke_off_report_bin(ZWARE_REPORTER());
    ```
 
 # Log
 ## MCTT
    ```
-20210414 133902 [0/2-ZWAVES2] - <-- 9C65F9361C00/D808ACB4/0x0002/0 - zevent=0x0002.0,tamper,closed
+20210503 213242 [0/2-ZWAVES2] - <-- B827EB40D4FD/FA3EAE73/4/0 - zevent=4.0,smoke,3-ZW_ALRM_EVT_SMOKE_TEST
    ```
 
 ## TOPIC
    ```
-[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00010008, value: {"name":"Tamper Sensor","val":"idle"})
+[23616/23618] bee_topic_issue_cb:146 - (topic: 0/2/B827EB40D4FD/FA3EAE73/4/0/00010002, value: {"name":"Smoke Sensor","val":"ZW_ALRM_EVT_SMOKE_TEST","value":3})
    ```
+

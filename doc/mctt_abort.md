@@ -46,7 +46,7 @@ void controller_status_aborting_fail(Reporter_t *reporter)
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
 controller_status_aborting_done(ZWARE_REPORTER());
    ```
 

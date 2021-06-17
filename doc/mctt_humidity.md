@@ -48,7 +48,7 @@ void zwifd_sensor_luminance_report(Reporter_t *reporter, zwsensor_p data, time_t
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
 zwifd_sensor_luminance_report(ZWARE_REPORTER(), data, ts);
    ```
 

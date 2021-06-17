@@ -33,8 +33,20 @@
 #endif
 
 #define BEEX_REAL_PRECISION 3
+#define JSON_FLAGS_BEEX (JSON_FLAGS_EASY|JSON_REAL_PRECISION(BEEX_REAL_PRECISION))
 
 typedef int honeycomb_topic_fn(char *topic, char *value);
+
+typedef enum
+{
+	TOPIC_TOKEN_ID_METHODID = 0,
+	TOPIC_TOKEN_ID_MAC,
+	TOPIC_TOKEN_ID_UUID,
+	TOPIC_TOKEN_ID_NODEID,
+	TOPIC_TOKEN_ID_EPID,
+	TOPIC_TOKEN_ID_ISSUEID,
+	TOPIC_TOKEN_ID_MAX,
+} TOPIC_TOKEN_ID;
 
 typedef struct AddedNodeid_Struct
 {
@@ -82,20 +94,20 @@ typedef struct Honeycomb_STRUCT
 
 	CLIST_STRUCT(added_list);
 
-	honeycomb_topic_fn *topic_add_uuid_cb;
-	honeycomb_topic_fn *topic_del_uuid_cb;
-	honeycomb_topic_fn *topic_add_node_cb;
-	honeycomb_topic_fn *topic_del_node_cb;
-	honeycomb_topic_fn *topic_issue_cb;
+	honeycomb_topic_fn *topic_add_uuid_caller;
+	honeycomb_topic_fn *topic_del_uuid_caller;
+	honeycomb_topic_fn *topic_add_node_caller;
+	honeycomb_topic_fn *topic_del_node_caller;
+	honeycomb_topic_fn *topic_issue_caller;
 } Honeycomb_t;
 
 
 //******************************************************************************
 //** function **
 //******************************************************************************
-void honeycomb_topic_get(Honeycomb_t *honeycomb_ctx, char *topic, char *payload);
-void honeycomb_topic_put(Honeycomb_t *honeycomb_ctx, char *topic, char *payload);
-void honeycomb_topic_pub(Honeycomb_t *honeycomb_ctx, char *topic, json_t *jvalue, honeycomb_topic_fn *topic_cb);
+void honeycomb_subscribe_get(Honeycomb_t *honeycomb_ctx, char *topic, char *payload);
+void honeycomb_act_helper(Honeycomb_t *honeycomb_ctx, char *topic, char *payload);
+void honeycomb_publish_helper(Honeycomb_t *honeycomb_ctx, char *topic, json_t *jvalue, honeycomb_topic_fn *topic_caller);
 
 json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_ctx);
 json_t *honeycomb_lookup_jnodeid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_ctx);

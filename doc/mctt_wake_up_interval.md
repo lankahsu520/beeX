@@ -47,7 +47,7 @@ void zwifd_wakeup_interval_report(Reporter_t *reporter, zwif_wakeup_p cap)
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
 zwifd_wakeup_interval_report(ZWARE_REPORTER(), cap);
    ```
 

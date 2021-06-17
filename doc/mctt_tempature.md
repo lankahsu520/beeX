@@ -47,7 +47,7 @@ void zwifd_sensor_temperature_report(Reporter_t *reporter, zwsensor_p data, time
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
 zwifd_sensor_temperature_report(ZWARE_REPORTER(), data, ts);
    ```
 

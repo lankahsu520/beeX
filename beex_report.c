@@ -1708,7 +1708,7 @@ static void zwifd_alrm_xxx_report(Reporter_t *reporter, uint32_t issueid, uint16
 	n_issueitem.data[idx++] = alrm_p->ex_evt_len; // value
 	if (alrm_p->ex_evt_len)
 	{
-		memcpy(n_issueitem.data+idx, alrm_p->ex_evt_prm, alrm_p->ex_evt_len);
+		SAFE_MEMCPY(n_issueitem.data+idx, alrm_p->ex_evt_prm, alrm_p->ex_evt_len, 0xFF-idx);
 		idx += alrm_p->ex_evt_len;
 	}
 	n_issueitem.data_len = idx;

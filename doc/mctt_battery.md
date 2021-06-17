@@ -33,7 +33,7 @@ void zwifd_battery_report(Reporter_t *reporter, uint8_t level, time_t ts)
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
 zwifd_battery_report(ZWARE_REPORTER(), level, ts);
    ```
 

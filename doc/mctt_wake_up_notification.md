@@ -29,7 +29,7 @@ void zwifd_wakeup_notification_report(Reporter_t *reporter, time_t ts)
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), ifd_p->nodeid, ifd_p->epid);
 zwifd_wakeup_notification_report(ZWARE_REPORTER(), ts);
    ```
 

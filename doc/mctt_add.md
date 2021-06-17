@@ -42,7 +42,7 @@ void controller_act_adding(Commander_t *commander, char *dsk)
    ```
 #### Sample
    ```
-reporter_set_nodeid(reporter, MY_CTL_ID(uid), JVAL_EPID_BASE);
+reporter_set_nodeid_ex(reporter, MY_CTL_ID(uid), JVAL_EPID_BASE);
 commander_cp_to(commander, reporter);
 commander_cp_frm(commander, master_reporter_get());
 controller_act_adding(commander, (char*)dsk);
@@ -104,13 +104,13 @@ void controller_status_adding(Reporter_t *reporter)
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
 controller_status_adding(ZWARE_REPORTER());
 
-reporter_set_nodeid(ZWARE_REPORTER(), noded_p->nodeid, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), noded_p->nodeid, JVAL_EPID_BASE);
 controller_status_added(ZWARE_REPORTER());
 
-reporter_set_nodeid(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
 controller_status_adding_done(ZWARE_REPORTER());
    ```
 

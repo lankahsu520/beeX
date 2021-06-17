@@ -2327,6 +2327,9 @@ char* translate_protocolid(uint16_t protocolid)
 		case JVAL_PROTOCOLID_ZIGBEE_PHILIO:
 			return "ZIGBEE_PHILIO";
 			break;
+		case JVAL_PROTOCOLID_HONEY_MAEKET:
+			return "HONEY_MAEKET";
+			break;
 		case JVAL_PROTOCOLID_HONEYCOMB:
 			return "HONEYCOMB";
 			break;

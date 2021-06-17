@@ -766,7 +766,7 @@ void tracker_watch_simple(void *userdata, IssueItem_t *c_issueitem, uint8_t dbg)
 			switch (val)
 			{
 				case ZWAVE_EVT_RESETING_START:
-					SAFE_SPRINTF(response, JKEY_REPORT_OP_RESETING);
+					SAFE_SPRINTF(response, "%s,%s", JKEY_REPORT_OP_RESETING, JVAL_REPORT_START);
 					break;
 				case ZWAVE_EVT_RESETING_DONE:
 					SAFE_SPRINTF(response, "%s,%s", JKEY_REPORT_OP_RESET, JVAL_REPORT_DONE);
@@ -952,6 +952,29 @@ void tracker_watch_simple(void *userdata, IssueItem_t *c_issueitem, uint8_t dbg)
 
 			if (dbg==0) tracker_watch_func_cb(userdata, c_issueitem, NOTIFY_FN_ID_NOP);
 			break;
+		// 0x00010002
+		case JKEY_ISSUEID_SMOKE:
+			switch (val)
+			{
+				case ZWAVE_EVT_INACTIVE_CLEAR:
+					SAFE_SPRINTF(response, "%s,%s,%s", node_str, JKEY_REPORT_SMOKE, JVAL_COMM_OFF );
+					break;
+				case ZWAVE_EVT_SMOKE_L:
+					SAFE_SPRINTF(response, "%s,%s,%s,%s", node_str, JKEY_REPORT_SMOKE, JVAL_COMM_ON, valp+ZWAVE_IDX_ALRM_EX_EVT_PRM);
+					break;
+				case ZWAVE_EVT_SMOKE:
+					SAFE_SPRINTF(response, "%s,%s,%s", node_str, JKEY_REPORT_SMOKE, JVAL_COMM_ON );
+					break;
+				case ZWAVE_EVT_SMOKE_TEST:
+				case ZWAVE_EVT_SMOKE_REPLA:
+				default:
+					SAFE_SPRINTF(response, "%s,%s,%d-%s", node_str, JKEY_REPORT_SMOKE, val, translate_alarm_event(ZW_ALRM_SMOKE, val, 0));
+					break;
+			}
+			SAFE_SPRINTF(tag, "%s", JKEY_REPORT_EVT );
+
+			if (dbg==0) tracker_watch_func_cb(userdata, c_issueitem, NOTIFY_FN_ID_SMOKE);
+			break;
 		// 0x00010006
 		case JKEY_ISSUEID_WATER:
 			switch (val)
@@ -960,17 +983,17 @@ void tracker_watch_simple(void *userdata, IssueItem_t *c_issueitem, uint8_t dbg)
 					SAFE_SPRINTF(response, "%s,%s,%s", node_str, JKEY_REPORT_WATER, JVAL_COMM_OFF );
 					break;
 				case ZWAVE_EVT_LVL_L:
-					SAFE_SPRINTF(response, "%s,%s,%s,%s", node_str, JKEY_REPORT_WATER_LVL, JVAL_COMM_ON, valp+ZWAVE_IDX_ALRM_EX_EVT_PRM);
+					SAFE_SPRINTF(response, "%s,%s,%s,%s", node_str, JVAL_WATER_LEVEL_DROPPED, JVAL_COMM_ON, valp+ZWAVE_IDX_ALRM_EX_EVT_PRM);
 					break;
 				case ZWAVE_EVT_LVL:
-					SAFE_SPRINTF(response, "%s,%s,%s", node_str, JKEY_REPORT_WATER_LVL, JVAL_COMM_ON );
+					SAFE_SPRINTF(response, "%s,%s,%s", node_str, JVAL_WATER_LEVEL_DROPPED, JVAL_COMM_ON );
 					break;
 				case ZWAVE_EVT_LEAK_L:
-					SAFE_SPRINTF(response, "%s,%s,%s,%s", node_str, JKEY_REPORT_WATER_LEAK, JVAL_COMM_ON, valp+ZWAVE_IDX_ALRM_EX_EVT_PRM);
+					SAFE_SPRINTF(response, "%s,%s,%s,%s", node_str, JVAL_WATER_LEAK, JVAL_COMM_ON, valp+ZWAVE_IDX_ALRM_EX_EVT_PRM);
 					break;
 				case ZWAVE_EVT_LEAK:
 				default:
-					SAFE_SPRINTF(response, "%s,%s,%s", node_str, JKEY_REPORT_WATER_LEAK, JVAL_COMM_ON );
+					SAFE_SPRINTF(response, "%s,%s,%s", node_str, JVAL_WATER_LEAK, JVAL_COMM_ON );
 					break;
 			}
 			SAFE_SPRINTF(tag, "%s", JKEY_REPORT_EVT );
@@ -1241,6 +1264,48 @@ void tracker_watch_simple(void *userdata, IssueItem_t *c_issueitem, uint8_t dbg)
 				SAFE_SPRINTF(tag, "%s", JKEY_REPORT_EVT );
 			}
 			break;
+		// 0x00095b01
+		case JKEY_ISSUEID_CC_CENTRAL_SCENE_NOTIFICATION:
+			{
+				uint8_t seqNo = valp[idx++]; /**< Sequence number. Incremented each time a new report is issued by the device. */
+				uint8_t keyAttr = valp[idx++]; /**< Key attribute. ZW_CSC_KEY_ATTRIB_XXX.*/
+				uint8_t sceneNo = valp[idx++]; /**< Scene Number. Actual scene identifier.*/
+				uint8_t slow_rfsh = valp[idx++]; /**< Slow refresh of "Key Held Down" notification. Non-zero=enable; 0=disable. */
+
+				SAFE_SPRINTF(response, "%s,%s,%u,%u-%s,%u,%u", node_str, JKEY_REPORT_CSC_NOTIFICATION, seqNo, keyAttr, translate_csc_keyAttr(keyAttr), sceneNo, slow_rfsh);
+				SAFE_SPRINTF(tag, "%s", JKEY_REPORT_EVT );
+				if (dbg==0) tracker_watch_func_cb(userdata, c_issueitem, NOTIFY_FN_ID_CENTRAL_SCENE_NOTIFICATION);
+			}
+			break;
+		// 0x00095b02
+		case JKEY_ISSUEID_CC_CENTRAL_SCENE_SUP:
+			{
+				uint8_t scene_cnt = valp[idx++]; // value
+				uint8_t slow_rfsh = valp[idx++]; // value
+				uint8_t sameKA = valp[idx++]; // value
+				uint8_t KA_array_len = valp[idx++]; // value
+				uint8_t *KA_array = (uint8_t *)valp+idx;
+
+				int i = 0;
+				SAFE_SPRINTF(response, "%s,%s,%u,%u,%u,%u", node_str, JKEY_REPORT_CSC_SUP, scene_cnt, slow_rfsh, sameKA, KA_array_len);
+				for (i=0; i<KA_array_len; i++)
+				{
+					char tmpbuf[LEN_OF_BUF256]="";
+					SAFE_SPRINTF(tmpbuf, ",%u", KA_array[i]);
+					SAFE_STRCAT(response, tmpbuf);
+				}
+
+				SAFE_SPRINTF(tag, "%s", JKEY_REPORT_EVT );
+			}
+			break;
+		// 0x00095b03
+		case JKEY_ISSUEID_CC_CENTRAL_SCENE_CFG:
+			{
+				uint8_t slow_refresh = valp[0];
+				SAFE_SPRINTF(response, "%s,%s,%u", node_str, JKEY_REPORT_CSC_CFG, slow_refresh);
+				SAFE_SPRINTF(tag, "%s", JKEY_REPORT_EVT );
+			}
+			break;
 		// 0x00097001
 		case JKEY_ISSUEID_CC_CONFIGURATION:
 			{
@@ -1416,12 +1481,19 @@ static void tracker_parser(void *userdata, unsigned char *payload, int payload_l
 
 void tracker_send(char *buff, int buff_len)
 {
-	mctt_publish(chainX_mctt, buff, buff_len);
+	if ( (chainX_mctt) && (chainX_quit_check(chainX_mctt)==0) )
+	{
+		mctt_publish(chainX_mctt, buff, buff_len);
+	}
 }
 
 void tracker_close(void)
 {
-	mctt_thread_close(chainX_mctt);
+	if (chainX_mctt)
+	{
+		mctt_thread_close(chainX_mctt);
+		chainX_mctt = NULL;
+	}
 
 	tracker_logging_free( tracker_logging_head() );
 	tracker_notify_free( tracker_notify_head() );

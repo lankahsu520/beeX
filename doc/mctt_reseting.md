@@ -65,13 +65,13 @@ void controller_status_reseting(Reporter_t *reporter)
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
 controller_status_reseting(ZWARE_REPORTER());
 
-reporter_set_nodeid(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
 controller_status_reset_rm(ZWARE_REPORTER(), zware_ctx->uuid);
 
-reporter_set_nodeid(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
 controller_status_reset_done(ZWARE_REPORTER());
    ```
 

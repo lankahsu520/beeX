@@ -36,15 +36,16 @@ LIBS_yes = $(LIBXXXS_yes)
 
 #** librarys **
 LIBS +=
-#-ldl -lpthread -lm 
+#-ldl -lpthread -lm
 
 #** Clean **
-CLEAN_BINS = 
+CLEAN_BINS =
 CLEAN_OBJS = $(LIBXXX_OBJS)
 CLEAN_LIBS = $(LIBXXX_A) $(LIBXXX_SO)
 
 #** Target (CLEAN_BINS) **
-CLEAN_BINS +=
+CLEAN_BINS += \
+							beex_123
 
 #** Target (DUMMY_BINS) **
 DUMMY_BINS =
@@ -53,7 +54,7 @@ CLEAN_BINS += $(DUMMY_BINS)
 CLEAN_OBJS += $(addsuffix .o, $(CLEAN_BINS))
 
 #** Target (SHELL_BINS) **
-SHELL_BINS = 
+SHELL_BINS =
 
 .SUFFIXES:
 .SUFFIXES: .c .o
@@ -119,10 +120,6 @@ install: all
 	@for subshell in $(SHELL_BINS); do \
 		cp -avf $$subshell $(SDK_SBIN_DIR); \
 	done
-ifneq ("$(PJ_HAS_ZWARE)", "yes")
-	mkdir -p $(SDK_INC_DIR)/zware
-	cp -avrf ./zware/* $(SDK_INC_DIR)/zware
-endif
 
 romfs: install
 ifneq ("$(HOMEX_ROOT_DIR)", "")

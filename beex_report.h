@@ -34,6 +34,16 @@ extern "C"
 //******************************************************************************
 //** define **
 //******************************************************************************
+#define ZWRESULT_CHECK_VAL( x, y, z, format, args...) \
+	if (y != 0) \
+	{ \
+		DBG_ER_LN("%s fail (%d %s) !!! "format, x, y, translate_zw_err(y), ## args); \
+	} \
+	else if (z==1) \
+	{ \
+		DBG_WN_LN("%s ok (%d %s) !!! "format, x, y, translate_zw_err(y), ## args); \
+	}
+
 #define ZWRESULT_CHECK( x, y, z) \
 	if (y != 0) \
 	{ \
@@ -126,6 +136,7 @@ typedef enum
 	NOTIFY_FN_ID_DR_WIN,
 	NOTIFY_FN_ID_MOTION,
 
+	NOTIFY_FN_ID_SMOKE,
 	NOTIFY_FN_ID_WATER,
 	NOTIFY_FN_ID_TEMPATURE,
 	NOTIFY_FN_ID_LUMINANCE,
@@ -137,6 +148,7 @@ typedef enum
 	NOTIFY_FN_ID_SWITCH,
 	NOTIFY_FN_ID_DIMMER,
 	NOTIFY_FN_ID_METER,
+	NOTIFY_FN_ID_CENTRAL_SCENE_NOTIFICATION,
 	NOTIFY_FN_ID_CONFIGURATION,
 	NOTIFY_FN_ID_BATTERY,
 

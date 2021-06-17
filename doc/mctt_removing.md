@@ -29,7 +29,7 @@ void controller_act_removing(Commander_t *commander)
    ```
 #### Sample
    ```
-reporter_set_nodeid(reporter, MY_CTL_ID(uid), JVAL_EPID_BASE);
+reporter_set_nodeid_ex(reporter, MY_CTL_ID(uid), JVAL_EPID_BASE);
 commander_cp_to(commander, reporter);
 commander_cp_frm(commander, master_reporter_get());
 controller_act_removing(commander);
@@ -59,13 +59,13 @@ void controller_status_removing(Reporter_t *reporter)
    ```
 #### Sample
    ```
-reporter_set_nodeid(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
 controller_status_removing(ZWARE_REPORTER());
 
-reporter_set_nodeid(ZWARE_REPORTER(), noded_p->nodeid, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), noded_p->nodeid, JVAL_EPID_BASE);
 controller_status_removed(ZWARE_REPORTER());
 
-reporter_set_nodeid(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
+reporter_set_nodeid_ex(ZWARE_REPORTER(), zware_ctx->ctl_id, JVAL_EPID_BASE);
 controller_status_removing_done(ZWARE_REPORTER());
    ```
 
