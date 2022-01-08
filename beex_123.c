@@ -20,33 +20,34 @@
 // ** app **
 static int is_quit = 0;
 
+char iface_dev[LEN_OF_NAME_DEV] = "eth0";
+char iface_mac[LEN_OF_MAC]= "";
+char save_path[LEN_OF_DIRNAME] = "";
+
 #ifdef USE_BEEX_123_UV
 static uv_loop_t *uv_loop = NULL;
 uv_timer_t uv_timer_1sec_fd;
 //uv_timer_t uv_timer_60secs_fd;
 uv_timer_t uv_timer_30mins_fd;
+uv_async_t uv_async_fd;
 #endif
-
-char iface_dev[LEN_OF_NAME_DEV] = "eth0";
-char iface_mac[LEN_OF_MAC]= "";
-char save_path[LEN_OF_FILENAME256] = "";
 
 #ifdef USE_MCTT_BEE
 // (MQTT sub) --> queen_bee
 void bee_subscribe_get(Honeycomb_t *honeycomb_ctx, char *topic, char *payload)
 {
 	DBG_IF_LN("(topic: %s, payload: %s)", topic, payload);
-	honeycomb_subscribe_get(honeycomb_ctx, topic, payload);
+	honeycomb_get_helper(honeycomb_ctx, topic, payload, honeycomb_ctx->topic_issue_caller, (void*)honeycomb_ctx);
 }
 
 // (MQTT sub) --> queen_bee -> honeycomb (MCTT Server) -> dongle
 void bee_subscribe_put(Honeycomb_t *honeycomb_ctx, char *topic, char *payload)
 {
 	DBG_IF_LN("(topic: %s, payload: %s)", topic, payload);
-	honeycomb_act_helper(honeycomb_ctx, topic, payload);
+	honeycomb_put_helper(honeycomb_ctx, topic, payload);
 }
 
-int bee_topic_add_uuid_caller(char *topic, char *value)
+int bee_topic_add_uuid_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
 	if ( (topic) && (value) )
@@ -57,7 +58,7 @@ int bee_topic_add_uuid_caller(char *topic, char *value)
 	return ret;
 }
 
-int bee_topic_del_uuid_caller(char *topic, char *value)
+int bee_topic_del_uuid_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
 	if ( (topic) && (value) )
@@ -68,7 +69,7 @@ int bee_topic_del_uuid_caller(char *topic, char *value)
 	return ret;
 }
 
-int bee_topic_add_node_caller(char *topic, char *value)
+int bee_topic_add_node_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
 	if ( (topic) && (value) )
@@ -79,7 +80,7 @@ int bee_topic_add_node_caller(char *topic, char *value)
 	return ret;
 }
 
-int bee_topic_del_node_caller(char *topic, char *value)
+int bee_topic_del_node_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
 	if ( (topic) && (value) )
@@ -91,7 +92,7 @@ int bee_topic_del_node_caller(char *topic, char *value)
 }
 
 // dongle -> honeycomb (MCTT Server) -> queen_bee -> (MQTT pub)
-int bee_topic_issue_caller(char *topic, char *value)
+int bee_topic_issue_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
 	if ( (topic) && (value) )
@@ -423,8 +424,6 @@ void app_stop_uv(uv_async_t *handle, int force)
 }
 
 #ifdef USE_ASYNC_CREATE
-uv_async_t uv_async_fd;
-
 void async_loop(uv_async_t *handle)
 {
 	DBG_IF_LN(DBG_TXT_ENTER);
@@ -432,7 +431,6 @@ void async_loop(uv_async_t *handle)
 	app_stop_uv(handle, 0);
 }
 #endif
-
 #endif
 
 void app_save(void)
@@ -476,14 +474,14 @@ static void app_stop(void)
 static void app_loop(void)
 {
 	{
-		chainX_if_hwaddr(iface_dev, iface_mac, "");
-		//SAFE_SPRINTF(iface_mac, "%s", MAC_BROADCAST);
+		chainX_if_hwaddr(iface_dev, iface_mac, sizeof(iface_mac), "");
+		//SAFE_SPRINTF_EX(iface_mac, "%s", MAC_BROADCAST);
 	}
 
 #ifdef USE_MCTT_BEE
 	{
-		SAFE_SPRINTF(beex123_data.iface_mac, "%s", iface_mac);
-		SAFE_SPRINTF(beex123_data.json_f_mctt, "%s/%s", save_path, FILENAME_OF_MCTT_HONEYCOMB);
+		SAFE_SPRINTF_EX(beex123_data.iface_mac, "%s", iface_mac);
+		SAFE_SPRINTF_EX(beex123_data.json_f_mctt, "%s/%s", save_path, FILENAME_OF_MCTT_HONEYCOMB);
 
 		commander_set_frm_mac(&commander_bee, iface_mac);
 
@@ -512,7 +510,7 @@ static void app_loop(void)
 		SAFE_UV_LOOP_CLOSE(uv_loop);
 	}
 #else
-	while ( is_quit == 0)
+	while ( app_quit()==0 )
 	{
 #ifdef USE_MCTT_BEE_DEMO
 		time_t now_t = time((time_t *)NULL);
@@ -592,7 +590,6 @@ static struct option long_options[] =
 	{ "debug",       required_argument,   NULL,    'd'  },
 	{ "savepath",    required_argument,   NULL,    's'  },
 	{ "iface",       required_argument,   NULL,    'i'  },
-
 	{ "help",        no_argument,         NULL,    'h'  },
 	{ 0,             0,                      0,    0    }
 };
@@ -606,7 +603,7 @@ static void app_showusage(int exit_code)
 					"  -h, --help\n", TAG);
 	printf( "Version: %s\n", version_show());
 	printf( "Example:\n"
-					"  %s -s /tmp -d 2 \n", TAG);
+					"  %s -s /tmp -d 2\n", TAG);
 	exit(exit_code);
 }
 
@@ -621,13 +618,13 @@ static void app_ParseArguments(int argc, char **argv)
 			case 's':
 				if (optarg)
 				{
-					SAFE_SPRINTF(save_path, "%s", optarg);
+					SAFE_SPRINTF_EX(save_path, "%s", optarg);
 				}
 				break;
 			case 'i':
 				if (optarg)
 				{
-					SAFE_SPRINTF(iface_dev, "%s", optarg);
+					SAFE_SPRINTF_EX(iface_dev, "%s", optarg);
 				}
 				break;
 			case 'd':

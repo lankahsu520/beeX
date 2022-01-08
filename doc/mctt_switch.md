@@ -65,7 +65,7 @@ zwifd_switch_report(ZWARE_REPORTER(), val_p, ts);
 ## TOPIC
    ```
 [5226/5228] bee_topic_put_cb:38 - (topic: 1/0/9C65F9361C00/CED69735/2/0/00092501, payload: {"tgt_val":255})
-[5226/5227] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CED69735/2/0/00092501, value: {"curr_val":255,"dur":254,"name":"Switch","tgt_val":254})
+[5226/5227] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CED69735/2/0/00092501, value: {"value":255,"dur":254,"class":"Switch","tgt_val":254})
 [5226/5227] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CED69735/2/0/00093201, value: {"1":{"0":{"delta_time":298,"name":"kWh","prv_value":0.0,"rate_type":1,"value":0.0},"2":{"delta_time":0,"name":"W","prv_value":0.0,"rate_type":1,"value":0.1},"4":{"delta_time":0,"name":"V","prv_value":0.0,"rate_type":1,"value":112.0},"5":{"delta_time":0,"name":"A","prv_value":0.0,"rate_type":1,"value":0.0},"6":{"delta_time":0,"name":"power factor","prv_value":0.0,"rate_type":1,"value":0.0},"name":"ZW_METER_TYPE_ELEC"}})
    ```
 

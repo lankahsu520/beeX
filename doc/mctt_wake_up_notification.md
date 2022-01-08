@@ -41,5 +41,5 @@ zwifd_wakeup_notification_report(ZWARE_REPORTER(), ts);
 
 ## TOPIC
    ```
-[3988/3989] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00098402, value: {"name":"Wakeup Sensor"})
+[3988/3989] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00098402, value: {"class":"Wakeup Sensor"})
    ```

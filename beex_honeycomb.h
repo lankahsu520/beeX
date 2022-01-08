@@ -35,7 +35,7 @@
 #define BEEX_REAL_PRECISION 3
 #define JSON_FLAGS_BEEX (JSON_FLAGS_EASY|JSON_REAL_PRECISION(BEEX_REAL_PRECISION))
 
-typedef int honeycomb_topic_fn(char *topic, char *value);
+typedef int honeycomb_topic_fn(char *topic, char *value, void *userdata);
 
 typedef enum
 {
@@ -45,6 +45,12 @@ typedef enum
 	TOPIC_TOKEN_ID_NODEID,
 	TOPIC_TOKEN_ID_EPID,
 	TOPIC_TOKEN_ID_ISSUEID,
+	TOPIC_TOKEN_ID_TOKEN_1,
+	TOPIC_TOKEN_ID_TOKEN_2,
+	TOPIC_TOKEN_ID_TOKEN_3,
+	TOPIC_TOKEN_ID_TOKEN_4,
+	TOPIC_TOKEN_ID_TOKEN_5,
+	TOPIC_TOKEN_ID_TOKEN_6,
 	TOPIC_TOKEN_ID_MAX,
 } TOPIC_TOKEN_ID;
 
@@ -86,8 +92,7 @@ typedef struct Honeycomb_STRUCT
 	Commander_t *commander;
 	Notify_t *notify;
 
-	char filename[LEN_OF_FILENAME256];
-	char json_f_mctt[LEN_OF_FILENAME256];
+	char json_f_mctt[LEN_OF_FULLNAME];
 
 	json_t *jroot;
 	json_t *jmac;
@@ -105,9 +110,9 @@ typedef struct Honeycomb_STRUCT
 //******************************************************************************
 //** function **
 //******************************************************************************
-void honeycomb_subscribe_get(Honeycomb_t *honeycomb_ctx, char *topic, char *payload);
-void honeycomb_act_helper(Honeycomb_t *honeycomb_ctx, char *topic, char *payload);
-void honeycomb_publish_helper(Honeycomb_t *honeycomb_ctx, char *topic, json_t *jvalue, honeycomb_topic_fn *topic_caller);
+void honeycomb_get_helper(Honeycomb_t *honeycomb_ctx, char *topic, char *payload, honeycomb_topic_fn *topic_issue_caller, void *userdata);
+void honeycomb_put_helper(Honeycomb_t *honeycomb_ctx, char *topic, char *payload);
+void honeycomb_publish_helper(Honeycomb_t *honeycomb_ctx, char *topic, json_t *jvalue, honeycomb_topic_fn *topic_issue_caller, void *userdata);
 
 json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_ctx);
 json_t *honeycomb_lookup_jnodeid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_ctx);

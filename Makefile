@@ -7,11 +7,9 @@ PWD=$(shell pwd)
 CFLAGS += $(CFLAGS_CUSTOMER)
 
 CFLAGS += \
-					-I./ -I$(SDK_INC_DIR) -DPJ_BEEX_ZWARE
+					-I./ -DPJ_BEEX_ZWARE
 LDFLAGS += \
-					-L./ \
-					-L$(SDK_LIB_DIR) \
-					-Wl,-rpath -Wl,$(SDK_LIB_DIR)
+					-L./
 ARFLAGS = rcs
 
 #** LIBXXX_OBJS **
@@ -29,7 +27,13 @@ LIBXXX_SO = libbeex.so
 LIBXXXS_yes += -lbeex
 
 #** HEADER_FILES **
-HEADER_FILES = beex_api.h beex_honeycomb.h beex_report.h beex_translater.h beex_zware.h
+HEADER_FILES = \
+							beex_api.h \
+							beex_honeycomb.h \
+							beex_report.h \
+							beex_translater.h \
+							beex_zware.h \
+							beex_def.h
 
 LIBS_yes = $(LIBXXXS_yes)
 -include ./library.mk
@@ -56,7 +60,6 @@ CLEAN_OBJS += $(addsuffix .o, $(CLEAN_BINS))
 #** Target (SHELL_BINS) **
 SHELL_BINS =
 
-.SUFFIXES:
 .SUFFIXES: .c .o
 
 .PHONY: all clean distclean install romfs

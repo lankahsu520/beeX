@@ -41,14 +41,14 @@ void commander_set_to_nodeid(Commander_t *commander, char *c_nodeid, uint8_t epi
 {
 	POINTER_CHECK(commander);
 
-	SAFE_SPRINTF(commander->id_to.c_nodeid, "%s", c_nodeid);
+	SAFE_SPRINTF_EX(commander->id_to.c_nodeid, "%s", c_nodeid);
 	commander->id_to.epid = epid;
 }
 
 void commander_set_to_nodeid_ex(Commander_t *commander, uint16_t nodeid, uint8_t epid)
 {
 	char c_nodeid[LEN_OF_UUID]="";
-	SAFE_SPRINTF(c_nodeid, "%d", nodeid);
+	SAFE_SPRINTF_EX(c_nodeid, "%d", nodeid);
 	commander_set_to_nodeid(commander, c_nodeid, epid);
 }
 
@@ -57,7 +57,7 @@ void commander_set_to_mac(Commander_t *commander, char *c_macid)
 	POINTER_CHECK(commander);
 	POINTER_CHECK(c_macid);
 
-	SAFE_SPRINTF(commander->id_to.c_macid, "%s", c_macid);
+	SAFE_SPRINTF_EX(commander->id_to.c_macid, "%s", c_macid);
 }
 
 void commander_set_to_uuid(Commander_t *commander, char *c_uuid)
@@ -65,21 +65,21 @@ void commander_set_to_uuid(Commander_t *commander, char *c_uuid)
 	POINTER_CHECK(commander);
 	POINTER_CHECK(c_uuid);
 
-	SAFE_SPRINTF(commander->id_to.c_uuid, "%s", c_uuid);
+	SAFE_SPRINTF_EX(commander->id_to.c_uuid, "%s", c_uuid);
 }
 
 void commander_set_frm_nodeid(Commander_t *commander, char *c_nodeid, uint8_t epid)
 {
 	POINTER_CHECK(commander);
 
-	SAFE_SPRINTF(commander->id_frm.c_nodeid, "%s", c_nodeid);
+	SAFE_SPRINTF_EX(commander->id_frm.c_nodeid, "%s", c_nodeid);
 	commander->id_frm.epid = epid;
 }
 
 void commander_set_frm_nodeid_ex(Commander_t *commander, uint16_t nodeid, uint8_t epid)
 {
 	char c_nodeid[LEN_OF_UUID]="";
-	SAFE_SPRINTF(c_nodeid, "%d", nodeid);
+	SAFE_SPRINTF_EX(c_nodeid, "%d", nodeid);
 	commander_set_frm_nodeid(commander, c_nodeid, epid);
 }
 
@@ -88,7 +88,7 @@ void commander_set_frm_mac(Commander_t *commander, char *c_macid)
 	POINTER_CHECK(commander);
 	POINTER_CHECK(c_macid);
 
-	SAFE_SPRINTF(commander->id_frm.c_macid, "%s", c_macid);
+	SAFE_SPRINTF_EX(commander->id_frm.c_macid, "%s", c_macid);
 }
 
 void commander_set_frm_uuid(Commander_t *commander, char *c_uuid)
@@ -96,7 +96,7 @@ void commander_set_frm_uuid(Commander_t *commander, char *c_uuid)
 	POINTER_CHECK(commander);
 	POINTER_CHECK(c_uuid);
 
-	SAFE_SPRINTF(commander->id_frm.c_uuid, "%s", c_uuid);
+	SAFE_SPRINTF_EX(commander->id_frm.c_uuid, "%s", c_uuid);
 }
 
 void commander_cp_to(Commander_t *commander, Reporter_t *reporter)
@@ -119,14 +119,14 @@ void reporter_set_nodeid(Reporter_t *reporter, char *c_nodeid, uint8_t epid)
 {
 	POINTER_CHECK(reporter);
 
-	SAFE_SPRINTF(reporter->id_frm.c_nodeid, "%s", c_nodeid);
+	SAFE_SPRINTF_EX(reporter->id_frm.c_nodeid, "%s", c_nodeid);
 	reporter->id_frm.epid = epid;
 }
 
 void reporter_set_nodeid_ex(Reporter_t *reporter, uint16_t nodeid, uint8_t epid)
 {
 	char c_nodeid[LEN_OF_UUID]="";
-	SAFE_SPRINTF(c_nodeid, "%d", nodeid);
+	SAFE_SPRINTF_EX(c_nodeid, "%d", nodeid);
 	reporter_set_nodeid(reporter, c_nodeid, epid);
 }
 
@@ -149,7 +149,7 @@ void reporter_set_mac(Reporter_t *reporter, char *c_macid)
 	POINTER_CHECK(reporter);
 	POINTER_CHECK(c_macid);
 
-	SAFE_SPRINTF(reporter->id_frm.c_macid, "%s", c_macid);
+	SAFE_SPRINTF_EX(reporter->id_frm.c_macid, "%s", c_macid);
 }
 
 void reporter_set_uuid(Reporter_t *reporter, char *c_uuid)
@@ -157,7 +157,7 @@ void reporter_set_uuid(Reporter_t *reporter, char *c_uuid)
 	POINTER_CHECK(reporter);
 	POINTER_CHECK(c_uuid);
 
-	SAFE_SPRINTF(reporter->id_frm.c_uuid, "%s", c_uuid);
+	SAFE_SPRINTF_EX(reporter->id_frm.c_uuid, "%s", c_uuid);
 }
 
 void reporter_close(void)
@@ -194,7 +194,7 @@ static void do_report(IssueItem_t *n_issueitem)
 	if (n_issueitem)
 	{
 		int send = 0;
-		int payload_len = (int)sizeof(IssueItem_t) - (256-n_issueitem->data_len);
+		int payload_len = (int)sizeof(IssueItem_t) - (MAX_DATA_OF_ISSUE_ITEM-n_issueitem->data_len);
 		uint32_t issueid = n_issueitem->issueid;
 
 		if (do_report_ready(issueid))
@@ -448,7 +448,7 @@ void controller_status_adding_csa(Reporter_t *reporter, char *csa_pin)
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = ZWAVE_EVT_ADDING_CSA; // value
-	SAFE_SPRINTF((char*)n_issueitem.data + idx, "%s", csa_pin);
+	SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", csa_pin);
 	idx += SAFE_STRLEN(csa_pin);
 	n_issueitem.data_len = idx;
 
@@ -488,7 +488,7 @@ void controller_status_adding_ssa(Reporter_t *reporter,char *dsk)
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = ZWAVE_EVT_ADDING_SSA; // value
-	SAFE_SPRINTF((char*)n_issueitem.data + idx, "%s", dsk);
+	SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", dsk);
 	idx += SAFE_STRLEN(dsk);
 	n_issueitem.data_len = idx;
 
@@ -565,7 +565,7 @@ void controller_act_adding(Commander_t *commander, char *dsk)
 	if (dsk)
 	{
 		n_issueitem.data[idx++] = ZWAVE_EVT_ADDING_SSA; // value
-		SAFE_SPRINTF((char*)n_issueitem.data + idx, "%s", dsk);
+		SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", dsk);
 		idx += SAFE_STRLEN(dsk);
 	}
 	else
@@ -863,7 +863,7 @@ void controller_act_replacing(Commander_t *commander, char *dsk)
 	if (dsk)
 	{
 		n_issueitem.data[idx++] = ZWAVE_EVT_REPLACING_SSA; // value
-		SAFE_SPRINTF((char*)n_issueitem.data + idx, "%s", dsk);
+		SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", dsk);
 		idx += SAFE_STRLEN(dsk);
 	}
 	else
@@ -892,7 +892,7 @@ void controller_status_reset_rm(Reporter_t *reporter, char *homeid)
 	int ilen = SAFE_STRLEN(homeid);
 	if (ilen > 0)
 	{
-		SAFE_SPRINTF(n_issueitem.data+idx, "%s", homeid);
+		SAFE_SPRINTF_EX(n_issueitem.data+idx, "%s", homeid);
 		idx += ilen;
 	}
 	idx ++;
@@ -1078,7 +1078,7 @@ void controller_status_learning_ssa(Reporter_t *reporter, char *ssa_pin)
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = ZWAVE_EVT_LEARNING_SSA; // value
-	SAFE_SPRINTF((char*)n_issueitem.data + idx, "%s", ssa_pin);
+	SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", ssa_pin);
 	idx += SAFE_STRLEN(ssa_pin);
 	n_issueitem.data_len = idx;
 
@@ -1516,7 +1516,7 @@ void controller_status_nw_homeid(Reporter_t *reporter, zwnetd_p nw_desp, char *u
 		n_issueitem.data[idx++] = nw_desp->ctl_role; // value
 		n_issueitem.data[idx++] = nw_desp->ctl_cap; // value
 		n_issueitem.data[idx++] = nw_desp->ctl_zw_role; // value
-		SAFE_SPRINTF(homeid, "%08X", nw_desp->id);
+		SAFE_SPRINTF_EX(homeid, "%08X", nw_desp->id);
 	}
 	else
 	{
@@ -1529,11 +1529,11 @@ void controller_status_nw_homeid(Reporter_t *reporter, zwnetd_p nw_desp, char *u
 
 	if ( (uuid) && SAFE_STRLEN(uuid) )
 	{
-		SAFE_SPRINTF(homeid, "%s", uuid);
+		SAFE_SPRINTF_EX(homeid, "%s", uuid);
 	}
 
 	int ilen = SAFE_STRLEN(homeid);
-	SAFE_SPRINTF(n_issueitem.data+idx, "%s", homeid); // value
+	SAFE_SPRINTF_EX(n_issueitem.data+idx, "%s", homeid); // value
 	idx += ilen;
 	n_issueitem.data_len = idx;
 
@@ -3443,6 +3443,101 @@ void zwifd_wakeup_notification_report(Reporter_t *reporter, time_t ts)
 	// ** value **
 	idx = 0;
 	n_issueitem.timestamp = (uint32_t)ts;
+	n_issueitem.data_len = idx;
+
+	do_report(&n_issueitem);
+}
+
+void zwifd_infrared_report(Reporter_t *reporter, ir_manager_p val_p, time_t ts)
+{
+	POINTER_CHECK(reporter);
+	POINTER_CHECK(val_p);
+
+	int idx = 0;
+	IssueItem_t n_issueitem = {0};
+
+	// ** header **
+	issueitem_report_gen(reporter, JKEY_ISSUEID_CC_INFRARED, JVAL_MODE_NORMAL, JVAL_SUBMODE_NORMAL, JVAL_CATEGORY_NORMAL, &n_issueitem);
+
+	// ** value **
+	idx = 0;
+	n_issueitem.data[idx++] = val_p->cmd; // value
+	n_issueitem.data[idx++] = val_p->state; // value
+	SAFE_MEMCPY(n_issueitem.data+idx, val_p->key, LEN_OF_NAME32, LEN_OF_NAME32);
+	idx += LEN_OF_NAME32;
+	big_endian2byte(2, val_p->size, (unsigned char *)n_issueitem.data+idx); // size
+	idx += 2;
+	SAFE_MEMCPY(n_issueitem.data+idx, val_p->data, val_p->size, LEN_OF_BUF1024);
+	idx += val_p->size; // value
+	n_issueitem.timestamp = (uint32_t)ts;
+	n_issueitem.data_len = idx;
+
+	do_report(&n_issueitem);
+}
+
+void zwifd_act_infrared(Commander_t *commander, ir_manager_p val_p)
+{
+	POINTER_CHECK(commander);
+
+	int idx = 0;
+	IssueItem_t n_issueitem = {0};
+
+	// ** header **
+	issueitem_command_gen(commander, JKEY_ISSUEID_CC_INFRARED, JVAL_MODE_NORMAL, JVAL_SUBMODE_NORMAL, JVAL_CATEGORY_NORMAL, &n_issueitem);
+
+	// ** value **
+	idx = 0;
+	n_issueitem.data[idx++] = val_p->cmd; // value
+	n_issueitem.data[idx++] = val_p->state; // value
+	SAFE_MEMCPY(n_issueitem.data+idx, val_p->key, LEN_OF_NAME32, LEN_OF_NAME32);
+	idx += LEN_OF_NAME32;
+	big_endian2byte(2, val_p->size, (unsigned char *)n_issueitem.data+idx); // size
+	idx += 2;
+	if (val_p->size>0)
+	{
+		SAFE_MEMCPY(n_issueitem.data+idx, val_p->data, val_p->size, LEN_OF_BUF1024);
+		idx += val_p->size; // value
+	}
+	n_issueitem.data_len = idx;
+
+	do_report(&n_issueitem);
+}
+
+void zwifd_snd_switch_tone_play_report(Reporter_t *reporter, uint8_t tone_id, uint8_t tone_vol, time_t ts, uint16_t stat_num)
+{
+	POINTER_CHECK(reporter);
+
+	int idx = 0;
+	IssueItem_t n_issueitem = {0};
+
+	// ** header **
+	issueitem_report_gen(reporter, JKEY_ISSUEID_CC_SOUND_SWITCH, JVAL_MODE_NORMAL, JVAL_SUBMODE_NORMAL, JVAL_CATEGORY_NORMAL, &n_issueitem);
+
+	// ** value **
+	idx = 0;
+	n_issueitem.data[idx++] = tone_id; // value
+	n_issueitem.data[idx++] = tone_vol; // value
+	n_issueitem.data[idx++] = stat_num; // value
+	n_issueitem.timestamp = (uint32_t)ts;
+	n_issueitem.data_len = idx;
+
+	do_report(&n_issueitem);
+}
+
+void zwifd_act_snd_switch_tone_play(Commander_t *commander, uint8_t tone_id, uint8_t tone_vol)
+{
+	POINTER_CHECK(commander);
+
+	int idx = 0;
+	IssueItem_t n_issueitem = {0};
+
+	// ** header **
+	issueitem_command_gen(commander, JKEY_ISSUEID_CC_SOUND_SWITCH, JVAL_MODE_NORMAL, JVAL_SUBMODE_NORMAL, JVAL_CATEGORY_NORMAL, &n_issueitem);
+
+	// ** value **
+	idx = 0;
+	n_issueitem.data[idx++] = tone_id; // value
+	n_issueitem.data[idx++] = tone_vol; // value
 	n_issueitem.data_len = idx;
 
 	do_report(&n_issueitem);

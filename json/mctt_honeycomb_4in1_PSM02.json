@@ -52,7 +52,7 @@
 						"zwplus_ver": 1
 					},
 					"00010008": {
-						"name": "Tamper Sensor",
+						"class": "Tamper Sensor",
 						"val": "idle"
 					},
 					"0001000A": {
@@ -60,11 +60,11 @@
 						"val": "open"
 					},
 					"0001000C": {
-						"name": "Motion Sensor",
+						"class": "Motion Sensor",
 						"val": "on"
 					},
 					"00030001": {
-						"name": "Temperature Sensor",
+						"class": "Temperature Sensor",
 						"type": 1,
 						"type_name": "ZW_SENSOR_TYPE_TEMP",
 						"unit": 1,
@@ -72,7 +72,7 @@
 						"value": 78.0
 					},
 					"00030003": {
-						"name": "Luminance Sensor",
+						"class": "Luminance Sensor",
 						"type": 3,
 						"type_name": "ZW_SENSOR_TYPE_LUM",
 						"unit": 0,
@@ -155,10 +155,10 @@
 							"use_default": 0,
 							"value": 4
 						},
-						"name": "Configuration"
+						"class": "Configuration"
 					},
 					"00098001": {
-						"name": "Battery",
+						"class": "Battery",
 						"value": 100
 					},
 					"00098401": {
@@ -167,7 +167,7 @@
 						"interval": 1800,
 						"max": 432000,
 						"min": 1800,
-						"name": "Wakeup Interval",
+						"class": "Wakeup Interval",
 						"notify": 0
 					},
 					"name": "Endpoint ID"

@@ -48,11 +48,11 @@
 						"zwplus_ver": 1
 					},
 					"00010008": {
-						"name": "Tamper Sensor",
+						"class": "Tamper Sensor",
 						"val": "idle"
 					},
 					"0001000C": {
-						"name": "Motion Sensor",
+						"class": "Motion Sensor",
 						"val": "on"
 					},
 					"00097001": {
@@ -96,10 +96,10 @@
 							"use_default": 0,
 							"value": 4
 						},
-						"name": "Configuration"
+						"class": "Configuration"
 					},
 					"00098001": {
-						"name": "Battery",
+						"class": "Battery",
 						"value": 100
 					},
 					"00098401": {
@@ -108,11 +108,11 @@
 						"interval": 1800,
 						"max": 432000,
 						"min": 1800,
-						"name": "Wakeup Interval",
+						"class": "Wakeup Interval",
 						"notify": 0
 					},
 					"00098402": {
-						"name": "Wakeup Sensor"
+						"class": "Wakeup Sensor"
 					},
 					"name": "Endpoint ID"
 				},

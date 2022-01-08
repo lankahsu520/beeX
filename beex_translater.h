@@ -161,6 +161,7 @@ char* translate_postset_reason(int reason);
 char* translate_node_propty(uint8_t propty, uint8_t id);
 char* translate_requested_keys(uint8_t req_keys, uint8_t id);
 
+char* translate_infrared_state(uint8_t state);
 
 #ifdef __cplusplus
 }

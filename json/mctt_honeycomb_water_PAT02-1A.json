@@ -56,15 +56,15 @@
 						"zwplus_ver": 1
 					},
 					"00010006": {
-						"name": "Flood Sensor",
+						"class": "Flood Sensor",
 						"val": "idle"
 					},
 					"00010008": {
-						"name": "Tamper Sensor",
+						"class": "Tamper Sensor",
 						"val": "idle"
 					},
 					"00030001": {
-						"name": "Temperature Sensor",
+						"class": "Temperature Sensor",
 						"type": 1,
 						"type_name": "ZW_SENSOR_TYPE_TEMP",
 						"unit": 1,
@@ -72,7 +72,7 @@
 						"value": 74.2
 					},
 					"00030005": {
-						"name": "Humidity Sensor",
+						"class": "Humidity Sensor",
 						"type": 5,
 						"type_name": "ZW_SENSOR_TYPE_HUMD",
 						"unit": 0,
@@ -145,10 +145,10 @@
 							"use_default": 0,
 							"value": 0
 						},
-						"name": "Configuration"
+						"class": "Configuration"
 					},
 					"00098001": {
-						"name": "Battery",
+						"class": "Battery",
 						"value": 100
 					},
 					"00098401": {
@@ -157,11 +157,11 @@
 						"interval": 1800,
 						"max": 432000,
 						"min": 1800,
-						"name": "Wakeup Interval",
+						"class": "Wakeup Interval",
 						"notify": 0
 					},
 					"00098402": {
-						"name": "Wakeup Sensor"
+						"class": "Wakeup Sensor"
 					},
 					"name": "Endpoint ID"
 				},

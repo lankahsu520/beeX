@@ -56,9 +56,9 @@
 						"zwplus_ver": 1
 					},
 					"00092501": {
-						"curr_val": 0,
+						"value": 0,
 						"dur": 254,
-						"name": "Switch",
+						"class": "Switch",
 						"tgt_val": 254
 					},
 					"00093201": {
@@ -147,7 +147,7 @@
 							"use_default": 0,
 							"value": 0
 						},
-						"name": "Configuration"
+						"class": "Configuration"
 					},
 					"name": "Endpoint ID"
 				},

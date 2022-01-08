@@ -55,7 +55,7 @@ zwifd_sensor_luminance_report(ZWARE_REPORTER(), data, ts);
 # Log
 ## MCTT
    ```
-[6523/6524] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CA225443/2/0/00030005, value: {"name":"Humidity Sensor","type":5,"type_name":"ZW_SENSOR_TYPE_HUMD","unit":0,"unit_name":"%","value":76.4})
+[6523/6524] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CA225443/2/0/00030005, value: {"class":"Humidity Sensor","type":5,"type_name":"ZW_SENSOR_TYPE_HUMD","unit":0,"unit_name":"%","value":76.4})
    ```
 
 ## TOPIC

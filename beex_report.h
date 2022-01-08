@@ -30,6 +30,7 @@ extern "C"
 #else
 #include "beex_zware.h"
 #endif
+#include "beex_def.h"
 
 //******************************************************************************
 //** define **
@@ -111,6 +112,9 @@ typedef enum
 
 	ORDER_FN_ID_SWITCH,
 	ORDER_FN_ID_LEVEL,
+
+	ORDER_FN_ID_INFRARED,
+
 	ORDER_FN_ID_MAX,
 } ORDER_FN_ID;
 
@@ -155,6 +159,8 @@ typedef enum
 	NOTIFY_FN_ID_WAKE_UP_INTERVAL,
 	NOTIFY_FN_ID_WAKE_UP_NOTIFICATION,
 
+	NOTIFY_FN_ID_INFRARED,
+
 	NOTIFY_FN_ID_MAX,
 } NOTIFY_FN_ID;
 
@@ -181,6 +187,7 @@ typedef struct Reporter_Struct
 	Identity_t id_frm;
 } Reporter_t;
 
+#define MAX_DATA_OF_ISSUE_ITEM (LEN_OF_BUF1024+128)
 typedef struct IssueItem_Struct
 {
 	union
@@ -197,7 +204,7 @@ typedef struct IssueItem_Struct
 	// 71+4+2+2+2+4 = 85
 
 	uint16_t data_len; // to support 0xFF 0xFF
-	char data[0xFF]; // 256
+	char data[MAX_DATA_OF_ISSUE_ITEM]; // 1024+128
 } IssueItem_t;
 
 typedef struct IssueLogging_Struct
@@ -526,6 +533,12 @@ void zwifd_verzw_report(Reporter_t *reporter, uint16_t proto_ver, uint16_t app_v
 // Wake up
 void zwifd_wakeup_interval_report(Reporter_t *reporter, zwif_wakeup_p cap);
 void zwifd_wakeup_notification_report(Reporter_t *reporter, time_t ts);
+
+void zwifd_infrared_report(Reporter_t *reporter, ir_manager_p val_p, time_t ts);
+void zwifd_act_infrared(Commander_t *commander, ir_manager_p val_p);
+
+void zwifd_snd_switch_tone_play_report(Reporter_t *reporter, uint8_t tone_id, uint8_t tone_vol, time_t ts, uint16_t stat_num);
+void zwifd_act_snd_switch_tone_play(Commander_t *commander, uint8_t tone_id, uint8_t tone_vol);
 
 #ifdef __cplusplus
 }

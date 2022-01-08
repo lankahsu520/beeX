@@ -59,5 +59,5 @@ zwifd_sensor_temperature_report(ZWARE_REPORTER(), data, ts);
 
 ## TOPIC
    ```
-[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00030001, value: {"name":"Temperature Sensor","type":1,"type_name":"ZW_SENSOR_TYPE_TEMP","unit":0,"unit_name":"Celsius","value":24.5})
+[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00030001, value: {"class":"Temperature Sensor","type":1,"type_name":"ZW_SENSOR_TYPE_TEMP","unit":0,"unit_name":"Celsius","value":24.5})
    ```

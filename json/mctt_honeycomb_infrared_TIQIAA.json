@@ -1,0 +1,32 @@
+{
+    "B827EB40D4FD": {
+        "3414603F-1648-43BA-90F4-8EFE81917DAE": {
+            "1": {
+                "0": {
+                    "000A9501": {
+                        "cmd": 67,
+                        "data": "",
+                        "key": "button",
+                        "class": "Infrared",
+                        "state": 19
+                    },
+                    "000A9502": {
+                        "heran": {
+                            "HI-41B": {
+                                "off": "F57F50A862AC24A823AC24A823AA25A823AA25A923AA25AA23AA25A824AA25A923AA25A823AA25A823AA25A823AA25A823AA25A824AC24A824AC24A824AA25A824AA25A823AA25AA23AA25A823AA64AA23AA25A823AA25A823AA64AA62AA25A863AA25A862AC24A823AC24AD7F54A813",
+                                "on": "F57F4DAB64AA23AB24AA23AC24A923AA65AA62AC25AA23AB24A923AB24A923AB24AA23AA25A923AC25A823AB24A824AB24A824AA25A923AB25AA23AB24A823AA25A923AB24A923AC25AA23AA25A963AB24A923AA25A923AA25AA62AC64A923AA64AA23AA25A962AC25AA62AF7F57A713"
+                            }
+                        }
+                    },
+                    "name": "Endpoint ID"
+                },
+                "Protocol ID": 51,
+                "lastbeattime_utc": 1626590336,
+                "name": "Node ID",
+                "protocol_name": "TIQIAA"
+            },
+            "name": "UUID"
+        }
+        "name": "MAC Address"
+    }
+}

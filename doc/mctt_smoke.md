@@ -81,6 +81,6 @@ zwifd_alrm_smoke_off_report_bin(ZWARE_REPORTER());
 
 ## TOPIC
    ```
-[23616/23618] bee_topic_issue_cb:146 - (topic: 0/2/B827EB40D4FD/FA3EAE73/4/0/00010002, value: {"name":"Smoke Sensor","val":"ZW_ALRM_EVT_SMOKE_TEST","value":3})
+[23616/23618] bee_topic_issue_cb:146 - (topic: 0/2/B827EB40D4FD/FA3EAE73/4/0/00010002, value: {"class":"Smoke Sensor","val":"ZW_ALRM_EVT_SMOKE_TEST","value":3})
    ```
 

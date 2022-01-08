@@ -81,6 +81,6 @@ zwifd_alrm_motion_off_report_bin(ZWARE_REPORTER());
 
 ## TOPIC
    ```
-[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/0001000C, value: {"name":"Motion Sensor","val":"idle"})
+[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/0001000C, value: {"class":"Motion Sensor","val":"idle"})
    ```
 

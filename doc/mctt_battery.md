@@ -45,6 +45,6 @@ zwifd_battery_report(ZWARE_REPORTER(), level, ts);
 
 ## TOPIC
    ```
-[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00098001, value: {"name":"Battery","value":100})
+[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00098001, value: {"class":"Battery","value":100})
    ```
 

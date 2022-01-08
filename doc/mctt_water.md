@@ -81,5 +81,5 @@ zwifd_alrm_water_off_report_bin(ZWARE_REPORTER());
 
 ## TOPIC
    ```
-[6523/6524] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CA225443/2/0/00010006, value: {"name":"Flood Sensor","val":"idle"})
+[6523/6524] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CA225443/2/0/00010006, value: {"class":"Flood Sensor","val":"idle"})
    ```

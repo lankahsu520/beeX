@@ -67,5 +67,5 @@ zwifd_switch_multilevel_report(ZWARE_REPORTER(), val_p, ts);
 ## TOPIC
    ```
 [5226/5228] bee_topic_put_cb:38 - (topic: 1/0/9C65F9361C00/CED69735/3/0/00092601, payload: {"dur":5,"tgt_val":0})
-[5226/5227] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CED69735/3/0/00092601, value: {"curr_val":0,"dur":254,"name":"Dimmer","tgt_val":254})
+[5226/5227] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/CED69735/3/0/00092601, value: {"value":0,"dur":254,"class":"Dimmer","tgt_val":254})
    ```

@@ -59,5 +59,5 @@ zwifd_wakeup_interval_report(ZWARE_REPORTER(), cap);
 
 ## TOPIC
    ```
-[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00098401, value: {"cur":86400,"def":86400,"interval":1800,"max":432000,"min":1800,"name":"Wakeup Interval","notify":0})
+[3613/3614] bee_topic_issue_cb:92 - (topic: 0/2/9C65F9361C00/D808ACB4/2/0/00098401, value: {"cur":86400,"def":86400,"interval":1800,"max":432000,"min":1800,"class":"Wakeup Interval","notify":0})
    ```

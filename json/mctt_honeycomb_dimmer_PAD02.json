@@ -56,9 +56,9 @@
 						"zwplus_ver": 1
 					},
 					"00092601": {
-						"curr_val": 99,
+						"value": 99,
 						"dur": 254,
-						"name": "Dimmer",
+						"class": "Dimmer",
 						"tgt_val": 254
 					},
 					"00097001": {
@@ -77,7 +77,7 @@
 							"use_default": 0,
 							"value": 1
 						},
-						"name": "Configuration"
+						"class": "Configuration"
 					},
 					"name": "Endpoint ID"
 				},

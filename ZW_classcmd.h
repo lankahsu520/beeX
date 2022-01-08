@@ -56,6 +56,7 @@
 #define SPECIFIC_TYPE_DOORBELL                                                           0x12
 #define SPECIFIC_TYPE_SATELLITE_RECEIVER                                                 0x04 /*Satellite Receiver*/
 #define SPECIFIC_TYPE_SATELLITE_RECEIVER_V2                                              0x11 /*Satellite Receiver V2*/
+#define SPECIFIC_TYPE_SOUND_SWITCH                                                       0x01
 
 /* Device class Display */
 #define GENERIC_TYPE_DISPLAY                                                             0x04
@@ -250,6 +251,7 @@
 #define ROLE_TYPE_SLAVE_ALWAYS_ON                                                        0x05
 #define ROLE_TYPE_SLAVE_SLEEPING_REPORTING                                               0x06
 #define ROLE_TYPE_SLAVE_SLEEPING_LISTENING                                               0x07
+#define ROLE_TYPE_SLAVE_NETWORK_AWARE                                                    0x08
 
 
 /************* Z-Wave+ Icon Type identifiers **************/
@@ -311,6 +313,13 @@
 #define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_SYSTEM                        0x0C09   //Sensor Notification Device Type (Notification type System)
 #define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_EMERGENCY_ALARM               0x0C0A   //Sensor Notification Device Type (Notification type Emergency Alarm)
 #define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_CLOCK                         0x0C0B   //Sensor Notification Device Type (Notification type Clock)
+#define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_APPLIANCE                     0x0C0C
+#define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_HOME_HEALTH                   0x0C0D
+#define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_SIREN                         0x0C0E
+#define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_WATER_VALVE                   0x0C0F
+#define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_WEATHER_ALARM                 0x0C10
+#define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_IRRIGATION                    0x0C11
+#define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_GAS_ALARM                     0x0C12
 #define ICON_TYPE_SPECIFIC_SENSOR_NOTIFICATION_MULTIDEVICE                   0x0CFF   //Sensor Notification Device Type (Bundled Notification functions)
 
 #define ICON_TYPE_GENERIC_SENSOR_MULTILEVEL                                  0x0D00   //Sensor Multilevel Device Type
@@ -399,7 +408,9 @@
 
 #define ICON_TYPE_GENERIC_IRRIGATION                                         0x1F00   //Irrigation
 
-
+#define ICON_TYPE_GENERIC_ENTRY_CONTROL                                      0x2000   //Entry Control
+#define ICON_TYPE_SPECIFIC_ENTRY_CONTROL_KEYPAD_0_9                          0x2001   //Entry Control Keypad 0-9
+#define ICON_TYPE_SPECIFIC_ENTRY_CONTROL_RFID_TAG_READER_NO_BUTTON           0x2002   //Entry Control RFID tag reader, no button
 
 
 /************* Manufacturer ID identifiers **************/
@@ -410,27 +421,35 @@
 #define MFG_ID_A1_COMPONENTS                                       0x0022   //A-1 Components
 #define MFG_ID_ABILIA                                              0x0117   //Abilia
 #define MFG_ID_ACT_ADVANCED_CONTROL_TECHNOLOGIES                   0x0001   //ACT - Advanced Control Technologies
+#define MFG_ID_ADMOBILIZE_LLC                                      0x0297   //AdMobilize, LLC
 #define MFG_ID_ADOX_INC                                            0x0101   //ADOX, Inc.
 #define MFG_ID_ADVANCED_OPTRONIC_DEVICES_CO_LTD                    0x016C   //Advanced Optronic Devices Co.,Ltd
 #define MFG_ID_ADVENTURE_INTERACTIVE                               0x009E   //Adventure Interactive
 #define MFG_ID_AEON_LABS                                           0x0086   //AEON Labs
-#define MFG_ID_AIRLINE_MECHANICAL_CO_LTD                           0x0111   //Airline Mechanical Co., Ltd.
 #define MFG_ID_AIRVENT_SAM_SPA                                     0x0088   //Airvent SAM S.p.A.
 #define MFG_ID_ALARMCOM                                            0x0094   //Alarm.com
 #define MFG_ID_ALERTME                                             0x0126   //Alertme
 #define MFG_ID_ALLEGION                                            0x003B   //Allegion
+#define MFG_ID_ALPHANETWORKS                                       0x028E   //Alphanetworks
 #define MFG_ID_ALPHONSUS_TECH                                      0x0230   //Alphonsus Tech
+#define MFG_ID_AMADAS_CO_LTD                                       0x029F   //AMADAS Co., LTD
 #define MFG_ID_AMDOCS                                              0x019C   //Amdocs
 #define MFG_ID_AMERICAN_GRID_INC                                   0x005A   //American Grid, Inc.
+#define MFG_ID_ANCHOR_TECH                                         0x032B   //Anchor Tech
+#define MFG_ID_ANTIK_TECHNOLOGY_LTD                                0x026D   //Antik Technology Ltd.
 #define MFG_ID_ANYCOMM_CORPORATION                                 0x0078   //anyCOMM Corporation
 #define MFG_ID_APPLIED_MICRO_ELECTRONICS_AME_BV                    0x0144   //Applied Micro Electronics "AME" BV
+#define MFG_ID_ARKEA                                               0x0291   //Arkea
 #define MFG_ID_ASIA_HEADING                                        0x0029   //Asia Heading
 #define MFG_ID_ASITEQ                                              0x0231   //ASITEQ
+#define MFG_ID_ASKEY_COMPUTER_CORP                                 0x028A   //Askey Computer Corp.
 #define MFG_ID_ASSA_ABLOY                                          0x0129   //ASSA ABLOY
 #define MFG_ID_ASTRALINK                                           0x013B   //AstraLink
 #define MFG_ID_ATT                                                 0x0134   //AT&T
 #define MFG_ID_ATECH                                               0x002B   //Atech
 #define MFG_ID_ATHOM_BV                                            0x0244   //Athom BV
+#define MFG_ID_AUCEAN_TECHNOLOGY_INC                               0x032A   //AUCEAN TECHNOLOGY. INC
+#define MFG_ID_AVADESIGN_TECHNOLOGY_CO_                            0x025D   //Avadesign Technology Co.,
 #define MFG_ID_AVADESIGN_TECHNOLOGY_CO_LTD                         0x0155   //Avadesign Technology Co., Ltd.
 #define MFG_ID_AXESSTEL_INC                                        0x0146   //Axesstel Inc
 #define MFG_ID_BALBOA_INSTRUMENTS                                  0x0018   //Balboa Instruments
@@ -438,11 +457,12 @@
 #define MFG_ID_BEIJING_SINOAMERICAN_BOYI_SOFTWARE_DEVELOPMENT_CO_L 0x0204   //Beijing Sino-American Boyi Software Development Co., Ltd
 #define MFG_ID_BEIJING_UNIVERSAL_ENERGY_HUAXIA_TECHNOLOGY_CO_LTD   0x0251   //Beijing Universal Energy Huaxia Technology Co.,Ltd
 #define MFG_ID_BELLATRIX_SYSTEMS_INC                               0x0196   //Bellatrix Systems, Inc.
+#define MFG_ID_BENETEK                                             0x032D   //Benetek
 #define MFG_ID_BENEXT                                              0x008A   //BeNext
 #define MFG_ID_BESAFER                                             0x002C   //BeSafer
 #define MFG_ID_BFT_SPA                                             0x014B   //BFT S.p.A.
 #define MFG_ID_BIT7_INC                                            0x0052   //Bit7 Inc.
-#define MFG_ID_BLACK_DECKER                                        0x0090   //Black & Decker
+#define MFG_ID_BLAZE_AUTOMATION                                    0x0311   //Blaze Automation
 #define MFG_ID_BMS_EVLER_LTD                                       0x0213   //BMS Evler LTD
 #define MFG_ID_BOCA_DEVICES                                        0x0023   //Boca Devices
 #define MFG_ID_BOSCH_SECURITY_SYSTEMS_INC                          0x015C   //Bosch Security Systems, Inc
@@ -460,32 +480,41 @@
 #define MFG_ID_CBCC_DOMOTIQUE_SAS                                  0x0166   //CBCC Domotique SAS
 #define MFG_ID_CENTRALITE_SYSTEMS_INC                              0x0246   //CentraLite Systems, Inc
 #define MFG_ID_CHECKIT_SOLUTIONS_INC                               0x014E   //Check-It Solutions Inc.
+#define MFG_ID_CHINA_SECURITY_FIRE_IOT_SENSING_CO_LTD              0x0320   //China Security & Fire IOT Sensing CO., LTD
 #define MFG_ID_CHROMAGIC_TECHNOLOGIES_CORPORATION                  0x0116   //Chromagic Technologies Corporation
+#define MFG_ID_CHUANGO_SECURITY_TECHNOLOGY_CORPORATION             0x0280   //Chuango Security Technology Corporation
 #define MFG_ID_CISCO_CONSUMER_BUSINESS_GROUP                       0x0082   //Cisco Consumer Business Group
 #define MFG_ID_CLIMAX_TECHNOLOGY_LTD                               0x018E   //Climax Technology, Ltd.
 #define MFG_ID_CLOUD_MEDIA                                         0x0200   //Cloud Media
 #define MFG_ID_COLOR_KINETICS_INCORPORATED                         0x002F   //Color Kinetics Incorporated
+#define MFG_ID_COMAP                                               0x0329   //COMAP
+#define MFG_ID_COMFORTABILITY                                      0x0309   //Comfortability
 #define MFG_ID_COMPUTIME                                           0x0140   //Computime
 #define MFG_ID_CONNECTED_OBJECT                                    0x011B   //Connected Object
 #define MFG_ID_CONNECTHOME                                         0x0179   //ConnectHome
+#define MFG_ID_CONNECTION_TECHNOLOGY_SYSTEMS                       0x0285   //CONNECTION TECHNOLOGY SYSTEMS
+#define MFG_ID_CONTEC_INTELLIGENT_HOUSING_                         0x025D   //Contec intelligent housing
+#define MFG_ID_CONTROL4_CORPORATION                                0x023F   //Control4 Corporation
 #define MFG_ID_CONTROLTHINK_LC                                     0x0019   //ControlThink LC
 #define MFG_ID_CONVERGEX_LTD                                       0x000F   //ConvergeX Ltd.
 #define MFG_ID_COOLGUARD                                           0x007D   //CoolGuard
 #define MFG_ID_COOPER_LIGHTING                                     0x0079   //Cooper Lighting
 #define MFG_ID_COOPER_WIRING_DEVICES                               0x001A   //Cooper Wiring Devices
 #define MFG_ID_COVENTIVE_TECHNOLOGIES_INC                          0x009D   //Coventive Technologies Inc.
+#define MFG_ID_CVNET                                               0x0328   //Cvnet
 #define MFG_ID_CYBERHOUSE                                          0x0014   //Cyberhouse
 #define MFG_ID_CYBERTAN_TECHNOLOGY_INC                             0x0067   //CyberTAN Technology, Inc.
 #define MFG_ID_CYTECH_TECHNOLOGY_PRE_LTD                           0x0030   //Cytech Technology Pre Ltd.
+#define MFG_ID_D3_TECHNOLOGY_CO_LTD                                0x0294   //D-3 Technology Co. Ltd
 #define MFG_ID_DANFOSS                                             0x0002   //Danfoss
 #define MFG_ID_DAWON_DNS                                           0x018C   //Dawon DNS
 #define MFG_ID_DECORIS_INTELLIGENT_SYSTEM_LIMITED                  0x020A   //Decoris Intelligent System Limited
 #define MFG_ID_DEFACONTROLS_BV                                     0x013F   //Defacontrols BV
+#define MFG_ID_DEFARO                                              0x032E   //DEFARO
 #define MFG_ID_DESTINY_NETWORKS                                    0x0031   //Destiny Networks
 #define MFG_ID_DEVOLO                                              0x0175   //Devolo
 #define MFG_ID_DIEHL_AKO                                           0x0103   //Diehl AKO
 #define MFG_ID_DIGITAL_5_INC                                       0x0032   //Digital 5, Inc.
-#define MFG_ID_DIGITAL_HOME_SYSTEMS_PTY_LTD_                       0x024E   //Digital Home Systems Pty Ltd,
 #define MFG_ID_DIGITALZONE                                         0x0228   //DigitalZone
 #define MFG_ID_DLINK                                               0x0108   //D-Link
 #define MFG_ID_DMP_DIGITAL_MONITORING_PRODUCTS                     0x0127   //DMP (Digital Monitoring Products)
@@ -495,13 +524,18 @@
 #define MFG_ID_DRACOR_INC                                          0x017D   //DRACOR Inc.
 #define MFG_ID_DRAGON_TECH_INDUSTRIAL_LTD                          0x0184   //Dragon Tech Industrial, Ltd.
 #define MFG_ID_DTV_RESEARCH_UNIPESSOAL_LDA                         0x0223   //DTV Research Unipessoal, Lda
+#define MFG_ID_DUNEHD                                              0x0272   //Dune-HD
+#define MFG_ID_DVACO_GROUP                                         0x031B   //DVACO GROUP
 #define MFG_ID_DYNAQUIP_CONTROLS                                   0x0132   //DynaQuip Controls
 #define MFG_ID_EASY_SAVER_CO_INC                                   0x0247   //EASY SAVER Co., Inc
 #define MFG_ID_EBV                                                 0x017C   //EbV
 #define MFG_ID_ECHOSTAR                                            0x016B   //Echostar
+#define MFG_ID_ECO_AUTOMATION                                      0x028F   //Eco Automation
 #define MFG_ID_ECOLINK                                             0x014A   //Ecolink
 #define MFG_ID_ECONET_CONTROLS                                     0x0157   //EcoNet Controls
+#define MFG_ID_EELECTRON_SPA                                       0x031F   //Eelectron SpA
 #define MFG_ID_EHOME_AUTOMATION                                    0x010D   //e-Home AUTOMATION
+#define MFG_ID_EI_ELECTRONICS                                      0x026B   //Ei Electronics
 #define MFG_ID_EKA_SYSTEMS                                         0x0087   //Eka Systems
 #define MFG_ID_ELECTRONIC_SOLUTIONS                                0x0033   //Electronic Solutions
 #define MFG_ID_ELEXA_CONSUMER_PRODUCTS_INC                         0x021F   //Elexa Consumer Products Inc.
@@ -509,10 +543,12 @@
 #define MFG_ID_ELK_PRODUCTS_INC                                    0x001B   //ELK Products, Inc.
 #define MFG_ID_EMBEDDED_SYSTEM_DESIGN_LIMITED                      0x020B   //Embedded System Design Limited
 #define MFG_ID_EMBEDIT_AS                                          0x0035   //Embedit A/S
+#define MFG_ID_EMPERS_TECH_CO_LTD                                  0x0284   //Empers Tech Co., Ltd.
 #define MFG_ID_ENBLINK_CO_LTD                                      0x014D   //Enblink Co. Ltd
 #define MFG_ID_ENWOX_TECHNOLOGIES_SRO                              0x0219   //Enwox Technologies s.r.o.
 #define MFG_ID_ERONE                                               0x006F   //Erone
 #define MFG_ID_ESSENCE_SECURITY                                    0x0160   //Essence Security
+#define MFG_ID_ESSENTIAL_TECHNOLOGIES_INC                          0x029B   //ESSENTIAL TECHNOLOGIES INC.
 #define MFG_ID_EUROTRONICS                                         0x0148   //Eurotronics
 #define MFG_ID_EVERSPRING                                          0x0060   //Everspring
 #define MFG_ID_EVOLVE                                              0x0113   //Evolve
@@ -524,6 +560,7 @@
 #define MFG_ID_FAKRO                                               0x0085   //Fakro
 #define MFG_ID_FANTEM                                              0x016A   //Fantem
 #define MFG_ID_FIBARGROUP                                          0x010F   //Fibargroup
+#define MFG_ID_FIFTHPLAY_NV                                        0x0295   //fifthplay nv
 #define MFG_ID_FLEXTRONICS                                         0x018D   //Flextronics
 #define MFG_ID_FLUE_SENTINEL                                       0x0024   //Flue Sentinel
 #define MFG_ID_FOARD_SYSTEMS                                       0x0037   //Foard Systems
@@ -533,6 +570,7 @@
 #define MFG_ID_FORTREZZ_LLC                                        0x0084   //FortrezZ LLC
 #define MFG_ID_FOXCONN                                             0x011D   //Foxconn
 #define MFG_ID_FROSTDALE                                           0x0110   //Frostdale
+#define MFG_ID_FUTURE_HOME_AS                                      0x0305   //Future Home AS
 #define MFG_ID_GES                                                 0x025A   //GES
 #define MFG_ID_GKB_SECURITY_CORPORATION                            0x022B   //GKB Security Corporation
 #define MFG_ID_GLOBALCHINATECH                                     0x018A   //Globalchina-Tech
@@ -543,6 +581,9 @@
 #define MFG_ID_GRIB                                                0x018B   //Grib
 #define MFG_ID_GUANGZHOU_RUIXIANG_ME_CO_LTD                        0x016D   //Guangzhou Ruixiang M&E Co., Ltd
 #define MFG_ID_GUANGZHOU_ZEEWAVE_INFORMATION_TECHNOLOGY_CO_LTD     0x0158   //GuangZhou Zeewave Information Technology Co., Ltd.
+#define MFG_ID_HAB_HOME_INTELLIGENCE_LLC                           0x0287   //HAB Home Intelligence, LLC
+#define MFG_ID_HAMPOO                                              0x030D   //Hampoo
+#define MFG_ID_HANK_ELECTRONICS_LTD                                0x0208   //HANK Electronics Ltd
 #define MFG_ID_HANKOOK_GAS_KIKI_CO_LTD                             0x024C   //Hankook Gas Kiki CO.,LTD.
 #define MFG_ID_HAUPPAUGE                                           0x025C   //Hauppauge
 #define MFG_ID_HAWKING_TECHNOLOGIES_INC                            0x0073   //Hawking Technologies Inc.
@@ -553,16 +594,20 @@
 #define MFG_ID_HOME_AUTOMATED_LIVING                               0x000D   //Home Automated Living
 #define MFG_ID_HOME_AUTOMATION_EUROPE                              0x009A   //Home Automation Europe
 #define MFG_ID_HOME_AUTOMATION_INC                                 0x005B   //Home Automation Inc.
+#define MFG_ID_HOME_CONTROLS                                       0x0293   //Home controls
 #define MFG_ID_HOME_DIRECTOR                                       0x0038   //Home Director
 #define MFG_ID_HOMEMANAGEABLES_INC                                 0x0070   //Homemanageables, Inc.
 #define MFG_ID_HOMEPRO                                             0x0050   //Homepro
 #define MFG_ID_HOMESCENARIO                                        0x0162   //HomeScenario
 #define MFG_ID_HOMESEER_TECHNOLOGIES                               0x000C   //HomeSeer Technologies
+#define MFG_ID_HONEST_TECHNOLOGY                                   0x0275   //Honest Technology
 #define MFG_ID_HONEST_TECHNOLOGY_CO_LTD                            0x023D   //Honest Technology Co., Ltd.
 #define MFG_ID_HONEYWELL                                           0x0039   //Honeywell
-#define MFG_ID_HORSTMANN_CONTROLS_LIMITED                          0x0059   //Horstmann Controls Limited
+#define MFG_ID_HOPPE                                               0x0313   //Hoppe
+#define MFG_ID_HORUS_SMART_CONTROL                                 0x0298   //Horus Smart Control
 #define MFG_ID_HOSEOTELNET                                         0x0221   //HOSEOTELNET
 #define MFG_ID_HUAPIN_INFORMATION_TECHNOLOGY_CO_LTD                0x0180   //Huapin Information Technology Co.,Ltd
+#define MFG_ID_HUAWEI_DEVICE_CO_LTD                                0x025F   //Huawei Device Co., Ltd.
 #define MFG_ID_HUAWEI_TECHNOLOGIES_CO_LTD                          0x024B   //Huawei Technologies Co., Ltd.
 #define MFG_ID_HUNTER_DOUGLAS                                      0x007C   //Hunter Douglas
 #define MFG_ID_IAUTOMADE_PTE_LTD                                   0x0218   //iAutomade Pte Ltd
@@ -571,6 +616,7 @@
 #define MFG_ID_ICONTROL_NETWORKS                                   0x0106   //Icontrol Networks
 #define MFG_ID_IDRF                                                0x0165   //ID-RF
 #define MFG_ID_IEXERGY_GMBH                                        0x019E   //iEXERGY GmbH
+#define MFG_ID_ILEVIA_SRL                                          0x031C   //Ilevia srl
 #define MFG_ID_IMPACT_TECHNOLOGIES_AND_PRODUCTS                    0x0056   //Impact Technologies and Products
 #define MFG_ID_IMPACT_TECHNOLOGIES_BV                              0x0061   //Impact Technologies BV
 #define MFG_ID_INFUSION_DEVELOPMENT                                0x012B   //Infusion Development
@@ -580,12 +626,15 @@
 #define MFG_ID_INLON_SRL                                           0x003A   //Inlon Srl
 #define MFG_ID_INNOBAND_TECHNOLOGIES_INC                           0x0141   //Innoband Technologies, Inc
 #define MFG_ID_INNOVUS                                             0x0077   //INNOVUS
+#define MFG_ID_INOVELLI                                            0x031E   //Inovelli
 #define MFG_ID_INSIGNIA                                            0x0100   //Insignia
 #define MFG_ID_INTEL                                               0x0006   //Intel
 #define MFG_ID_INTELLICON                                          0x001C   //IntelliCon
 #define MFG_ID_INTERACTIVE_ELECTRONICS_SYSTEMS_IES                 0x0072   //Interactive Electronics Systems (IES)
 #define MFG_ID_INTERMATIC                                          0x0005   //Intermatic
 #define MFG_ID_INTERNET_DOM                                        0x0013   //Internet Dom
+#define MFG_ID_INTERSOFT                                           0x0288   //INTERSOFT
+#define MFG_ID_INVENTEC                                            0x0278   //Inventec
 #define MFG_ID_IQGROUP                                             0x005F   //IQ-Group
 #define MFG_ID_IREVO                                               0x0212   //iRevo
 #define MFG_ID_IUNGONL_BV                                          0x0253   //iungo.nl B.V.
@@ -597,25 +646,30 @@
 #define MFG_ID_KAMSTRUP_AS                                         0x0091   //Kamstrup A/S
 #define MFG_ID_KELLENDONK_ELEKTRONIK                               0x006A   //Kellendonk Elektronik
 #define MFG_ID_KICHLER                                             0x0114   //Kichler
+#define MFG_ID_KLICKH_PVT_LTD                                      0x0139   //KlickH Pvt Ltd.
+#define MFG_ID_KOOL_KONCEPTS                                       0x0261   //KOOL KONCEPTS
 #define MFG_ID_KOPERA_DEVELOPMENT_INC                              0x0174   //Kopera Development Inc.
 #define MFG_ID_KUMHO_ELECTRIC_INC                                  0x023A   //KUMHO ELECTRIC, INC
 #define MFG_ID_LAGOTEK_CORPORATION                                 0x0051   //Lagotek Corporation
 #define MFG_ID_LEAK_INTELLIGENCE_LLC                               0x0173   //Leak Intelligence, LLC
-#define MFG_ID_LEVION_TECHNOLOGIES_GMBH                            0x0187   //LEVION Technologies Gmbh
+#define MFG_ID_LEEDARSON_LIGHTING_CO_LTD                           0x0300   //LEEDARSON LIGHTING CO., LTD.
+#define MFG_ID_LEVION_TECHNOLOGIES_GMBH                            0x0187   //LEVION Technologies GmbH
 #define MFG_ID_LEVITON                                             0x001D   //Leviton
 #define MFG_ID_LEXEL                                               0x0015   //Lexel
 #define MFG_ID_LG_ELECTRONICS                                      0x015B   //LG Electronics
 #define MFG_ID_LIFESHIELD_LLC                                      0x0224   //LifeShield, LLC
 #define MFG_ID_LIFESTYLE_NETWORKS                                  0x003C   //Lifestyle Networks
 #define MFG_ID_LIGHT_ENGINE_LIMITED                                0x0210   //Light Engine Limited
-#define MFG_ID_LINEAR_CORP                                         0x014F   //Linear Corp
+#define MFG_ID_LITE_AUTOMATION                                     0x0316   //Lite Automation
 #define MFG_ID_LIVEGUARD_LTD                                       0x017A   //Liveguard Ltd.
 #define MFG_ID_LIVING_STYLE_ENTERPRISES_LTD                        0x013A   //Living Style Enterprises, Ltd.
 #define MFG_ID_LOCSTAR_TECHNOLOGY_CO_LTD                           0x015E   //Locstar Technology Co., Ltd
 #define MFG_ID_LOGITECH                                            0x007F   //Logitech
 #define MFG_ID_LOUDWATER_TECHNOLOGIES_LLC                          0x0025   //Loudwater Technologies, LLC
 #define MFG_ID_LS_CONTROL                                          0x0071   //LS Control
+#define MFG_ID_LUXEASY_TECHNOLOGY_COMPANY_LTD                      0x025E   //LUXEASY technology company LTD.
 #define MFG_ID_LVI_PRODUKTER_AB                                    0x0062   //LVI Produkter AB
+#define MFG_ID_m2m_SOLUTION                                        0x0192   //m2m Solution
 #define MFG_ID_M2M_SOLUTION                                        0x0195   //M2M Solution
 #define MFG_ID_MANODO_KTC                                          0x006E   //Manodo / KTC
 #define MFG_ID_MARMITEK_BV                                         0x003D   //Marmitek BV
@@ -630,7 +684,7 @@
 #define MFG_ID_MERTEN                                              0x007A   //Merten
 #define MFG_ID_MILANITY_INC                                        0x0238   //Milanity, Inc.
 #define MFG_ID_MITSUMI                                             0x0112   //MITSUMI
-#define MFG_ID_MOBILUS_MOTOR_SPOLKA_Z_OO                           0x019D   //MOBILUS MOTOR Spólka z o.o.
+#define MFG_ID_MOBILUS_MOTOR_SPOLKA_Z_OO                           0x019D   //MOBILUS MOTOR Spó?ka z o.o.
 #define MFG_ID_MODACOM_CO_LTD                                      0x0232   //MODACOM CO., LTD.
 #define MFG_ID_MODSTROM                                            0x008D   //Modstrøm
 #define MFG_ID_MOHITO_NETWORKS                                     0x000E   //Mohito Networks
@@ -646,25 +700,34 @@
 #define MFG_ID_NEFIT                                               0x006D   //Nefit
 #define MFG_ID_NESS_CORPORATION_PTY_LTD                            0x0189   //Ness Corporation Pty Ltd
 #define MFG_ID_NETGEAR                                             0x0133   //Netgear
+#define MFG_ID_NEUSTA_NEXT_GMBH_CO_KG                              0x0248   //neusta next GmbH & Co. KG
 #define MFG_ID_NEWLAND_COMMUNICATION_SCIENCE_TECHNOLOGY_CO_LTD     0x0203   //Newland Communication Science Technology Co., Ltd.
+#define MFG_ID_NEXA_TRADING_AB                                     0x0268   //Nexa Trading AB
 #define MFG_ID_NEXIA_HOME_INTELLIGENCE                             0x0178   //Nexia Home Intelligence
 #define MFG_ID_NEXTENERGY                                          0x0075   //NextEnergy
+#define MFG_ID_NIE_TECHNOLOGY_CO_LTD                               0x0312   //NIE Technology Co., Ltd
 #define MFG_ID_NINGBO_SENTEK_ELECTRONICS_CO_LTD                    0x0185   //Ningbo Sentek Electronics Co., Ltd
+#define MFG_ID_NORTEK_SECURITY_CONTROL_LLC                         0x014F   //Nortek Security & Control LLC
 #define MFG_ID_NORTH_CHINA_UNIVERSITY_OF_TECHNOLOGY                0x0252   //North China University of Technology
 #define MFG_ID_NORTHQ                                              0x0096   //NorthQ
 #define MFG_ID_NOVAR_ELECTRICAL_DEVICES_AND_SYSTEMS_EDS            0x0040   //Novar Electrical Devices and Systems (EDS)
 #define MFG_ID_NOVATEQNI_HK_LTD                                    0x020D   //Novateqni HK Ltd
+#define MFG_ID_OBLO_LIVING_LLC                                     0x0296   //OBLO LIVING LLC
 #define MFG_ID_OMNIMA_LIMITED                                      0x0119   //Omnima Limited
 #define MFG_ID_ONSITE_PRO                                          0x014C   //OnSite Pro
 #define MFG_ID_OPENPEAK_INC                                        0x0041   //OpenPeak Inc.
+#define MFG_ID_OREGON_AUTOMATION                                   0x027D   //Oregon Automation
 #define MFG_ID_PANASONIC_ELECTRIC_WORKS_CO_LTD                     0x0104   //Panasonic Electric Works Co., Ltd.
+#define MFG_ID_PANASONIC_ES_SHIN_DONGA_CO_LTD                      0x031A   //Panasonic ES Shin Dong-A Co., Ltd
+#define MFG_ID_PANODIC_ELECTRIC_SHENZHEN_LIMITED                   0x028D   //Panodic Electric (Shenzhen) Limited
 #define MFG_ID_PARATECH                                            0x0257   //PARATECH
 #define MFG_ID_PASSIVSYSTEMS_LIMITED                               0x0172   //PassivSystems Limited
+#define MFG_ID_PAXTON_ACCESS_LTD                                   0x0322   //Paxton Access Ltd
+#define MFG_ID_PC_PARTNER                                          0x0281   //PC Partner
 #define MFG_ID_PELLA                                               0x013D   //Pella
 #define MFG_ID_PERMUNDO_GMBH                                       0x0245   //permundo GmbH
 #define MFG_ID_PHILIO_TECHNOLOGY_CORP                              0x013C   //Philio Technology Corp
-#define MFG_ID_PHYSICAL_GRAPH_CORPORATION                          0x0150   //Physical Graph Corporation
-#define MFG_ID_PITECH                                              0x007B   //PiTech
+#define MFG_ID_PIXELA_CORPORATION                                  0x0277   //Pixela Corporation
 #define MFG_ID_POLYCONTROL                                         0x010E   //Poly-control
 #define MFG_ID_POPP_CO                                             0x0154   //Popp & Co
 #define MFG_ID_POWERHOUSE_DYNAMICS                                 0x0170   //Powerhouse Dynamics
@@ -680,10 +743,12 @@
 #define MFG_ID_QUEENLOCK_IND_CO_LTD                                0x0163   //Queenlock Ind. Co., Ltd.
 #define MFG_ID_RADEMACHER_GERATEELEKTRONIK_GMBH_CO_KG              0x0142   //Rademacher Geräte-Elektronik GmbH & Co. KG
 #define MFG_ID_RADIO_THERMOSTAT_COMPANY_OF_AMERICA_RTC             0x0098   //Radio Thermostat Company of America (RTC)
+#define MFG_ID_RAONIX_CO_LTD                                       0x0314   //Raonix Co., Ltd.
 #define MFG_ID_RARITAN                                             0x008E   //Raritan
 #define MFG_ID_RED_BEE_CO_LTD                                      0x021E   //Red Bee Co. Ltd
 #define MFG_ID_REITZGROUPDE                                        0x0064   //Reitz-Group.de
 #define MFG_ID_REMOTE_SOLUTION                                     0x022C   //Remote Solution
+#define MFG_ID_REMOTE_TECHNOLOGIES_INCORPORATED                    0x0255   //Remote Technologies Incorporated
 #define MFG_ID_REMOTEC                                             0x5254   //Remotec
 #define MFG_ID_RESIDENTIAL_CONTROL_SYSTEMS_INC_RCS                 0x0010   //Residential Control Systems, Inc. (RCS)
 #define MFG_ID_RET_NANJING_INTELLIGENCE_SYSTEM_CO_LTD              0x0216   //RET Nanjing Intelligence System CO.,Ltd
@@ -692,49 +757,76 @@
 #define MFG_ID_ROCCONNECT_INC                                      0x023B   //ROC-Connect, Inc.
 #define MFG_ID_RPE_AJAX_LLC_DBS_SECUR_LTD                          0x0197   //RPE Ajax LLC (dbs Secur Ltd)
 #define MFG_ID_RS_SCENE_AUTOMATION                                 0x0065   //RS Scene Automation
+#define MFG_ID_RUBETEK                                             0x029D   //Rubetek
+#define MFG_ID_S1                                                  0x0290   //S1
 #define MFG_ID_SAFETECH_PRODUCTS                                   0x023C   //SafeTech Products
 #define MFG_ID_SAMSUNG_ELECTRONICS_CO_LTD                          0x0201   //Samsung Electronics Co., Ltd.
 #define MFG_ID_SAMSUNG_SDS                                         0x022E   //Samsung SDS
 #define MFG_ID_SAN_SHIH_ELECTRICAL_ENTERPRISE_CO_LTD               0x0093   //San Shih Electrical Enterprise Co., Ltd.
 #define MFG_ID_SANAV                                               0x012C   //SANAV
+#define MFG_ID_SATCO_PRODUCTS_INC                                  0x0307   //SATCO Products, Inc.
+#define MFG_ID_SBCK_CORP                                           0x0318   //SBCK Corp.
 #define MFG_ID_SCIENTIA_TECHNOLOGIES_INC                           0x001F   //Scientia Technologies, Inc.
+#define MFG_ID_SCOUT_ALARM                                         0x029A   //Scout Alarm
+#define MFG_ID_SECURE_CONTROLS_UK_LTD                              0x0059   //Secure Controls (UK) Ltd
 #define MFG_ID_SECURE_WIRELESS                                     0x011E   //Secure Wireless
 #define MFG_ID_SECURENET_TECHNOLOGIES                              0x0167   //SecureNet Technologies
 #define MFG_ID_SECURIFI_LTD                                        0x0182   //Securifi Ltd.
 #define MFG_ID_SELUXIT                                             0x0069   //Seluxit
 #define MFG_ID_SENMATIC_AS                                         0x0043   //Senmatic A/S
+#define MFG_ID_SENSATIVE_AB                                        0x019A   //Sensative AB
 #define MFG_ID_SEQUOIA_TECHNOLOGY_LTD                              0x0044   //Sequoia Technology LTD
 #define MFG_ID_SERCOMM_CORP                                        0x0151   //Sercomm Corp
+#define MFG_ID_SHANDONG_SMART_LIFE_DATA_SYSTEM_CO_LTD              0x030B   //Shandong Smart Life Data System Co .LTD
 #define MFG_ID_SHANGDONG_SMART_LIFE_DATA_SYSTEM_CO_LTD             0x0215   //Shangdong Smart Life Data System Co.,Ltd
 #define MFG_ID_SHANGHAI_DORLINK_INTELLIGENT_TECHNOLOGIES_CO_LTD    0x023E   //Shanghai Dorlink Intelligent Technologies Co.,Ltd
 #define MFG_ID_SHANGHAI_LONGCHUANG_ECOENERGY_SYSTEMS_CO_LTD        0x0205   //Shanghai Longchuang Eco-energy Systems Co., Ltd
 #define MFG_ID_SHARP                                               0x010B   //Sharp
 #define MFG_ID_SHENZHEN_AOYA_INDUSTRY_CO_LTD                       0x021A   //SHENZHEN AOYA INDUSTRY CO. LTD
+#define MFG_ID_SHENZHEN_EASYHOME_TECHNOLOGY_CO_LTD                 0x0286   //Shenzhen Easyhome Technology Co., Ltd.
 #define MFG_ID_SHENZHEN_ISURPASS_TECHNOLOGY_CO_LTD                 0x021C   //Shenzhen iSurpass Technology Co. ,Ltd
 #define MFG_ID_SHENZHEN_KAADAS_INTELLIGENT_TECHNOLOGY_CO_LTD       0x021D   //Shenzhen Kaadas Intelligent Technology Co., Ltd
 #define MFG_ID_SHENZHEN_LIAO_WANG_TONG_DA_TECHNOLOGY_LTD           0x0211   //Shenzhen Liao Wang Tong Da Technology Ltd
 #define MFG_ID_SHENZHEN_NEO_ELECTRONICS_CO_LTD                     0x0258   //Shenzhen Neo Electronics Co., Ltd
 #define MFG_ID_SHENZHEN_TRIPATH_DIGITAL_AUDIO_EQUIPMENT_CO_LTD     0x0250   //Shenzhen Tripath Digital Audio Equipment Co.,Ltd
+#define MFG_ID_SHENZHEN_HEIMAN_TECHNOLOGY_CO_LTD                   0x0260   //Shenzhen Heiman Technology Co., Ltd
+#define MFG_ID_SHENZHEN_SAYKEY_TECHNOLOGY_CO_LTD                   0x032C   //Shenzhen Saykey Technology Co., Ltd
 #define MFG_ID_SIEGENIAAUBI_KG                                     0x0081   //SIEGENIA-AUBI KG
-#define MFG_ID_SIGMA_DESIGNS_ZENSYS                                0x0000   //Sigma Designs (Former Zensys)
+#define MFG_ID_SIGMA_DESIGNS                                       0x0000   //Sigma Designs (Former Zensys)
+#define MFG_ID_SIMONTECH_SLU                                       0x0267   //SimonTech S.L.U
 #define MFG_ID_SINE_WIRELESS                                       0x0045   //Sine Wireless
+#define MFG_ID_SITERWELL_TECHNOLOGY_HK_CO_LTD                      0x0266   //Siterwell Technology HK Co., LTD
+#define MFG_ID_SMART_ELECTRONIC_INDUSTRIAL_DONGGUAN_CO_LIMITED     0x0282   //Smart Electronic Industrial (Dongguan) Co., Limited
 #define MFG_ID_SMART_PRODUCTS_INC                                  0x0046   //Smart Products, Inc.
+#define MFG_ID_SMARTALL_INC                                        0x026A   //SmartAll Inc.
+#define MFG_ID_SMARTHOME_PARTNER_GMBH                              0x0323   //SmartHome Partner GmbH
 #define MFG_ID_SMARTLY_AS                                          0x024F   //Smartly AS
+#define MFG_ID_SMARTTHINGS_INC                                     0x0150   //SmartThings, Inc.
 #define MFG_ID_SMK_MANUFACTURING_INC                               0x0102   //SMK Manufacturing Inc.
+#define MFG_ID_SOFTATHOME                                          0x029C   //SoftAtHome
 #define MFG_ID_SOMFY                                               0x0047   //Somfy
-#define MFG_ID_SPECTRUM_BRANDS                                     0x0254   //Spectrum Brands
+#define MFG_ID_SOOSAN_HOMETECH                                     0x0274   //Soosan Hometech
+#define MFG_ID_SPECTRUM_BRANDS                                     0x0090   //Spectrum Brands
+#define MFG_ID_SPRINGS_WINDOW_FASHIONS                             0x026E   //Springs Window Fashions
+#define MFG_ID_SPRUE_SAFETY_PRODUCTS_LTD                           0x026F   //Sprue Safety Products Ltd
 #define MFG_ID_SQUARE_CONNECT                                      0x0124   //Square Connect
 #define MFG_ID_STT_ELECTRIC_CORPORATION                            0x021B   //ST&T Electric Corporation
 #define MFG_ID_STARKOFF                                            0x0259   //Starkoff
+#define MFG_ID_STARVEDIA                                           0x0265   //StarVedia
+#define MFG_ID_STEINEL_GMBH                                        0x0271   //STEINEL GmbH
 #define MFG_ID_STELPRO                                             0x0239   //Stelpro
 #define MFG_ID_STRATTEC_ADVANCED_LOGIC_LLC                         0x0217   //Strattec Advanced Logic,LLC
 #define MFG_ID_STRATTEC_SECURITY_CORPORATION                       0x0168   //STRATTEC Security Corporation
 #define MFG_ID_SUMITOMO                                            0x0105   //Sumitomo
+#define MFG_ID_SUNJET_COMPONENTS_CORP                              0x028B   //Sunjet Components Corp.
 #define MFG_ID_SUPERNA                                             0x0054   //Superna
 #define MFG_ID_SWANN_COMMUNICATIONS_PTY_LTD                        0x0191   //Swann Communications Pty Ltd
 #define MFG_ID_SYLVANIA                                            0x0009   //Sylvania
 #define MFG_ID_SYSTECH_CORPORATION                                 0x0136   //Systech Corporation
+#define MFG_ID_SYSTEMAIR_SVERIGE_AB                                0x0276   //Systemair Sverige AB
 #define MFG_ID_TAEWON_LIGHTING_CO_LTD                              0x0235   //TAEWON Lighting Co., Ltd.
+#define MFG_ID_TAIWAN_FU_HSING_INDUSTRIAL_CO_LTD                   0x0262   //Taiwan Fu Hsing Industrial Co., Ltd.
+#define MFG_ID_TAIWAN_ICATCH_INC                                   0x0264   //Taiwan iCATCH Inc.
 #define MFG_ID_TEAM_DIGITAL_LIMITED                                0x0186   //Team Digital Limited
 #define MFG_ID_TEAM_PRECISION_PCL                                  0x0089   //Team Precision PCL
 #define MFG_ID_TECHNICOLOR                                         0x0240   //Technicolor
@@ -747,20 +839,27 @@
 #define MFG_ID_TERRA_OPTIMA_BV_PRIMAIR_SERVICES                    0x005C   //Terra Optima B.V. (tidligere Primair Services)
 #define MFG_ID_THERE_CORPORATION                                   0x010C   //There Corporation
 #define MFG_ID_THERMOFLOOR                                         0x019B   //ThermoFloor
+#define MFG_ID_THINK_SIMPLE_SRL                                    0x0317   //Think Simple srl
 #define MFG_ID_TIMEVALVE_INC                                       0x022A   //TIMEVALVE, Inc.
 #define MFG_ID_TKB_HOME                                            0x0118   //TKB Home
 #define MFG_ID_TKH_GROUP_EMINENT                                   0x011C   //TKH Group / Eminent
+#define MFG_ID_TMC_TECHNOLOGY_LTD                                  0x0327   //TMC Technology Ltd.
+#define MFG_ID_TOLEDO_CO_INC                                       0x0319   //Toledo & Co., Inc.
+#define MFG_ID_TPLINK_TECHNOLOGIES_CO_LTD                          0x0283   //TP-Link Technologies Co., Ltd.
 #define MFG_ID_TRANE_CORPORATION                                   0x008B   //Trane Corporation
 #define MFG_ID_TRICKLESTAR                                         0x0066   //TrickleStar
 #define MFG_ID_TRICKLESTAR_LTD_EMPOWER_CONTROLS_LTD                0x006B   //Tricklestar Ltd. (former Empower Controls Ltd.)
 #define MFG_ID_TRIDIUM                                             0x0055   //Tridium
+#define MFG_ID_TRONICO_TECHNOLOGY_CO_LTD                           0x0111   //Tronico Technology Co. Ltd.
 #define MFG_ID_TWISTHINK                                           0x0049   //Twisthink
+#define MFG_ID_UBITECH                                             0x0270   //Ubitech
 #define MFG_ID_UFAIRY_GR_TECH                                      0x0152   //UFairy G.R. Tech
 #define MFG_ID_UNIVERSAL_DEVICES_INC                               0x0193   //Universal Devices, Inc
 #define MFG_ID_UNIVERSAL_ELECTRONICS_INC                           0x0020   //Universal Electronics Inc.
 #define MFG_ID_UNIVERSE_FUTURE                                     0x0183   //Universe Future
 #define MFG_ID_UTC_FIRE_AND_SECURITY_AMERICAS_CORP                 0x0209   //UTC Fire and Security Americas Corp
 #define MFG_ID_VDA                                                 0x010A   //VDA
+#define MFG_ID_VEMMIO                                              0x030F   //Vemmio
 #define MFG_ID_VENSTAR_INC                                         0x0198   //Venstar Inc.
 #define MFG_ID_VERA_CONTROL                                        0x008C   //Vera Control
 #define MFG_ID_VERO_DUCO                                           0x0080   //Vero Duco
@@ -772,6 +871,7 @@
 #define MFG_ID_VISION_SECURITY                                     0x0109   //Vision Security
 #define MFG_ID_VISUALIZE                                           0x004A   //Visualize
 #define MFG_ID_VITELEC                                             0x0058   //Vitelec
+#define MFG_ID_VIVA_LABS_AS                                        0x0263   //Viva Labs AS
 #define MFG_ID_VIVINT                                              0x0156   //Vivint
 #define MFG_ID_VSSAFETY_AS                                         0x017B   //Vs-Safety AS
 #define MFG_ID_WATT_STOPPER                                        0x004B   //Watt Stopper
@@ -779,7 +879,9 @@
 #define MFG_ID_WEBEE_LIFE                                          0x019F   //Webee Life
 #define MFG_ID_WEBEHOME_AB                                         0x0171   //WeBeHome AB
 #define MFG_ID_WENZHOU_MTLC_ELECTRIC_APPLIANCES_CO_LTD             0x011A   //Wenzhou MTLC Electric Appliances Co.,Ltd.
+#define MFG_ID_WESTCONTROL_AS                                      0x026C   //Westcontrol AS
 #define MFG_ID_WHIRLPOOL                                           0x0057   //Whirlpool
+#define MFG_ID_WHITE_RABBIT                                        0x027B   //White Rabbit
 #define MFG_ID_WIDOM                                               0x0149   //wiDom
 #define MFG_ID_WILLIS_ELECTRIC_CO_LTD                              0x015D   //Willis Electric Co., Ltd.
 #define MFG_ID_WILSHINE_HOLDING_CO_LTD                             0x012D   //Wilshine Holding Co., Ltd
@@ -788,17 +890,21 @@
 #define MFG_ID_WINYTECHNOLOGY                                      0x0242   //Winytechnology
 #define MFG_ID_WIRELESS_MAINGATE_AB                                0x0199   //Wireless Maingate AB
 #define MFG_ID_WOODWARD_LABS                                       0x004C   //Woodward Labs
+#define MFG_ID_WOOREE_LIGHTING_CO_LTD                              0x0269   //WOOREE Lighting Co.,Ltd.
 #define MFG_ID_WRAP                                                0x0003   //Wr@p
 #define MFG_ID_WRT_INTELLIGENT_TECHNOLOGY_CO_LTD                   0x022F   //WRT Intelligent Technology CO., LTD.
 #define MFG_ID_WUHAN_NWD_TECHNOLOGY_CO_LTD                         0x012E   //Wuhan NWD Technology Co., Ltd.
 #define MFG_ID_XANBOO                                              0x004D   //Xanboo
+#define MFG_ID_ZCONNECT                                            0x024E   //zConnect
 #define MFG_ID_ZDATA_LLC                                           0x004E   //Zdata, LLC.
 #define MFG_ID_ZHEJIANG_JIUXING_ELECTRIC_CO_LTD                    0x016F   //Zhejiang Jiuxing Electric Co Ltd
-#define MFG_ID_ZHOME                                               0x0139   //Zhome
 #define MFG_ID_ZIPATO                                              0x0131   //Zipato
 #define MFG_ID_ZONOFF                                              0x0120   //Zonoff
+#define MFG_ID_ZOOZ                                                0x027A   //Zooz
+#define MFG_ID_ZWAVE_ALLIANCE                                      0x031D   //Z-Wave Alliance
 #define MFG_ID_ZWAVE_TECHNOLOGIA                                   0x004F   //Z-Wave Technologia
 #define MFG_ID_ZWAVEME                                             0x0115   //Z-Wave.Me
+#define MFG_ID_ZWAVEPRODUCTSCOM                                    0x0315   //zwaveproducts.com
 #define MFG_ID_ZWORKS_INC                                          0x024D   //Z-works Inc.
 #define MFG_ID_ZYKRONIX                                            0x0021   //Zykronix
 #define MFG_ID_ZYXEL                                               0x0135   //ZyXEL
@@ -806,13 +912,14 @@
 
 /*************** command class identifiers ****************/
 #define COMMAND_CLASS_EXT_TEST                                                           0xF212 //Testing of extended command #define COMMAND_CLASS_ALARM                                                              0x71 /*DEPRECATED*/
-#define COMMAND_CLASS_ALARM                                                              0x71 /*DEPRECATED*/
-#define COMMAND_CLASS_ALARM_V2                                                           0x71 /*DEPRECATED*/
+#define COMMAND_CLASS_ALARM                                                              0x71 /*[DEPRECATED]*/
+#define COMMAND_CLASS_ALARM_V2                                                           0x71 /*[DEPRECATED]*/
 #define COMMAND_CLASS_NOTIFICATION_V3                                                    0x71
 #define COMMAND_CLASS_NOTIFICATION_V4                                                    0x71
 #define COMMAND_CLASS_NOTIFICATION_V5                                                    0x71
 #define COMMAND_CLASS_NOTIFICATION_V6                                                    0x71
 #define COMMAND_CLASS_NOTIFICATION_V7                                                    0x71
+#define COMMAND_CLASS_NOTIFICATION_V8                                                    0x71
 #define COMMAND_CLASS_APPLICATION_STATUS                                                 0x22
 #define COMMAND_CLASS_ASSOCIATION_COMMAND_CONFIGURATION                                  0x9B
 #define COMMAND_CLASS_ASSOCIATION                                                        0x85
@@ -822,16 +929,17 @@
 #define COMMAND_CLASS_AV_RENDERER_STATUS                                                 0x96
 #define COMMAND_CLASS_AV_TAGGING_MD                                                      0x99
 #define COMMAND_CLASS_BASIC_TARIFF_INFO                                                  0x36
-#define COMMAND_CLASS_BASIC_WINDOW_COVERING                                              0x50 /*Obsoleted*/
+#define COMMAND_CLASS_BASIC_WINDOW_COVERING                                              0x50 /*[OBSOLETED]*/
 #define COMMAND_CLASS_BASIC                                                              0x20
 #define COMMAND_CLASS_BASIC_V2                                                           0x20
 #define COMMAND_CLASS_BATTERY                                                            0x80
 #define COMMAND_CLASS_CHIMNEY_FAN                                                        0x2A
-#define COMMAND_CLASS_CLIMATE_CONTROL_SCHEDULE                                           0x46 /*DEPRECATED*/
+#define COMMAND_CLASS_CLIMATE_CONTROL_SCHEDULE                                           0x46 /*[DEPRECATED]*/
 #define COMMAND_CLASS_CLOCK                                                              0x81
 #define COMMAND_CLASS_CONFIGURATION                                                      0x70
 #define COMMAND_CLASS_CONFIGURATION_V2                                                   0x70
 #define COMMAND_CLASS_CONFIGURATION_V3                                                   0x70
+#define COMMAND_CLASS_CONFIGURATION_V4                                                   0x70
 #define COMMAND_CLASS_CONTROLLER_REPLICATION                                             0x21
 #define COMMAND_CLASS_CRC_16_ENCAP                                                       0x56
 #define COMMAND_CLASS_DCP_CONFIG                                                         0x3A
@@ -841,25 +949,26 @@
 #define COMMAND_CLASS_DOOR_LOCK_V2                                                       0x62
 #define COMMAND_CLASS_DOOR_LOCK_V3                                                       0x62
 #define COMMAND_CLASS_ENERGY_PRODUCTION                                                  0x90
-#define COMMAND_CLASS_FIRMWARE_UPDATE_MD                                                 0x7A /*DEPRECATED*/
+#define COMMAND_CLASS_FIRMWARE_UPDATE_MD                                                 0x7A /*[DEPRECATED]*/
 #define COMMAND_CLASS_FIRMWARE_UPDATE_MD_V2                                              0x7A
 #define COMMAND_CLASS_FIRMWARE_UPDATE_MD_V3                                              0x7A
 #define COMMAND_CLASS_FIRMWARE_UPDATE_MD_V4                                              0x7A
+#define COMMAND_CLASS_FIRMWARE_UPDATE_MD_V5                                              0x7A
 #define COMMAND_CLASS_GEOGRAPHIC_LOCATION                                                0x8C
-#define COMMAND_CLASS_GROUPING_NAME                                                      0x7B /*DEPRECATED*/
-#define COMMAND_CLASS_HAIL                                                               0x82 /*DEPRECATED*/
+#define COMMAND_CLASS_GROUPING_NAME                                                      0x7B /*[DEPRECATED]*/
+#define COMMAND_CLASS_HAIL                                                               0x82 /*[OBSOLETED]*/
 #define COMMAND_CLASS_HRV_CONTROL                                                        0x39
 #define COMMAND_CLASS_HRV_STATUS                                                         0x37
 #define COMMAND_CLASS_INDICATOR                                                          0x87
 #define COMMAND_CLASS_INDICATOR_V2                                                       0x87
-#define COMMAND_CLASS_IP_CONFIGURATION                                                   0x9A
+#define COMMAND_CLASS_IP_CONFIGURATION                                                   0x9A /*[OBSOLETED]*/
 #define COMMAND_CLASS_LANGUAGE                                                           0x89
-#define COMMAND_CLASS_LOCK                                                               0x76
+#define COMMAND_CLASS_LOCK                                                               0x76 /*[DEPRECATED]*/
 #define COMMAND_CLASS_MANUFACTURER_PROPRIETARY                                           0x91
 #define COMMAND_CLASS_MANUFACTURER_SPECIFIC                                              0x72
 #define COMMAND_CLASS_MANUFACTURER_SPECIFIC_V2                                           0x72
 #define COMMAND_CLASS_MARK                                                               0xEF
-#define COMMAND_CLASS_METER_PULSE                                                        0x35 /*DEPRECATED*/
+#define COMMAND_CLASS_METER_PULSE                                                        0x35 /*[DEPRECATED]*/
 #define COMMAND_CLASS_METER_TBL_CONFIG                                                   0x3C
 #define COMMAND_CLASS_METER_TBL_MONITOR                                                  0x3D
 #define COMMAND_CLASS_METER_TBL_MONITOR_V2                                               0x3D
@@ -868,40 +977,42 @@
 #define COMMAND_CLASS_METER_V2                                                           0x32
 #define COMMAND_CLASS_METER_V3                                                           0x32
 #define COMMAND_CLASS_METER_V4                                                           0x32
-#define COMMAND_CLASS_MTP_WINDOW_COVERING                                                0x51 /*OBSOLETED*/
+#define COMMAND_CLASS_METER_V5                                                           0x32
+#define COMMAND_CLASS_MTP_WINDOW_COVERING                                                0x51 /*[OBSOLETED]*/
 #define COMMAND_CLASS_MULTI_CHANNEL_ASSOCIATION_V2                                       0x8E
 #define COMMAND_CLASS_MULTI_CHANNEL_ASSOCIATION_V3                                       0x8E
-#define COMMAND_CLASS_MULTI_CHANNEL_V2                                                   0x60
+#define COMMAND_CLASS_MULTI_CHANNEL_V2                                                   0x60 /*[OBSOLETED]*/
 #define COMMAND_CLASS_MULTI_CHANNEL_V3                                                   0x60
 #define COMMAND_CLASS_MULTI_CHANNEL_V4                                                   0x60
 #define COMMAND_CLASS_MULTI_CMD                                                          0x8F
-#define COMMAND_CLASS_MULTI_INSTANCE_ASSOCIATION                                         0x8E /*Discontinued*/
-#define COMMAND_CLASS_MULTI_INSTANCE                                                     0x60 /*Discontinued*/
+#define COMMAND_CLASS_MULTI_INSTANCE_ASSOCIATION                                         0x8E /*[OBSOLETED]*/
+#define COMMAND_CLASS_MULTI_INSTANCE                                                     0x60 /*[OBSOLETED]*/
 #define COMMAND_CLASS_NETWORK_MANAGEMENT_PROXY                                           0x52
 #define COMMAND_CLASS_NETWORK_MANAGEMENT_PROXY_V2                                        0x52
 #define COMMAND_CLASS_NETWORK_MANAGEMENT_BASIC                                           0x4D
 #define COMMAND_CLASS_NETWORK_MANAGEMENT_BASIC_V2                                        0x4D
 #define COMMAND_CLASS_NETWORK_MANAGEMENT_INCLUSION                                       0x34
 #define COMMAND_CLASS_NETWORK_MANAGEMENT_INCLUSION_V2                                    0x34
+#define COMMAND_CLASS_NETWORK_MANAGEMENT_INCLUSION_V3                                    0x34
 #define COMMAND_CLASS_NO_OPERATION                                                       0x00
 #define COMMAND_CLASS_NODE_NAMING                                                        0x77
 #define COMMAND_CLASS_NON_INTEROPERABLE                                                  0xF0
 #define COMMAND_CLASS_POWERLEVEL                                                         0x73
 #define COMMAND_CLASS_PREPAYMENT_ENCAPSULATION                                           0x41
 #define COMMAND_CLASS_PREPAYMENT                                                         0x3F
-#define COMMAND_CLASS_PROPRIETARY                                                        0x88 /*DEPRECATED*/
+#define COMMAND_CLASS_PROPRIETARY                                                        0x88 /*[DEPRECATED]*/
 #define COMMAND_CLASS_PROTECTION                                                         0x75
 #define COMMAND_CLASS_PROTECTION_V2                                                      0x75
 #define COMMAND_CLASS_RATE_TBL_CONFIG                                                    0x48
 #define COMMAND_CLASS_RATE_TBL_MONITOR                                                   0x49
-#define COMMAND_CLASS_REMOTE_ASSOCIATION_ACTIVATE                                        0x7C /*OBSOLETED*/
-#define COMMAND_CLASS_REMOTE_ASSOCIATION                                                 0x7D /*OBSOLETED*/
+#define COMMAND_CLASS_REMOTE_ASSOCIATION_ACTIVATE                                        0x7C /*[OBSOLETED]*/
+#define COMMAND_CLASS_REMOTE_ASSOCIATION                                                 0x7D /*[OBSOLETED]*/
 #define COMMAND_CLASS_SCENE_ACTIVATION                                                   0x2B
 #define COMMAND_CLASS_SCENE_ACTUATOR_CONF                                                0x2C
 #define COMMAND_CLASS_SCENE_CONTROLLER_CONF                                              0x2D
-#define COMMAND_CLASS_SCHEDULE_ENTRY_LOCK                                                0x4E /*DEPRECATED*/
-#define COMMAND_CLASS_SCHEDULE_ENTRY_LOCK_V2                                             0x4E /*DEPRECATED*/
-#define COMMAND_CLASS_SCHEDULE_ENTRY_LOCK_V3                                             0x4E /*DEPRECATED*/
+#define COMMAND_CLASS_SCHEDULE_ENTRY_LOCK                                                0x4E /*[DEPRECATED]*/
+#define COMMAND_CLASS_SCHEDULE_ENTRY_LOCK_V2                                             0x4E /*[DEPRECATED]*/
+#define COMMAND_CLASS_SCHEDULE_ENTRY_LOCK_V3                                             0x4E /*[DEPRECATED]*/
 #define COMMAND_CLASS_SCREEN_ATTRIBUTES                                                  0x93
 #define COMMAND_CLASS_SCREEN_ATTRIBUTES_V2                                               0x93
 #define COMMAND_CLASS_SCREEN_MD                                                          0x92
@@ -911,9 +1022,9 @@
 #define COMMAND_CLASS_SECURITY_PANEL_ZONE                                                0x2E
 #define COMMAND_CLASS_SECURITY                                                           0x98
 #define COMMAND_CLASS_SENSOR_ALARM                                                       0x9C /*SDS10963-4 The Sensor Alarm command class can be used to realize Sensor Alarms.*/
-#define COMMAND_CLASS_SENSOR_BINARY                                                      0x30 /*DEPRECATED*/
-#define COMMAND_CLASS_SENSOR_BINARY_V2                                                   0x30 /*DEPRECATED*/
-#define COMMAND_CLASS_SENSOR_CONFIGURATION                                               0x9E /*This command class adds the possibility for sensors to act on either a measured value or on a*/
+#define COMMAND_CLASS_SENSOR_BINARY                                                      0x30 /*[DEPRECATED]*/
+#define COMMAND_CLASS_SENSOR_BINARY_V2                                                   0x30 /*[DEPRECATED]*/
+#define COMMAND_CLASS_SENSOR_CONFIGURATION                                               0x9E /*[OBSOLETED]*/
 #define COMMAND_CLASS_SENSOR_MULTILEVEL                                                  0x31
 #define COMMAND_CLASS_SENSOR_MULTILEVEL_V2                                               0x31
 #define COMMAND_CLASS_SENSOR_MULTILEVEL_V3                                               0x31
@@ -923,6 +1034,8 @@
 #define COMMAND_CLASS_SENSOR_MULTILEVEL_V7                                               0x31
 #define COMMAND_CLASS_SENSOR_MULTILEVEL_V8                                               0x31
 #define COMMAND_CLASS_SENSOR_MULTILEVEL_V9                                               0x31
+#define COMMAND_CLASS_SENSOR_MULTILEVEL_V10                                              0x31
+#define COMMAND_CLASS_SENSOR_MULTILEVEL_V11                                              0x31
 #define COMMAND_CLASS_SILENCE_ALARM                                                      0x9D /*SDS10963-4 The Alarm Silence command class can be used to nuisance silence to temporarily disable the sounding*/
 #define COMMAND_CLASS_SIMPLE_AV_CONTROL                                                  0x94
 #define COMMAND_CLASS_SWITCH_ALL                                                         0x27
@@ -932,8 +1045,8 @@
 #define COMMAND_CLASS_SWITCH_MULTILEVEL_V2                                               0x26
 #define COMMAND_CLASS_SWITCH_MULTILEVEL_V3                                               0x26
 #define COMMAND_CLASS_SWITCH_MULTILEVEL_V4                                               0x26
-#define COMMAND_CLASS_SWITCH_TOGGLE_BINARY                                               0x28 /*DEPRECATED*/
-#define COMMAND_CLASS_SWITCH_TOGGLE_MULTILEVEL                                           0x29 /*DEPRECATED*/
+#define COMMAND_CLASS_SWITCH_TOGGLE_BINARY                                               0x28 /*[DEPRECATED]*/
+#define COMMAND_CLASS_SWITCH_TOGGLE_MULTILEVEL                                           0x29 /*[DEPRECATED]*/
 #define COMMAND_CLASS_TARIFF_CONFIG                                                      0x4A
 #define COMMAND_CLASS_TARIFF_TBL_MONITOR                                                 0x4B
 #define COMMAND_CLASS_THERMOSTAT_FAN_MODE                                                0x44
@@ -956,14 +1069,15 @@
 #define COMMAND_CLASS_TIME                                                               0x8A
 #define COMMAND_CLASS_TIME_V2                                                            0x8A
 #define COMMAND_CLASS_TRANSPORT_SERVICE_V2                                               0x55
-#define COMMAND_CLASS_TRANSPORT_SERVICE                                                  0x55
+#define COMMAND_CLASS_TRANSPORT_SERVICE                                                  0x55 /*[OBSOLETED]*/
 #define COMMAND_CLASS_USER_CODE                                                          0x63
 #define COMMAND_CLASS_VERSION                                                            0x86
 #define COMMAND_CLASS_VERSION_V2                                                         0x86
+#define COMMAND_CLASS_VERSION_V3                                                         0x86
 #define COMMAND_CLASS_WAKE_UP                                                            0x84
 #define COMMAND_CLASS_WAKE_UP_V2                                                         0x84
 #define COMMAND_CLASS_ZIP_6LOWPAN                                                        0x4F
-#define COMMAND_CLASS_ZIP                                                                0x23 /*OBSOLETED*/
+#define COMMAND_CLASS_ZIP                                                                0x23 /*[OBSOLETED]*/
 #define COMMAND_CLASS_ZIP_V2                                                             0x23
 #define COMMAND_CLASS_ZIP_V3                                                             0x23
 #define COMMAND_CLASS_APPLICATION_CAPABILITY                                             0x57
@@ -973,6 +1087,7 @@
 #define COMMAND_CLASS_SCHEDULE                                                           0x53
 #define COMMAND_CLASS_SCHEDULE_V2                                                        0x53
 #define COMMAND_CLASS_SCHEDULE_V3                                                        0x53
+#define COMMAND_CLASS_SCHEDULE_V4                                                        0x53
 #define COMMAND_CLASS_NETWORK_MANAGEMENT_PRIMARY                                         0x54
 #define COMMAND_CLASS_ZIP_ND                                                             0x58
 #define COMMAND_CLASS_ASSOCIATION_GRP_INFO                                               0x59
@@ -983,15 +1098,17 @@
 #define COMMAND_CLASS_CENTRAL_SCENE_V2                                                   0x5B
 #define COMMAND_CLASS_CENTRAL_SCENE_V3                                                   0x5B
 #define COMMAND_CLASS_IP_ASSOCIATION                                                     0x5C
-#define COMMAND_CLASS_ANTITHEFT                                                          0x5D
+#define COMMAND_CLASS_ANTITHEFT                                                          0x5D /*[OBSOLETED]*/
 #define COMMAND_CLASS_ANTITHEFT_V2                                                       0x5D
-#define COMMAND_CLASS_ZWAVEPLUS_INFO                                                     0x5E /*SDS11907-3*/
+#define COMMAND_CLASS_ANTITHEFT_UNLOCK                                                   0x7E
+#define COMMAND_CLASS_ZWAVEPLUS_INFO                                                     0x5E /*[OBSOLETED]*/
 #define COMMAND_CLASS_ZWAVEPLUS_INFO_V2                                                  0x5E /*SDS11907-3*/
 #define COMMAND_CLASS_ZIP_GATEWAY                                                        0x5F
 #define COMMAND_CLASS_ZIP_PORTAL                                                         0x61
 #define COMMAND_CLASS_DMX                                                                0x65
 #define COMMAND_CLASS_BARRIER_OPERATOR                                                   0x66
 #define COMMAND_CLASS_NETWORK_MANAGEMENT_INSTALLATION_MAINTENANCE                        0x67
+#define COMMAND_CLASS_NETWORK_MANAGEMENT_INSTALLATION_MAINTENANCE_V2                     0x67
 #define COMMAND_CLASS_ZIP_NAMING                                                         0x68
 #define COMMAND_CLASS_MAILBOX                                                            0x69
 #define COMMAND_CLASS_WINDOW_COVERING                                                    0x6A
@@ -1003,7 +1120,8 @@
 #define COMMAND_CLASS_HUMIDITY_CONTROL_OPERATING_STATE                                   0x6E
 #define COMMAND_CLASS_ENTRY_CONTROL                                                      0x6F
 #define COMMAND_CLASS_INCLUSION_CONTROLLER                                               0x74
-#define COMMAND_CLASS_NODE_PROVISIONING                                                  0x78 /*a.k.a. Node Provisioning Command Class*/
+#define COMMAND_CLASS_NODE_PROVISIONING                                                  0x78
+#define COMMAND_CLASS_SOUND_SWITCH                                                       0x79
 
 /*************** command class extended identifiers ****************/
 #define COMMAND_CLASS_SECURITY_SCHEME0_MARK                                              0xF100
@@ -1625,6 +1743,139 @@
 #define EVENT_SUPPORTED_REPORT_PROPERTIES1_RESERVED_MASK_V7                              0xE0
 #define EVENT_SUPPORTED_REPORT_PROPERTIES1_RESERVED_SHIFT_V7                             0x05
 
+/* Notification command class commands */
+#define NOTIFICATION_VERSION_V8                                                          0x08
+#define NOTIFICATION_GET_V8                                                              0x04
+#define NOTIFICATION_REPORT_V8                                                           0x05
+#define NOTIFICATION_SET_V8                                                              0x06
+#define NOTIFICATION_SUPPORTED_GET_V8                                                    0x07
+#define NOTIFICATION_SUPPORTED_REPORT_V8                                                 0x08
+#define EVENT_SUPPORTED_GET_V8                                                           0x01
+#define EVENT_SUPPORTED_REPORT_V8                                                        0x02
+/* Values used for Notification Get command */
+#define NOTIFICATION_GET_RESERVED_V8                                                     0x00
+#define NOTIFICATION_GET_SMOKE_V8                                                        0x01
+#define NOTIFICATION_GET_CO_V8                                                           0x02
+#define NOTIFICATION_GET_CO2_V8                                                          0x03
+#define NOTIFICATION_GET_HEAT_V8                                                         0x04
+#define NOTIFICATION_GET_WATER_V8                                                        0x05
+#define NOTIFICATION_GET_ACCESS_CONTROL_V8                                               0x06
+#define NOTIFICATION_GET_HOME_SECURITY_V8                                                0x07
+#define NOTIFICATION_GET_POWER_MANAGEMENT_V8                                             0x08
+#define NOTIFICATION_GET_SYSTEM_V8                                                       0x09
+#define NOTIFICATION_GET_EMERGENCY_V8                                                    0x0A
+#define NOTIFICATION_GET_CLOCK_V8                                                        0x0B
+#define NOTIFICATION_GET_APPLIANCE_V8                                                    0x0C
+#define NOTIFICATION_GET_HOME_HEALTH_V8                                                  0x0D
+#define NOTIFICATION_GET_SIREN_V8                                                        0x0E
+#define NOTIFICATION_GET_WATER_VALVE_V8                                                  0x0F
+#define NOTIFICATION_GET_WEATHER_ALARM_V8                                                0x10
+#define NOTIFICATION_GET_IRRIGATION_V8                                                   0x11
+#define NOTIFICATION_GET_GAS_ALARM_V8                                                    0x12
+#define NOTIFICATION_GET_FIRST_V8                                                        0xFF
+/* Values used for Notification Report command */
+#define NOTIFICATION_REPORT_OFF_V8                                                       0x00
+#define NOTIFICATION_REPORT_NO_PENDING_NOTIFICATIONS_V8                                  0xFE
+#define NOTIFICATION_REPORT_ON_V8                                                        0xFF
+#define NOTIFICATION_REPORT_RESERVED_V8                                                  0x00
+#define NOTIFICATION_REPORT_SMOKE_V8                                                     0x01
+#define NOTIFICATION_REPORT_CO_V8                                                        0x02
+#define NOTIFICATION_REPORT_CO2_V8                                                       0x03
+#define NOTIFICATION_REPORT_HEAT_V8                                                      0x04
+#define NOTIFICATION_REPORT_WATER_V8                                                     0x05
+#define NOTIFICATION_REPORT_ACCESS_CONTROL_V8                                            0x06
+#define NOTIFICATION_REPORT_HOME_SECURITY_V8                                             0x07
+#define NOTIFICATION_REPORT_POWER_MANAGEMENT_V8                                          0x08
+#define NOTIFICATION_REPORT_SYSTEM_V8                                                    0x09
+#define NOTIFICATION_REPORT_EMERGENCY_V8                                                 0x0A
+#define NOTIFICATION_REPORT_CLOCK_V8                                                     0x0B
+#define NOTIFICATION_REPORT_APPLIANCE_V8                                                 0x0C
+#define NOTIFICATION_REPORT_HOME_HEALTH_V8                                               0x0D
+#define NOTIFICATION_REPORT_SIREN_V8                                                     0x0E
+#define NOTIFICATION_REPORT_WATER_VALVE_V8                                               0x0F
+#define NOTIFICATION_REPORT_WEATHER_ALARM_V8                                             0x10
+#define NOTIFICATION_REPORT_IRRIGATION_V8                                                0x11
+#define NOTIFICATION_REPORT_GAS_ALARM_V8                                                 0x12
+#define NOTIFICATION_REPORT_FIRST_V8                                                     0xFF
+#define NOTIFICATION_REPORT_PROPERTIES1_EVENT_PARAMETERS_LENGTH_MASK_V8                  0x1F
+#define NOTIFICATION_REPORT_PROPERTIES1_RESERVED2_MASK_V8                                0x60
+#define NOTIFICATION_REPORT_PROPERTIES1_RESERVED2_SHIFT_V8                               0x05
+#define NOTIFICATION_REPORT_PROPERTIES1_SEQUENCE_BIT_MASK_V8                             0x80
+/* Values used for Notification Set command */
+#define NOTIFICATION_SET_RESERVED_V8                                                     0x00
+#define NOTIFICATION_SET_SMOKE_V8                                                        0x01
+#define NOTIFICATION_SET_CO_V8                                                           0x02
+#define NOTIFICATION_SET_CO2_V8                                                          0x03
+#define NOTIFICATION_SET_HEAT_V8                                                         0x04
+#define NOTIFICATION_SET_WATER_V8                                                        0x05
+#define NOTIFICATION_SET_ACCESS_CONTROL_V8                                               0x06
+#define NOTIFICATION_SET_HOME_SECURITY_V8                                                0x07
+#define NOTIFICATION_SET_POWER_MANAGEMENT_V8                                             0x08
+#define NOTIFICATION_SET_SYSTEM_V8                                                       0x09
+#define NOTIFICATION_SET_EMERGENCY_V8                                                    0x0A
+#define NOTIFICATION_SET_CLOCK_V8                                                        0x0B
+#define NOTIFICATION_SET_APPLIANCE_V8                                                    0x0C
+#define NOTIFICATION_SET_HOME_HEALTH_V8                                                  0x0D
+#define NOTIFICATION_SET_SIREN_V8                                                        0x0E
+#define NOTIFICATION_SET_WATER_VALVE_V8                                                  0x0F
+#define NOTIFICATION_SET_WEATHER_ALARM_V8                                                0x10
+#define NOTIFICATION_SET_IRRIGATION_V8                                                   0x11
+#define NOTIFICATION_SET_GAS_ALARM_V8                                                    0x12
+#define NOTIFICATION_SET_FIRST_V8                                                        0xFF
+#define NOTIFICATION_SET_OFF_V8                                                          0x00
+#define NOTIFICATION_SET_NO_PENDING_NOTIFICATIONS_V8                                     0xFE
+#define NOTIFICATION_SET_ON_V8                                                           0xFF
+/* Values used for Notification Supported Report command */
+#define NOTIFICATION_SUPPORTED_REPORT_PROPERTIES1_NUMBER_OF_BIT_MASKS_MASK_V8            0x1F
+#define NOTIFICATION_SUPPORTED_REPORT_PROPERTIES1_RESERVED_MASK_V8                       0x60
+#define NOTIFICATION_SUPPORTED_REPORT_PROPERTIES1_RESERVED_SHIFT_V8                      0x05
+#define NOTIFICATION_SUPPORTED_REPORT_PROPERTIES1_V1_ALARM_BIT_MASK_V8                   0x80
+/* Values used for Event Supported Get command */
+#define EVENT_SUPPORTED_GET_RESERVED_V8                                                  0x00
+#define EVENT_SUPPORTED_GET_SMOKE_V8                                                     0x01
+#define EVENT_SUPPORTED_GET_CO_V8                                                        0x02
+#define EVENT_SUPPORTED_GET_CO2_V8                                                       0x03
+#define EVENT_SUPPORTED_GET_HEAT_V8                                                      0x04
+#define EVENT_SUPPORTED_GET_WATER_V8                                                     0x05
+#define EVENT_SUPPORTED_GET_ACCESS_CONTROL_V8                                            0x06
+#define EVENT_SUPPORTED_GET_HOME_SECURITY_V8                                             0x07
+#define EVENT_SUPPORTED_GET_POWER_MANAGEMENT_V8                                          0x08
+#define EVENT_SUPPORTED_GET_SYSTEM_V8                                                    0x09
+#define EVENT_SUPPORTED_GET_EMERGENCY_V8                                                 0x0A
+#define EVENT_SUPPORTED_GET_CLOCK_V8                                                     0x0B
+#define EVENT_SUPPORTED_GET_APPLIANCE_V8                                                 0x0C
+#define EVENT_SUPPORTED_GET_HOME_HEALTH_V8                                               0x0D
+#define EVENT_SUPPORTED_GET_SIREN_V8                                                     0x0E
+#define EVENT_SUPPORTED_GET_WATER_VALVE_V8                                               0x0F
+#define EVENT_SUPPORTED_GET_WEATHER_ALARM_V8                                             0x10
+#define EVENT_SUPPORTED_GET_IRRIGATION_V8                                                0x11
+#define EVENT_SUPPORTED_GET_GAS_ALARM_V8                                                 0x12
+#define EVENT_SUPPORTED_GET_FIRST_V8                                                     0xFF
+/* Values used for Event Supported Report command */
+#define EVENT_SUPPORTED_REPORT_RESERVED_V8                                               0x00
+#define EVENT_SUPPORTED_REPORT_SMOKE_V8                                                  0x01
+#define EVENT_SUPPORTED_REPORT_CO_V8                                                     0x02
+#define EVENT_SUPPORTED_REPORT_CO2_V8                                                    0x03
+#define EVENT_SUPPORTED_REPORT_HEAT_V8                                                   0x04
+#define EVENT_SUPPORTED_REPORT_WATER_V8                                                  0x05
+#define EVENT_SUPPORTED_REPORT_ACCESS_CONTROL_V8                                         0x06
+#define EVENT_SUPPORTED_REPORT_HOME_SECURITY_V8                                          0x07
+#define EVENT_SUPPORTED_REPORT_POWER_MANAGEMENT_V8                                       0x08
+#define EVENT_SUPPORTED_REPORT_SYSTEM_V8                                                 0x09
+#define EVENT_SUPPORTED_REPORT_EMERGENCY_V8                                              0x0A
+#define EVENT_SUPPORTED_REPORT_CLOCK_V8                                                  0x0B
+#define EVENT_SUPPORTED_REPORT_APPLIANCE_V8                                              0x0C
+#define EVENT_SUPPORTED_REPORT_HOME_HEALTH_V8                                            0x0D
+#define EVENT_SUPPORTED_REPORT_SIREN_V8                                                  0x0E
+#define EVENT_SUPPORTED_REPORT_WATER_VALVE_V8                                            0x0F
+#define EVENT_SUPPORTED_REPORT_WEATHER_ALARM_V8                                          0x10
+#define EVENT_SUPPORTED_REPORT_IRRIGATION_V8                                             0x11
+#define EVENT_SUPPORTED_REPORT_GAS_ALARM_V8                                              0x12
+#define EVENT_SUPPORTED_REPORT_FIRST_V8                                                  0xFF
+#define EVENT_SUPPORTED_REPORT_PROPERTIES1_NUMBER_OF_BIT_MASKS_MASK_V8                   0x1F
+#define EVENT_SUPPORTED_REPORT_PROPERTIES1_RESERVED_MASK_V8                              0xE0
+#define EVENT_SUPPORTED_REPORT_PROPERTIES1_RESERVED_SHIFT_V8                             0x05
+
 /* Application Status command class commands */
 #define APPLICATION_STATUS_VERSION                                                       0x01
 #define APPLICATION_BUSY                                                                 0x01
@@ -1739,6 +1990,8 @@
 #define BATTERY_VERSION                                                                  0x01
 #define BATTERY_GET                                                                      0x02
 #define BATTERY_REPORT                                                                   0x03
+#define BATTERY_HEALTH_GET_V2                                                            0x04
+#define BATTERY_HEALTH_REPORT_V2                                                         0x05
 
 /* Chimney Fan command class commands */
 #define CHIMNEY_FAN_VERSION                                                              0x01
@@ -2282,6 +2535,9 @@
 #define DOOR_LOCK_OPERATION_GET_V3                                                       0x02
 #define DOOR_LOCK_OPERATION_REPORT_V3                                                    0x03
 #define DOOR_LOCK_OPERATION_SET_V3                                                       0x01
+#define DOOR_LOCK_CAPABILITIES_GET_V4                                                    0x07
+#define DOOR_LOCK_CAPABILITIES_REPORT_V4                                                 0x08
+
 /* Values used for Door Lock Configuration Report command */
 #define DOOR_LOCK_CONFIGURATION_REPORT_CONSTANT_OPERATION_V3                             0x01
 #define DOOR_LOCK_CONFIGURATION_REPORT_TIMED_OPERATION_V3                                0x02
@@ -2465,6 +2721,61 @@
 #define FIRMWARE_UPDATE_ACTIVATION_STATUS_REPORT_INVALID_COMBINATION_V4                  0x00
 #define FIRMWARE_UPDATE_ACTIVATION_STATUS_REPORT_ERROR_ACTIVATING_THE_FIRMWARE_V4        0x01
 #define FIRMWARE_UPDATE_ACTIVATION_STATUS_REPORT_FIRMWARE_UPDATE_COMPLETED_SUCCESSFULLY_V4 0xFF
+
+/* Firmware Update Md command class commands */
+#define FIRMWARE_UPDATE_MD_VERSION_V5                                                    0x05
+#define FIRMWARE_MD_GET_V5                                                               0x01
+#define FIRMWARE_MD_REPORT_V5                                                            0x02
+#define FIRMWARE_UPDATE_MD_GET_V5                                                        0x05
+#define FIRMWARE_UPDATE_MD_REPORT_V5                                                     0x06
+#define FIRMWARE_UPDATE_MD_REQUEST_GET_V5                                                0x03
+#define FIRMWARE_UPDATE_MD_REQUEST_REPORT_V5                                             0x04
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_V5                                              0x07
+#define FIRMWARE_UPDATE_ACTIVATION_SET_V5                                                0x08
+#define FIRMWARE_UPDATE_ACTIVATION_STATUS_REPORT_V5                                      0x09
+#define FIRMWARE_UPDATE_MD_PREPARE_GET_V5                                                0x0A
+#define FIRMWARE_UPDATE_MD_PREPARE_REPORT_V5                                             0x0B
+/* Values used for Firmware Update Md Get command */
+#define FIRMWARE_UPDATE_MD_GET_PROPERTIES1_REPORT_NUMBER_1_MASK_V5                       0x7F
+#define FIRMWARE_UPDATE_MD_GET_PROPERTIES1_ZERO_BIT_MASK_V5                              0x80
+/* Values used for Firmware Update Md Report command */
+#define FIRMWARE_UPDATE_MD_REPORT_PROPERTIES1_REPORT_NUMBER_1_MASK_V5                    0x7F
+#define FIRMWARE_UPDATE_MD_REPORT_PROPERTIES1_LAST_BIT_MASK_V5                           0x80
+/* Values used for Firmware Update Md Request Get command */
+#define FIRMWARE_UPDATE_MD_REQUEST_GET_PROPERTIES1_ACTIVATION_BIT_MASK_V5                0x01
+#define FIRMWARE_UPDATE_MD_REQUEST_GET_PROPERTIES1_RESERVED_MASK_V5                      0xFE
+#define FIRMWARE_UPDATE_MD_REQUEST_GET_PROPERTIES1_RESERVED_SHIFT_V5                     0x01
+/* Values used for Firmware Update Md Request Report command */
+#define FIRMWARE_UPDATE_MD_REQUEST_REPORT_INVALID_COMBINATION_V5                         0x00
+#define FIRMWARE_UPDATE_MD_REQUEST_REPORT_REQUIRES_AUTHENTICATION_V5                     0x01
+#define FIRMWARE_UPDATE_MD_REQUEST_REPORT_INVALID_FRAGMENT_SIZE_V5                       0x02
+#define FIRMWARE_UPDATE_MD_REQUEST_REPORT_NOT_UPGRADABLE_V5                              0x03
+#define FIRMWARE_UPDATE_MD_REQUEST_REPORT_INVALID_HARDWARE_VERSION_V5                    0x04
+#define FIRMWARE_UPDATE_MD_REQUEST_REPORT_VALID_COMBINATION_V5                           0xFF
+/* Values used for Firmware Update Md Status Report command */
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_UNABLE_TO_RECEIVE_WITHOUT_CHECKSUM_ERROR_V5     0x00
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_UNABLE_TO_RECEIVE_V5                            0x01
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_DOES_NOT_MATCH_THE_MANUFACTURER_ID_V5           0x02
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_DOES_NOT_MATCH_THE_FIRMWARE_ID_V5               0x03
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_DOES_NOT_MATCH_THE_FIRMWARE_TARGET_V5           0x04
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_INVALID_FILE_HEADER_INFORMATION_V5              0x05
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_INVALID_FILE_HEADER_FORMAT_V5                   0x06
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_INSUFFICIENT_MEMORY_V5                          0x07
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_DOES_NOT_MATCH_THE_HARDWARE_VERSION_V5          0x08
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_SUCCESSFULLY_WAITING_FOR_ACTIVATION_V5          0xFD
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_SUCCESSFULLY_STORED_V5                          0xFE
+#define FIRMWARE_UPDATE_MD_STATUS_REPORT_SUCCESSFULLY_V5                                 0xFF
+/* Values used for Firmware Update Activation Status Report command */
+#define FIRMWARE_UPDATE_ACTIVATION_STATUS_REPORT_INVALID_COMBINATION_V5                  0x00
+#define FIRMWARE_UPDATE_ACTIVATION_STATUS_REPORT_ERROR_ACTIVATING_THE_FIRMWARE_V5        0x01
+#define FIRMWARE_UPDATE_ACTIVATION_STATUS_REPORT_FIRMWARE_UPDATE_COMPLETED_SUCCESSFULLY_V5 0xFF
+/* Values used for Firmware Update Md Prepare Report command */
+#define FIRMWARE_UPDATE_MD_PREPARE_REPORT_INVALID_COMBINATION_V5                         0x00
+#define FIRMWARE_UPDATE_MD_PREPARE_REPORT_REQUIRES_AUTHENTICATION_V5                     0x01
+#define FIRMWARE_UPDATE_MD_PREPARE_REPORT_INVALID_FRAGMENT_SIZE_V5                       0x02
+#define FIRMWARE_UPDATE_MD_PREPARE_REPORT_NOT_UPGRADABLE_V5                              0x03
+#define FIRMWARE_UPDATE_MD_PREPARE_REPORT_INVALID_HARDWARE_VERSION_V5                    0x04
+#define FIRMWARE_UPDATE_MD_PREPARE_REPORT_VALID_COMBINATION_V5                           0xFF
 
 /* Geographic Location command class commands */
 #define GEOGRAPHIC_LOCATION_VERSION                                                      0x01
@@ -3116,6 +3427,61 @@
 #define METER_SUPPORTED_REPORT_PROPERTIES2_SCALE_SUPPORTED_0_MASK_V4                     0x7F
 #define METER_SUPPORTED_REPORT_PROPERTIES2_M_S_T_BIT_MASK_V4                             0x80
 
+/* Meter command class commands */
+#define METER_VERSION_V5                                                                 0x05
+#define METER_GET_V5                                                                     0x01
+#define METER_REPORT_V5                                                                  0x02
+#define METER_RESET_V5                                                                   0x05
+#define METER_SUPPORTED_GET_V5                                                           0x03
+#define METER_SUPPORTED_REPORT_V5                                                        0x04
+/* Values used for Meter Get command */
+#define METER_GET_PROPERTIES1_RESERVED_MASK_V5                                           0x07
+#define METER_GET_PROPERTIES1_SCALE_MASK_V5                                              0x38
+#define METER_GET_PROPERTIES1_SCALE_SHIFT_V5                                             0x03
+#define METER_GET_PROPERTIES1_RATE_TYPE_MASK_V5                                          0xC0
+#define METER_GET_PROPERTIES1_RATE_TYPE_SHIFT_V5                                         0x06
+#define METER_GET_RATE_TYPE_RESERVED_V5                                                  0x00
+#define METER_GET_RATE_TYPE_IMPORT_V5                                                    0x01
+#define METER_GET_RATE_TYPE_EXPORT_V5                                                    0x02
+#define METER_GET_RATE_TYPE_NOT_TO_BE_USED_V5                                            0x03
+/* Values used for Meter Report command */
+#define METER_REPORT_PROPERTIES1_METER_TYPE_MASK_V5                                      0x1F
+#define METER_REPORT_METER_TYPE_RESERVED_V5                                              0x00
+#define METER_REPORT_METER_TYPE_ELECTRIC_METER_V5                                        0x01
+#define METER_REPORT_METER_TYPE_GAS_METER_V5                                             0x02
+#define METER_REPORT_METER_TYPE_WATER_METER_V5                                           0x03
+#define METER_REPORT_METER_TYPE_HEATING_METER_V5                                         0x04
+#define METER_REPORT_METER_TYPE_COOLING_METER_V5                                         0x05
+#define METER_REPORT_PROPERTIES1_RATE_TYPE_MASK_V5                                       0x60
+#define METER_REPORT_PROPERTIES1_RATE_TYPE_SHIFT_V5                                      0x05
+#define METER_REPORT_RATE_TYPE_RESERVED_V5                                               0x00
+#define METER_REPORT_RATE_TYPE_IMPORT_V5                                                 0x01
+#define METER_REPORT_RATE_TYPE_EXPORT_V5                                                 0x02
+#define METER_REPORT_RATE_TYPE_NOT_TO_BE_USED_V5                                         0x03
+#define METER_REPORT_PROPERTIES1_SCALE_BIT_2_BIT_MASK_V5                                 0x80
+#define METER_REPORT_PROPERTIES2_SIZE_MASK_V5                                            0x07
+#define METER_REPORT_PROPERTIES2_SCALE_BITS_10_MASK_V5                                   0x18
+#define METER_REPORT_PROPERTIES2_SCALE_BITS_10_SHIFT_V5                                  0x03
+#define METER_REPORT_PROPERTIES2_PRECISION_MASK_V5                                       0xE0
+#define METER_REPORT_PROPERTIES2_PRECISION_SHIFT_V5                                      0x05
+/* Values used for Meter Supported Report command */
+#define METER_SUPPORTED_REPORT_PROPERTIES1_METER_TYPE_MASK_V5                            0x1F
+#define METER_SUPPORTED_REPORT_METER_TYPE_RESERVED_V5                                    0x00
+#define METER_SUPPORTED_REPORT_METER_TYPE_ELECTRIC_METER_V5                              0x01
+#define METER_SUPPORTED_REPORT_METER_TYPE_GAS_METER_V5                                   0x02
+#define METER_SUPPORTED_REPORT_METER_TYPE_WATER_METER_V5                                 0x03
+#define METER_SUPPORTED_REPORT_METER_TYPE_HEATING_METER_V5                               0x04
+#define METER_SUPPORTED_REPORT_METER_TYPE_COOLING_METER_V5                               0x05
+#define METER_SUPPORTED_REPORT_PROPERTIES1_RATE_TYPE_MASK_V5                             0x60
+#define METER_SUPPORTED_REPORT_PROPERTIES1_RATE_TYPE_SHIFT_V5                            0x05
+#define METER_SUPPORTED_REPORT_RATE_TYPE_RESERVED_V5                                     0x00
+#define METER_SUPPORTED_REPORT_RATE_TYPE_IMPORT_ONLY_V5                                  0x01
+#define METER_SUPPORTED_REPORT_RATE_TYPE_EXPORT_ONLY_V5                                  0x02
+#define METER_SUPPORTED_REPORT_RATE_TYPE_IMPORT_AND_EXPORT_V5                            0x03
+#define METER_SUPPORTED_REPORT_PROPERTIES1_METER_RESET_BIT_MASK_V5                       0x80
+#define METER_SUPPORTED_REPORT_PROPERTIES2_SCALE_SUPPORTED_0_MASK_V5                     0x7F
+#define METER_SUPPORTED_REPORT_PROPERTIES2_M_S_T_BIT_MASK_V5                             0x80
+
 /* Mtp Window Covering command class commands */
 #define MTP_WINDOW_COVERING_VERSION                                                      0x01
 #define MOVE_TO_POSITION_GET                                                             0x02
@@ -3321,13 +3687,10 @@
 #define NODE_INFO_CACHED_REPORT_STATUS_STATUS_OK                                         0x00
 #define NODE_INFO_CACHED_REPORT_STATUS_STATUS_NOT_RESPONDING                             0x01
 #define NODE_INFO_CACHED_REPORT_STATUS_STATUS_UNKNOWN                                    0x02
-#define NODE_INFO_CACHED_REPORT_PROPERTIES2_CAPABILITY_MASK                              0x7F
+#define NODE_INFO_CACHED_REPORT_PROPERTIES2_Z_WAVE_PROTOCOL_SPECIFIC_PART_1_MASK         0x7F
 #define NODE_INFO_CACHED_REPORT_PROPERTIES2_LISTENING_BIT_MASK                           0x80
-#define NODE_INFO_CACHED_REPORT_PROPERTIES3_SECURITY_MASK                                0x0F
-#define NODE_INFO_CACHED_REPORT_PROPERTIES3_SENSOR_MASK                                  0x70
-#define NODE_INFO_CACHED_REPORT_PROPERTIES3_SENSOR_SHIFT                                 0x04
+#define NODE_INFO_CACHED_REPORT_PROPERTIES3_Z_WAVE_PROTOCOL_SPECIFIC_PART_2_MASK         0x7F
 #define NODE_INFO_CACHED_REPORT_PROPERTIES3_OPT_BIT_MASK                                 0x80
-#define NODE_INFO_CACHED_REPORT_SECURITY_SCHEME_0_MARK                                   0xF100
 
 /* Network Management Proxy command class commands */
 #define NETWORK_MANAGEMENT_PROXY_VERSION_V2                                              0x02
@@ -3335,6 +3698,14 @@
 #define NODE_INFO_CACHED_REPORT_V2                                                       0x04
 #define NODE_LIST_GET_V2                                                                 0x01
 #define NODE_LIST_REPORT_V2                                                              0x02
+#define NM_MULTI_CHANNEL_END_POINT_GET_V2                                                0x05
+#define NM_MULTI_CHANNEL_END_POINT_REPORT_V2                                             0x06
+#define NM_MULTI_CHANNEL_CAPABILITY_GET_V2                                               0x07
+#define NM_MULTI_CHANNEL_CAPABILITY_REPORT_V2                                            0x08
+#define NM_MULTI_CHANNEL_AGGREGATED_MEMBERS_GET_V2                                       0x09
+#define NM_MULTI_CHANNEL_AGGREGATED_MEMBERS_REPORT_V2                                    0x0A
+#define FAILED_NODE_LIST_GET_V3                                                          0x0B
+#define FAILED_NODE_LIST_REPORT_V3                                                       0x0C
 /* Values used for Node Info Cached Get command */
 #define NODE_INFO_CACHED_GET_PROPERTIES1_MAX_AGE_MASK_V2                                 0x0F
 #define NODE_INFO_CACHED_GET_PROPERTIES1_RESERVED_MASK_V2                                0xF0
@@ -3346,13 +3717,27 @@
 #define NODE_INFO_CACHED_REPORT_STATUS_STATUS_OK_V2                                      0x00
 #define NODE_INFO_CACHED_REPORT_STATUS_STATUS_NOT_RESPONDING_V2                          0x01
 #define NODE_INFO_CACHED_REPORT_STATUS_STATUS_UNKNOWN_V2                                 0x02
-#define NODE_INFO_CACHED_REPORT_PROPERTIES2_CAPABILITY_MASK_V2                           0x7F
+#define NODE_INFO_CACHED_REPORT_PROPERTIES2_Z_WAVE_PROTOCOL_SPECIFIC_PART_1_MASK_V2      0x7F
 #define NODE_INFO_CACHED_REPORT_PROPERTIES2_LISTENING_BIT_MASK_V2                        0x80
-#define NODE_INFO_CACHED_REPORT_PROPERTIES3_SECURITY_MASK_V2                             0x0F
-#define NODE_INFO_CACHED_REPORT_PROPERTIES3_SENSOR_MASK_V2                               0x70
-#define NODE_INFO_CACHED_REPORT_PROPERTIES3_SENSOR_SHIFT_V2                              0x04
+#define NODE_INFO_CACHED_REPORT_PROPERTIES3_Z_WAVE_PROTOCOL_SPECIFIC_PART_2_MASK_V2      0x7F
 #define NODE_INFO_CACHED_REPORT_PROPERTIES3_OPT_BIT_MASK_V2                              0x80
-#define NODE_INFO_CACHED_REPORT_SECURITY_MARK_V2                                         0xF100
+/* Values used for Nm Multi Channel End Point Report command */
+#define NM_MULTI_CHANNEL_END_POINT_REPORT_PROPERTIES1_INDIVIDUAL_END_POINTS_MASK_V2      0x7F
+#define NM_MULTI_CHANNEL_END_POINT_REPORT_PROPERTIES1_RES1_BIT_MASK_V2                   0x80
+#define NM_MULTI_CHANNEL_END_POINT_REPORT_PROPERTIES2_AGGREGATED_END_POINTS_MASK_V2      0x7F
+#define NM_MULTI_CHANNEL_END_POINT_REPORT_PROPERTIES2_RES2_BIT_MASK_V2                   0x80
+/* Values used for Nm Multi Channel Capability Get command */
+#define NM_MULTI_CHANNEL_CAPABILITY_GET_PROPERTIES1_END_POINT_MASK_V2                    0x7F
+#define NM_MULTI_CHANNEL_CAPABILITY_GET_PROPERTIES1_RES1_BIT_MASK_V2                     0x80
+/* Values used for Nm Multi Channel Capability Report command */
+#define NM_MULTI_CHANNEL_CAPABILITY_REPORT_PROPERTIES1_END_POINT_MASK_V2                 0x7F
+#define NM_MULTI_CHANNEL_CAPABILITY_REPORT_PROPERTIES1_RES1_BIT_MASK_V2                  0x80
+/* Values used for Nm Multi Channel Aggregated Members Get command */
+#define NM_MULTI_CHANNEL_AGGREGATED_MEMBERS_GET_PROPERTIES1_AGGREGATED_END_POINT_MASK_V2 0x7F
+#define NM_MULTI_CHANNEL_AGGREGATED_MEMBERS_GET_PROPERTIES1_RES1_BIT_MASK_V2             0x80
+/* Values used for Nm Multi Channel Aggregated Members Report command */
+#define NM_MULTI_CHANNEL_AGGREGATED_MEMBERS_REPORT_PROPERTIES1_AGGREGATED_END_POINT_MASK_V2 0x7F
+#define NM_MULTI_CHANNEL_AGGREGATED_MEMBERS_REPORT_PROPERTIES1_RES1_BIT_MASK_V2          0x80
 
 /* Network Management Basic command class commands */
 #define NETWORK_MANAGEMENT_BASIC_VERSION                                                 0x01
@@ -3363,10 +3748,6 @@
 #define NETWORK_UPDATE_REQUEST_STATUS                                                    0x04
 #define DEFAULT_SET                                                                      0x06
 #define DEFAULT_SET_COMPLETE                                                             0x07
-
-#define NW_SWITCH_ALL_ON                                                                 0x11
-#define NW_SWITCH_ALL_OFF                                                                0x12
-#define NW_TTY_WRITE_DIRECTLY                                                            0x13
 
 /* Network Management Basic command class commands */
 #define NETWORK_MANAGEMENT_BASIC_VERSION_V2                                              0x02
@@ -3379,6 +3760,18 @@
 #define DEFAULT_SET_COMPLETE_V2                                                          0x07
 #define DSK_GET_V2                                                                       0x08
 #define DSK_REPORT_V2                                                                    0x09
+/* Values used for Learn Mode Set command */
+#define LEARN_MODE_SET_PROPERTIES1_RETURN_INTERVIEW_STATUS_BIT_MASK_V2                   0x01
+#define LEARN_MODE_SET_PROPERTIES1_RESERVED_MASK_V2                                      0xFE
+#define LEARN_MODE_SET_PROPERTIES1_RESERVED_SHIFT_V2                                     0x01
+/* Values used for Dsk Get command */
+#define DSK_GET_PROPERTIES1_ADD_MODE_BIT_MASK_V2                                         0x01
+#define DSK_GET_PROPERTIES1_RESERVED_MASK_V2                                             0xFE
+#define DSK_GET_PROPERTIES1_RESERVED_SHIFT_V2                                            0x01
+/* Values used for Dsk Report command */
+#define DSK_REPORT_PROPERTIES1_ADD_MODE_BIT_MASK_V2                                      0x01
+#define DSK_REPORT_PROPERTIES1_RESERVED_MASK_V2                                          0xFE
+#define DSK_REPORT_PROPERTIES1_RESERVED_SHIFT_V2                                         0x01
 
 /* Network Management Inclusion command class commands */
 #define NETWORK_MANAGEMENT_INCLUSION_VERSION                                             0x01
@@ -3396,10 +3789,11 @@
 #define RETURN_ROUTE_ASSIGN_COMPLETE                                                     0x0E
 #define RETURN_ROUTE_DELETE                                                              0x0F
 #define RETURN_ROUTE_DELETE_COMPLETE                                                     0x10
+#define EXTENDED_NODE_ADD_STATUS                                                         0x16
 /* Values used for Node Add Status command */
-#define NODE_ADD_STATUS_PROPERTIES1_CAPABILITY_MASK                                      0x7F
+#define NODE_ADD_STATUS_PROPERTIES1_Z_WAVE_PROTOCOL_SPECIFIC_PART_1_MASK                 0x7F
 #define NODE_ADD_STATUS_PROPERTIES1_LISTENING_BIT_MASK                                   0x80
-#define NODE_ADD_STATUS_PROPERTIES2_SECURITY_MASK                                        0x7F
+#define NODE_ADD_STATUS_PROPERTIES2_Z_WAVE_PROTOCOL_SPECIFIC_PART_2_MASK                 0x7F
 #define NODE_ADD_STATUS_PROPERTIES2_OPT_BIT_MASK                                         0x80
 
 /* Network Management Inclusion command class commands */
@@ -3429,18 +3823,17 @@
 #define INCLUDED_NIF_REPORT              0x19 /* FIXME: Get official cmd no. assigned */
 
 /* Values used for Node Add Status command */
-#define NODE_ADD_STATUS_PROPERTIES1_CAPABILITY_MASK_V2                                   0x7F
+#define NODE_ADD_STATUS_PROPERTIES1_Z_WAVE_PROTOCOL_SPECIFIC_PART_1_MASK_V2              0x7F
 #define NODE_ADD_STATUS_PROPERTIES1_LISTENING_BIT_MASK_V2                                0x80
-#define NODE_ADD_STATUS_PROPERTIES2_SECURITY_MASK_V2                                     0x7F
+#define NODE_ADD_STATUS_PROPERTIES2_Z_WAVE_PROTOCOL_SPECIFIC_PART_2_MASK_V2              0x7F
 #define NODE_ADD_STATUS_PROPERTIES2_OPT_BIT_MASK_V2                                      0x80
-#define NODE_ADD_STATUS_SECURITY_MARK_V2                                                 0xF100
 /* Values used for Node Add Keys Report command */
-#define NODE_ADD_KEYS_REPORT_PROPERTIES1_REQUEST_CLIENT_SIDE_AUTHENTICATION_BIT_MASK_V2  0x01
+#define NODE_ADD_KEYS_REPORT_PROPERTIES1_REQUEST_CSA_BIT_MASK_V2                         0x01
 #define NODE_ADD_KEYS_REPORT_PROPERTIES1_RESERVED_MASK_V2                                0xFE
 #define NODE_ADD_KEYS_REPORT_PROPERTIES1_RESERVED_SHIFT_V2                               0x01
 /* Values used for Node Add Keys Set command */
 #define NODE_ADD_KEYS_SET_PROPERTIES1_ACCEPT_BIT_MASK_V2                                 0x01
-#define NODE_ADD_KEYS_SET_PROPERTIES1_GRANT_CLIENT_SIDE_AUTHENTICATION_BIT_MASK_V2       0x02
+#define NODE_ADD_KEYS_SET_PROPERTIES1_GRANT_CSA_BIT_MASK_V2                              0x02
 #define NODE_ADD_KEYS_SET_PROPERTIES1_RESERVED_MASK_V2                                   0xFC
 #define NODE_ADD_KEYS_SET_PROPERTIES1_RESERVED_SHIFT_V2                                  0x02
 /* Values used for Node Add Dsk Report command */
@@ -3452,6 +3845,66 @@
 #define NODE_ADD_DSK_SET_PROPERTIES1_RESERVED_MASK_V2                                    0x70
 #define NODE_ADD_DSK_SET_PROPERTIES1_RESERVED_SHIFT_V2                                   0x04
 #define NODE_ADD_DSK_SET_PROPERTIES1_ACCEPT_BIT_MASK_V2                                  0x80
+
+/* Network Management Inclusion command class commands */
+#define NETWORK_MANAGEMENT_INCLUSION_VERSION_V3                                          0x03
+#define FAILED_NODE_REMOVE_V3                                                            0x07
+#define FAILED_NODE_REMOVE_STATUS_V3                                                     0x08
+#define NODE_ADD_V3                                                                      0x01
+#define NODE_ADD_STATUS_V3                                                               0x02
+#define NODE_REMOVE_V3                                                                   0x03
+#define NODE_REMOVE_STATUS_V3                                                            0x04
+#define FAILED_NODE_REPLACE_V3                                                           0x09
+#define FAILED_NODE_REPLACE_STATUS_V3                                                    0x0A
+#define NODE_NEIGHBOR_UPDATE_REQUEST_V3                                                  0x0B
+#define NODE_NEIGHBOR_UPDATE_STATUS_V3                                                   0x0C
+#define RETURN_ROUTE_ASSIGN_V3                                                           0x0D
+#define RETURN_ROUTE_ASSIGN_COMPLETE_V3                                                  0x0E
+#define RETURN_ROUTE_DELETE_V3                                                           0x0F
+#define RETURN_ROUTE_DELETE_COMPLETE_V3                                                  0x10
+#define NODE_ADD_KEYS_REPORT_V3                                                          0x11
+#define NODE_ADD_KEYS_SET_V3                                                             0x12
+#define NODE_ADD_DSK_REPORT_V3                                                           0x13
+#define NODE_ADD_DSK_SET_V3                                                              0x14
+#define S2_ADVANCED_JOIN_MODE_GET_V3                                                     0x17
+#define SMART_START_JOIN_STARTED_REPORT_V3                                               0x15
+#define S2_ADVANCED_JOIN_MODE_SET_V3                                                     0x16
+#define S2_ADVANCED_JOIN_MODE_REPORT_V3                                                  0x18
+#define INCLUDED_NIF_REPORT_V3                                                           0x19
+/* Values used for Node Add Status command */
+#define NODE_ADD_STATUS_PROPERTIES1_Z_WAVE_PROTOCOL_SPECIFIC_PART_1_MASK_V3              0x7F
+#define NODE_ADD_STATUS_PROPERTIES1_LISTENING_BIT_MASK_V3                                0x80
+#define NODE_ADD_STATUS_PROPERTIES2_Z_WAVE_PROTOCOL_SPECIFIC_PART_2_MASK_V3              0x7F
+#define NODE_ADD_STATUS_PROPERTIES2_OPT_BIT_MASK_V3                                      0x80
+#define NODE_ADD_STATUS_PROPERTIES3_DSK_LENGTH_MASK_V3                                   0x1F
+#define NODE_ADD_STATUS_PROPERTIES3_RESERVED2_MASK_V3                                    0xE0
+#define NODE_ADD_STATUS_PROPERTIES3_RESERVED2_SHIFT_V3                                   0x05
+/* Values used for Node Add Keys Report command */
+#define NODE_ADD_KEYS_REPORT_PROPERTIES1_REQUEST_CSA_BIT_MASK_V3                         0x01
+#define NODE_ADD_KEYS_REPORT_PROPERTIES1_RESERVED_MASK_V3                                0xFE
+#define NODE_ADD_KEYS_REPORT_PROPERTIES1_RESERVED_SHIFT_V3                               0x01
+/* Values used for Node Add Keys Set command */
+#define NODE_ADD_KEYS_SET_PROPERTIES1_ACCEPT_BIT_MASK_V3                                 0x01
+#define NODE_ADD_KEYS_SET_PROPERTIES1_GRANT_CSA_BIT_MASK_V3                              0x02
+#define NODE_ADD_KEYS_SET_PROPERTIES1_RESERVED_MASK_V3                                   0xFC
+#define NODE_ADD_KEYS_SET_PROPERTIES1_RESERVED_SHIFT_V3                                  0x02
+/* Values used for Node Add Dsk Report command */
+#define NODE_ADD_DSK_REPORT_PROPERTIES1_INPUT_DSK_LENGTH_MASK_V3                         0x0F
+#define NODE_ADD_DSK_REPORT_PROPERTIES1_RESERVED_MASK_V3                                 0xF0
+#define NODE_ADD_DSK_REPORT_PROPERTIES1_RESERVED_SHIFT_V3                                0x04
+/* Values used for Node Add Dsk Set command */
+#define NODE_ADD_DSK_SET_PROPERTIES1_INPUT_DSK_LENGTH_MASK_V3                            0x0F
+#define NODE_ADD_DSK_SET_PROPERTIES1_RESERVED_MASK_V3                                    0x70
+#define NODE_ADD_DSK_SET_PROPERTIES1_RESERVED_SHIFT_V3                                   0x04
+#define NODE_ADD_DSK_SET_PROPERTIES1_ACCEPT_BIT_MASK_V3                                  0x80
+/* Values used for Smart Start Join Started Report command */
+#define SMART_START_JOIN_STARTED_REPORT_PROPERTIES1_DSK_LENGTH_MASK_V3                   0x1F
+#define SMART_START_JOIN_STARTED_REPORT_PROPERTIES1_RESERVED1_MASK_V3                    0xE0
+#define SMART_START_JOIN_STARTED_REPORT_PROPERTIES1_RESERVED1_SHIFT_V3                   0x05
+/* Values used for Included Nif Report command */
+#define INCLUDED_NIF_REPORT_PROPERTIES1_DSK_LENGTH_MASK_V3                               0x1F
+#define INCLUDED_NIF_REPORT_PROPERTIES1_RESERVED1_MASK_V3                                0xE0
+#define INCLUDED_NIF_REPORT_PROPERTIES1_RESERVED1_SHIFT_V3                               0x05
 
 /* No Operation command class commands */
 #define NO_OPERATION_VERSION                                                             0x01
@@ -5053,6 +5506,558 @@
 #define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PROPERTIES1_RESERVED_MASK_V9            0xF0
 #define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PROPERTIES1_RESERVED_SHIFT_V9           0x04
 
+/* Sensor Multilevel command class commands */
+#define SENSOR_MULTILEVEL_VERSION_V10                                                    0x0A
+#define SENSOR_MULTILEVEL_GET_V10                                                        0x04
+#define SENSOR_MULTILEVEL_REPORT_V10                                                     0x05
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SENSOR_V10                                       0x01
+#define SENSOR_MULTILEVEL_SUPPORTED_SENSOR_REPORT_V10                                    0x02
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_V10                                        0x03
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_V10                                     0x06
+/* Values used for Sensor Multilevel Get command */
+#define SENSOR_MULTILEVEL_GET_TEMPERATURE_VERSION_1_V10                                  0x01
+#define SENSOR_MULTILEVEL_GET_GENERAL_PURPOSE_VALUE_VERSION_1_V10                        0x02
+#define SENSOR_MULTILEVEL_GET_LUMINANCE_VERSION_1_V10                                    0x03
+#define SENSOR_MULTILEVEL_GET_POWER_VERSION_2_V10                                        0x04
+#define SENSOR_MULTILEVEL_GET_RELATIVE_HUMIDITY_VERSION_2_V10                            0x05
+#define SENSOR_MULTILEVEL_GET_VELOCITY_VERSION_2_V10                                     0x06
+#define SENSOR_MULTILEVEL_GET_DIRECTION_VERSION_2_V10                                    0x07
+#define SENSOR_MULTILEVEL_GET_ATMOSPHERIC_PRESSURE_VERSION_2_V10                         0x08
+#define SENSOR_MULTILEVEL_GET_BAROMETRIC_PRESSURE_VERSION_2_V10                          0x09
+#define SENSOR_MULTILEVEL_GET_SOLAR_RADIATION_VERSION_2_V10                              0x0A
+#define SENSOR_MULTILEVEL_GET_DEW_POINT_VERSION_2_V10                                    0x0B
+#define SENSOR_MULTILEVEL_GET_RAIN_RATE_VERSION_2_V10                                    0x0C
+#define SENSOR_MULTILEVEL_GET_TIDE_LEVEL_VERSION_2_V10                                   0x0D
+#define SENSOR_MULTILEVEL_GET_WEIGHT_VERSION_3_V10                                       0x0E
+#define SENSOR_MULTILEVEL_GET_VOLTAGE_VERSION_3_V10                                      0x0F
+#define SENSOR_MULTILEVEL_GET_CURRENT_VERSION_3_V10                                      0x10
+#define SENSOR_MULTILEVEL_GET_CO2_LEVEL_VERSION_3_V10                                    0x11
+#define SENSOR_MULTILEVEL_GET_AIR_FLOW_VERSION_3_V10                                     0x12
+#define SENSOR_MULTILEVEL_GET_TANK_CAPACITY_VERSION_3_V10                                0x13
+#define SENSOR_MULTILEVEL_GET_DISTANCE_VERSION_3_V10                                     0x14
+#define SENSOR_MULTILEVEL_GET_ANGLE_POSITION_VERSION_4_V10                               0x15
+#define SENSOR_MULTILEVEL_GET_ROTATION_V5_V10                                            0x16
+#define SENSOR_MULTILEVEL_GET_WATER_TEMPERATURE_V5_V10                                   0x17
+#define SENSOR_MULTILEVEL_GET_SOIL_TEMPERATURE_V5_V10                                    0x18
+#define SENSOR_MULTILEVEL_GET_SEISMIC_INTENSITY_V5_V10                                   0x19
+#define SENSOR_MULTILEVEL_GET_SEISMIC_MAGNITUDE_V5_V10                                   0x1A
+#define SENSOR_MULTILEVEL_GET_ULTRAVIOLET_V5_V10                                         0x1B
+#define SENSOR_MULTILEVEL_GET_ELECTRICAL_RESISTIVITY_V5_V10                              0x1C
+#define SENSOR_MULTILEVEL_GET_ELECTRICAL_CONDUCTIVITY_V5_V10                             0x1D
+#define SENSOR_MULTILEVEL_GET_LOUDNESS_V5_V10                                            0x1E
+#define SENSOR_MULTILEVEL_GET_MOISTURE_V5_V10                                            0x1F
+#define SENSOR_MULTILEVEL_GET_FREQUENCY_V6_V10                                           0x20
+#define SENSOR_MULTILEVEL_GET_TIME_V6_V10                                                0x21
+#define SENSOR_MULTILEVEL_GET_TARGET_TEMPERATURE_V6_V10                                  0x22
+#define SENSOR_MULTILEVEL_GET_PARTICULATE_MATTER_2_5_V7_V10                              0x23
+#define SENSOR_MULTILEVEL_GET_FORMALDEHYDE_CH2O_LEVEL_V7_V10                             0x24
+#define SENSOR_MULTILEVEL_GET_RADON_CONCENTRATION_V7_V10                                 0x25
+#define SENSOR_MULTILEVEL_GET_METHANE_DENSITY_CH4_V7_V10                                 0x26
+#define SENSOR_MULTILEVEL_GET_VOLATILE_ORGANIC_COMPOUND_V7_V10                           0x27
+#define SENSOR_MULTILEVEL_GET_CARBON_MONOXIDE_CO_LEVEL_V7_V10                            0x28
+#define SENSOR_MULTILEVEL_GET_SOIL_HUMIDITY_V7_V10                                       0x29
+#define SENSOR_MULTILEVEL_GET_SOIL_REACTIVITY_V7_V10                                     0x2A
+#define SENSOR_MULTILEVEL_GET_SOIL_SALINITY_V7_V10                                       0x2B
+#define SENSOR_MULTILEVEL_GET_HEART_RATE_V7_V10                                          0x2C
+#define SENSOR_MULTILEVEL_GET_BLOOD_PRESSURE_V7_V10                                      0x2D
+#define SENSOR_MULTILEVEL_GET_MUSCLE_MASS_V7_V10                                         0x2E
+#define SENSOR_MULTILEVEL_GET_FAT_MASS_V7_V10                                            0x2F
+#define SENSOR_MULTILEVEL_GET_BONE_MASS_V7_V10                                           0x30
+#define SENSOR_MULTILEVEL_GET_TOTAL_BODY_WATER_TBW_V7_V10                                0x31
+#define SENSOR_MULTILEVEL_GET_BASIC_METABOLIC_RATE_BMR_V7_V10                            0x32
+#define SENSOR_MULTILEVEL_GET_BODY_MASS_INDEX_BMI_V7_V10                                 0x33
+#define SENSOR_MULTILEVEL_GET_ACCELERATION_X_AXIS_V8_V10                                 0x34
+#define SENSOR_MULTILEVEL_GET_ACCELERATION_Y_AXIS_V8_V10                                 0x35
+#define SENSOR_MULTILEVEL_GET_ACCELERATION_Z_AXIS_V8_V10                                 0x36
+#define SENSOR_MULTILEVEL_GET_SMOKE_DENSITY_V8_V10                                       0x37
+#define SENSOR_MULTILEVEL_GET_WATER_FLOW_V9_V10                                          0x38
+#define SENSOR_MULTILEVEL_GET_WATER_PRESSURE_V9_V10                                      0x39
+#define SENSOR_MULTILEVEL_GET_RF_SIGNAL_STRENGTH_V9_V10                                  0x3A
+#define SENSOR_MULTILEVEL_GET_PARTICULATE_MATTER_V10_V10                                 0x3B
+#define SENSOR_MULTILEVEL_GET_RESPIRATORY_RATE_V10_V10                                   0x3C
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_RESERVED1_MASK_V10                             0x07
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_SCALE_MASK_V10                                 0x18
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_SCALE_SHIFT_V10                                0x03
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_RESERVED2_MASK_V10                             0xE0
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_RESERVED2_SHIFT_V10                            0x05
+/* Values used for Sensor Multilevel Report command */
+#define SENSOR_MULTILEVEL_REPORT_TEMPERATURE_VERSION_1_V10                               0x01
+#define SENSOR_MULTILEVEL_REPORT_GENERAL_PURPOSE_VALUE_VERSION_1_V10                     0x02
+#define SENSOR_MULTILEVEL_REPORT_LUMINANCE_VERSION_1_V10                                 0x03
+#define SENSOR_MULTILEVEL_REPORT_POWER_VERSION_2_V10                                     0x04
+#define SENSOR_MULTILEVEL_REPORT_RELATIVE_HUMIDITY_VERSION_2_V10                         0x05
+#define SENSOR_MULTILEVEL_REPORT_VELOCITY_VERSION_2_V10                                  0x06
+#define SENSOR_MULTILEVEL_REPORT_DIRECTION_VERSION_2_V10                                 0x07
+#define SENSOR_MULTILEVEL_REPORT_ATMOSPHERIC_PRESSURE_VERSION_2_V10                      0x08
+#define SENSOR_MULTILEVEL_REPORT_BAROMETRIC_PRESSURE_VERSION_2_V10                       0x09
+#define SENSOR_MULTILEVEL_REPORT_SOLAR_RADIATION_VERSION_2_V10                           0x0A
+#define SENSOR_MULTILEVEL_REPORT_DEW_POINT_VERSION_2_V10                                 0x0B
+#define SENSOR_MULTILEVEL_REPORT_RAIN_RATE_VERSION_2_V10                                 0x0C
+#define SENSOR_MULTILEVEL_REPORT_TIDE_LEVEL_VERSION_2_V10                                0x0D
+#define SENSOR_MULTILEVEL_REPORT_WEIGHT_VERSION_3_V10                                    0x0E
+#define SENSOR_MULTILEVEL_REPORT_VOLTAGE_VERSION_3_V10                                   0x0F
+#define SENSOR_MULTILEVEL_REPORT_CURRENT_VERSION_3_V10                                   0x10
+#define SENSOR_MULTILEVEL_REPORT_CO2_LEVEL_VERSION_3_V10                                 0x11
+#define SENSOR_MULTILEVEL_REPORT_AIR_FLOW_VERSION_3_V10                                  0x12
+#define SENSOR_MULTILEVEL_REPORT_TANK_CAPACITY_VERSION_3_V10                             0x13
+#define SENSOR_MULTILEVEL_REPORT_DISTANCE_VERSION_3_V10                                  0x14
+#define SENSOR_MULTILEVEL_REPORT_ANGLE_POSITION_VERSION_4_V10                            0x15
+#define SENSOR_MULTILEVEL_REPORT_ROTATION_V5_V10                                         0x16
+#define SENSOR_MULTILEVEL_REPORT_WATER_TEMPERATURE_V5_V10                                0x17
+#define SENSOR_MULTILEVEL_REPORT_SOIL_TEMPERATURE_V5_V10                                 0x18
+#define SENSOR_MULTILEVEL_REPORT_SEISMIC_INTENSITY_V5_V10                                0x19
+#define SENSOR_MULTILEVEL_REPORT_SEISMIC_MAGNITUDE_V5_V10                                0x1A
+#define SENSOR_MULTILEVEL_REPORT_ULTRAVIOLET_V5_V10                                      0x1B
+#define SENSOR_MULTILEVEL_REPORT_ELECTRICAL_RESISTIVITY_V5_V10                           0x1C
+#define SENSOR_MULTILEVEL_REPORT_ELECTRICAL_CONDUCTIVITY_V5_V10                          0x1D
+#define SENSOR_MULTILEVEL_REPORT_LOUDNESS_V5_V10                                         0x1E
+#define SENSOR_MULTILEVEL_REPORT_MOISTURE_V5_V10                                         0x1F
+#define SENSOR_MULTILEVEL_REPORT_FREQUENCY_V6_V10                                        0x20
+#define SENSOR_MULTILEVEL_REPORT_TIME_V6_V10                                             0x21
+#define SENSOR_MULTILEVEL_REPORT_TARGET_TEMPERATURE_V6_V10                               0x22
+#define SENSOR_MULTILEVEL_REPORT_PARTICULATE_MATTER_2_5_V7_V10                           0x23
+#define SENSOR_MULTILEVEL_REPORT_FORMALDEHYDE_CH2O_LEVEL_V7_V10                          0x24
+#define SENSOR_MULTILEVEL_REPORT_RADON_CONCENTRATION_V7_V10                              0x25
+#define SENSOR_MULTILEVEL_REPORT_METHANE_DENSITY_CH4_V7_V10                              0x26
+#define SENSOR_MULTILEVEL_REPORT_VOLATILE_ORGANIC_COMPOUND_V7_V10                        0x27
+#define SENSOR_MULTILEVEL_REPORT_CARBON_MONOXIDE_CO_LEVEL_V7_V10                         0x28
+#define SENSOR_MULTILEVEL_REPORT_SOIL_HUMIDITY_V7_V10                                    0x29
+#define SENSOR_MULTILEVEL_REPORT_SOIL_REACTIVITY_V7_V10                                  0x2A
+#define SENSOR_MULTILEVEL_REPORT_SOIL_SALINITY_V7_V10                                    0x2B
+#define SENSOR_MULTILEVEL_REPORT_HEART_RATE_V7_V10                                       0x2C
+#define SENSOR_MULTILEVEL_REPORT_BLOOD_PRESSURE_V7_V10                                   0x2D
+#define SENSOR_MULTILEVEL_REPORT_MUSCLE_MASS_V7_V10                                      0x2E
+#define SENSOR_MULTILEVEL_REPORT_FAT_MASS_V7_V10                                         0x2F
+#define SENSOR_MULTILEVEL_REPORT_BONE_MASS_V7_V10                                        0x30
+#define SENSOR_MULTILEVEL_REPORT_TOTAL_BODY_WATER_TBW_V7_V10                             0x31
+#define SENSOR_MULTILEVEL_REPORT_BASIC_METABOLIC_RATE_BMR_V7_V10                         0x32
+#define SENSOR_MULTILEVEL_REPORT_BODY_MASS_INDEX_BMI_V7_V10                              0x33
+#define SENSOR_MULTILEVEL_REPORT_ACCELERATION_X_AXIS_V8_V10                              0x34
+#define SENSOR_MULTILEVEL_REPORT_ACCELERATION_Y_AXIS_V8_V10                              0x35
+#define SENSOR_MULTILEVEL_REPORT_ACCELERATION_Z_AXIS_V8_V10                              0x36
+#define SENSOR_MULTILEVEL_REPORT_SMOKE_DENSITY_V8_V10                                    0x37
+#define SENSOR_MULTILEVEL_REPORT_WATER_FLOW_V9_V10                                       0x38
+#define SENSOR_MULTILEVEL_REPORT_WATER_PRESSURE_V9_V10                                   0x39
+#define SENSOR_MULTILEVEL_REPORT_RF_SIGNAL_STRENGTH_V9_V10                               0x3A
+#define SENSOR_MULTILEVEL_REPORT_PARTICULATE_MATTER_V10_V10                              0x3B
+#define SENSOR_MULTILEVEL_REPORT_RESPIRATORY_RATE_V10_V10                                0x3C
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_SIZE_MASK_V10                                     0x07
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_SCALE_MASK_V10                                    0x18
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_SCALE_SHIFT_V10                                   0x03
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_PRECISION_MASK_V10                                0xE0
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_PRECISION_SHIFT_V10                               0x05
+/* Values used for Sensor Multilevel Supported Get Scale command */
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TEMPERATURE_VERSION_1_V10                  0x01
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_GENERAL_PURPOSE_VALUE_VERSION_1_V10        0x02
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_LUMINANCE_VERSION_1_V10                    0x03
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_POWER_VERSION_2_V10                        0x04
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RELATIVE_HUMIDITY_VERSION_2_V10            0x05
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_VELOCITY_VERSION_2_V10                     0x06
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_DIRECTION_VERSION_2_V10                    0x07
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ATMOSPHERIC_PRESSURE_VERSION_2_V10         0x08
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BAROMETRIC_PRESSURE_VERSION_2_V10          0x09
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOLAR_RADIATION_VERSION_2_V10              0x0A
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_DEW_POINT_VERSION_2_V10                    0x0B
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RAIN_RATE_VERSION_2_V10                    0x0C
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TIDE_LEVEL_VERSION_2_V10                   0x0D
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_WEIGHT_VERSION_3_V10                       0x0E
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_VOLTAGE_VERSION_3_V10                      0x0F
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_CURRENT_VERSION_3_V10                      0x10
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_CO2_LEVEL_VERSION_3_V10                    0x11
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_AIR_FLOW_VERSION_3_V10                     0x12
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TANK_CAPACITY_VERSION_3_V10                0x13
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_DISTANCE_VERSION_3_V10                     0x14
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ANGLE_POSITION_VERSION_4_V10               0x15
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ROTATION_V5_V10                            0x16
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_WATER_TEMPERATURE_V5_V10                   0x17
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOIL_TEMPERATURE_V5_V10                    0x18
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SEISMIC_INTENSITY_V5_V10                   0x19
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SEISMIC_MAGNITUDE_V5_V10                   0x1A
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ULTRAVIOLET_V5_V10                         0x1B
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ELECTRICAL_RESISTIVITY_V5_V10              0x1C
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ELECTRICAL_CONDUCTIVITY_V5_V10             0x1D
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_LOUDNESS_V5_V10                            0x1E
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_MOISTURE_V5_V10                            0x1F
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_FREQUENCY_V6_V10                           0x20
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TIME_V6_V10                                0x21
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TARGET_TEMPERATURE_V6_V10                  0x22
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_PARTICULATE_MATTER_2_5_V7_V10              0x23
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_FORMALDEHYDE_CH2O_LEVEL_V7_V10             0x24
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RADON_CONCENTRATION_V7_V10                 0x25
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_METHANE_DENSITY_CH4_V7_V10                 0x26
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_VOLATILE_ORGANIC_COMPOUND_V7_V10           0x27
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_CARBON_MONOXIDE_CO_LEVEL_V7_V10            0x28
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOIL_HUMIDITY_V7_V10                       0x29
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOIL_REACTIVITY_V7_V10                     0x2A
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOIL_SALINITY_V7_V10                       0x2B
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_HEART_RATE_V7_V10                          0x2C
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BLOOD_PRESSURE_V7_V10                      0x2D
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_MUSCLE_MASS_V7_V10                         0x2E
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_FAT_MASS_V7_V10                            0x2F
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BONE_MASS_V7_V10                           0x30
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TOTAL_BODY_WATER_TBW_V7_V10                0x31
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BASIC_METABOLIC_RATE_BMR_V7_V10            0x32
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BODY_MASS_INDEX_BMI_V7_V10                 0x33
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ACCELERATION_X_AXIS_V8_V10                 0x34
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ACCELERATION_Y_AXIS_V8_V10                 0x35
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ACCELERATION_Z_AXIS_V8_V10                 0x36
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SMOKE_DENSITY_V8_V10                       0x37
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_WATER_FLOW_V9_V10                          0x38
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_WATER_PRESSURE_V9_V10                      0x39
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RF_SIGNAL_STRENGTH_V9_V10                  0x3A
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_PARTICULATE_MATTER_V10_V10                 0x3B
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RESPIRATORY_RATE_V10_V10                   0x3C
+/* Values used for Sensor Multilevel Supported Scale Report command */
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TEMPERATURE_VERSION_1_V10               0x01
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_GENERAL_PURPOSE_VALUE_VERSION_1_V10     0x02
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_LUMINANCE_VERSION_1_V10                 0x03
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_POWER_VERSION_2_V10                     0x04
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RELATIVE_HUMIDITY_VERSION_2_V10         0x05
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_VELOCITY_VERSION_2_V10                  0x06
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_DIRECTION_VERSION_2_V10                 0x07
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ATMOSPHERIC_PRESSURE_VERSION_2_V10      0x08
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BAROMETRIC_PRESSURE_VERSION_2_V10       0x09
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOLAR_RADIATION_VERSION_2_V10           0x0A
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_DEW_POINT_VERSION_2_V10                 0x0B
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RAIN_RATE_VERSION_2_V10                 0x0C
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TIDE_LEVEL_VERSION_2_V10                0x0D
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_WEIGHT_VERSION_3_V10                    0x0E
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_VOLTAGE_VERSION_3_V10                   0x0F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_CURRENT_VERSION_3_V10                   0x10
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_CO2_LEVEL_VERSION_3_V10                 0x11
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_AIR_FLOW_VERSION_3_V10                  0x12
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TANK_CAPACITY_VERSION_3_V10             0x13
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_DISTANCE_VERSION_3_V10                  0x14
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ANGLE_POSITION_VERSION_4_V10            0x15
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ROTATION_V5_V10                         0x16
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_WATER_TEMPERATURE_V5_V10                0x17
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOIL_TEMPERATURE_V5_V10                 0x18
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SEISMIC_INTENSITY_V5_V10                0x19
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SEISMIC_MAGNITUDE_V5_V10                0x1A
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ULTRAVIOLET_V5_V10                      0x1B
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ELECTRICAL_RESISTIVITY_V5_V10           0x1C
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ELECTRICAL_CONDUCTIVITY_V5_V10          0x1D
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_LOUDNESS_V5_V10                         0x1E
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_MOISTURE_V5_V10                         0x1F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_FREQUENCY_V6_V10                        0x20
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TIME_V6_V10                             0x21
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TARGET_TEMPERATURE_V6_V10               0x22
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PARTICULATE_MATTER_2_5_V7_V10           0x23
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_FORMALDEHYDE_CH2O_LEVEL_V7_V10          0x24
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RADON_CONCENTRATION_V7_V10              0x25
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_METHANE_DENSITY_CH4_V7_V10              0x26
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_VOLATILE_ORGANIC_COMPOUND_V7_V10        0x27
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_CARBON_MONOXIDE_CO_LEVEL_V7_V10         0x28
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOIL_HUMIDITY_V7_V10                    0x29
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOIL_REACTIVITY_V7_V10                  0x2A
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOIL_SALINITY_V7_V10                    0x2B
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_HEART_RATE_V7_V10                       0x2C
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BLOOD_PRESSURE_V7_V10                   0x2D
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_MUSCLE_MASS_V7_V10                      0x2E
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_FAT_MASS_V7_V10                         0x2F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BONE_MASS_V7_V10                        0x30
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TOTAL_BODY_WATER_TBW_V7_V10             0x31
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BASIC_METABOLIC_RATE_BMR_V7_V10         0x32
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BODY_MASS_INDEX_BMI_V7_V10              0x33
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ACCELERATION_X_AXIS_V8_V10              0x34
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ACCELERATION_Y_AXIS_V8_V10              0x35
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ACCELERATION_Z_AXIS_V8_V10              0x36
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SMOKE_DENSITY_V8_V10                    0x37
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_WATER_FLOW_V9_V10                       0x38
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_WATER_PRESSURE_V9_V10                   0x39
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RF_SIGNAL_STRENGTH_V9_V10               0x3A
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PARTICULATE_MATTER_V10_V10              0x3B
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RESPIRATORY_RATE_V10_V10                0x3C
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PROPERTIES1_SCALE_BIT_MASK_MASK_V10     0x0F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PROPERTIES1_RESERVED_MASK_V10           0xF0
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PROPERTIES1_RESERVED_SHIFT_V10          0x04
+
+/* Sensor Multilevel command class commands */
+#define SENSOR_MULTILEVEL_VERSION_V11                                                    0x0B
+#define SENSOR_MULTILEVEL_GET_V11                                                        0x04
+#define SENSOR_MULTILEVEL_REPORT_V11                                                     0x05
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SENSOR_V11                                       0x01
+#define SENSOR_MULTILEVEL_SUPPORTED_SENSOR_REPORT_V11                                    0x02
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_V11                                        0x03
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_V11                                     0x06
+/* Values used for Sensor Multilevel Get command */
+#define SENSOR_MULTILEVEL_GET_TEMPERATURE_VERSION_1_V11                                  0x01
+#define SENSOR_MULTILEVEL_GET_GENERAL_PURPOSE_VALUE_VERSION_1_V11                        0x02
+#define SENSOR_MULTILEVEL_GET_LUMINANCE_VERSION_1_V11                                    0x03
+#define SENSOR_MULTILEVEL_GET_POWER_VERSION_2_V11                                        0x04
+#define SENSOR_MULTILEVEL_GET_RELATIVE_HUMIDITY_VERSION_2_V11                            0x05
+#define SENSOR_MULTILEVEL_GET_VELOCITY_VERSION_2_V11                                     0x06
+#define SENSOR_MULTILEVEL_GET_DIRECTION_VERSION_2_V11                                    0x07
+#define SENSOR_MULTILEVEL_GET_ATMOSPHERIC_PRESSURE_VERSION_2_V11                         0x08
+#define SENSOR_MULTILEVEL_GET_BAROMETRIC_PRESSURE_VERSION_2_V11                          0x09
+#define SENSOR_MULTILEVEL_GET_SOLAR_RADIATION_VERSION_2_V11                              0x0A
+#define SENSOR_MULTILEVEL_GET_DEW_POINT_VERSION_2_V11                                    0x0B
+#define SENSOR_MULTILEVEL_GET_RAIN_RATE_VERSION_2_V11                                    0x0C
+#define SENSOR_MULTILEVEL_GET_TIDE_LEVEL_VERSION_2_V11                                   0x0D
+#define SENSOR_MULTILEVEL_GET_WEIGHT_VERSION_3_V11                                       0x0E
+#define SENSOR_MULTILEVEL_GET_VOLTAGE_VERSION_3_V11                                      0x0F
+#define SENSOR_MULTILEVEL_GET_CURRENT_VERSION_3_V11                                      0x10
+#define SENSOR_MULTILEVEL_GET_CO2_LEVEL_VERSION_3_V11                                    0x11
+#define SENSOR_MULTILEVEL_GET_AIR_FLOW_VERSION_3_V11                                     0x12
+#define SENSOR_MULTILEVEL_GET_TANK_CAPACITY_VERSION_3_V11                                0x13
+#define SENSOR_MULTILEVEL_GET_DISTANCE_VERSION_3_V11                                     0x14
+#define SENSOR_MULTILEVEL_GET_ANGLE_POSITION_VERSION_4_V11                               0x15
+#define SENSOR_MULTILEVEL_GET_ROTATION_V5_V11                                            0x16
+#define SENSOR_MULTILEVEL_GET_WATER_TEMPERATURE_V5_V11                                   0x17
+#define SENSOR_MULTILEVEL_GET_SOIL_TEMPERATURE_V5_V11                                    0x18
+#define SENSOR_MULTILEVEL_GET_SEISMIC_INTENSITY_V5_V11                                   0x19
+#define SENSOR_MULTILEVEL_GET_SEISMIC_MAGNITUDE_V5_V11                                   0x1A
+#define SENSOR_MULTILEVEL_GET_ULTRAVIOLET_V5_V11                                         0x1B
+#define SENSOR_MULTILEVEL_GET_ELECTRICAL_RESISTIVITY_V5_V11                              0x1C
+#define SENSOR_MULTILEVEL_GET_ELECTRICAL_CONDUCTIVITY_V5_V11                             0x1D
+#define SENSOR_MULTILEVEL_GET_LOUDNESS_V5_V11                                            0x1E
+#define SENSOR_MULTILEVEL_GET_MOISTURE_V5_V11                                            0x1F
+#define SENSOR_MULTILEVEL_GET_FREQUENCY_V6_V11                                           0x20
+#define SENSOR_MULTILEVEL_GET_TIME_V6_V11                                                0x21
+#define SENSOR_MULTILEVEL_GET_TARGET_TEMPERATURE_V6_V11                                  0x22
+#define SENSOR_MULTILEVEL_GET_PARTICULATE_MATTER_2_5_V7_V11                              0x23
+#define SENSOR_MULTILEVEL_GET_FORMALDEHYDE_CH2O_LEVEL_V7_V11                             0x24
+#define SENSOR_MULTILEVEL_GET_RADON_CONCENTRATION_V7_V11                                 0x25
+#define SENSOR_MULTILEVEL_GET_METHANE_DENSITY_CH4_V7_V11                                 0x26
+#define SENSOR_MULTILEVEL_GET_VOLATILE_ORGANIC_COMPOUND_V7_V11                           0x27
+#define SENSOR_MULTILEVEL_GET_CARBON_MONOXIDE_CO_LEVEL_V7_V11                            0x28
+#define SENSOR_MULTILEVEL_GET_SOIL_HUMIDITY_V7_V11                                       0x29
+#define SENSOR_MULTILEVEL_GET_SOIL_REACTIVITY_V7_V11                                     0x2A
+#define SENSOR_MULTILEVEL_GET_SOIL_SALINITY_V7_V11                                       0x2B
+#define SENSOR_MULTILEVEL_GET_HEART_RATE_V7_V11                                          0x2C
+#define SENSOR_MULTILEVEL_GET_BLOOD_PRESSURE_V7_V11                                      0x2D
+#define SENSOR_MULTILEVEL_GET_MUSCLE_MASS_V7_V11                                         0x2E
+#define SENSOR_MULTILEVEL_GET_FAT_MASS_V7_V11                                            0x2F
+#define SENSOR_MULTILEVEL_GET_BONE_MASS_V7_V11                                           0x30
+#define SENSOR_MULTILEVEL_GET_TOTAL_BODY_WATER_TBW_V7_V11                                0x31
+#define SENSOR_MULTILEVEL_GET_BASIC_METABOLIC_RATE_BMR_V7_V11                            0x32
+#define SENSOR_MULTILEVEL_GET_BODY_MASS_INDEX_BMI_V7_V11                                 0x33
+#define SENSOR_MULTILEVEL_GET_ACCELERATION_X_AXIS_V8_V11                                 0x34
+#define SENSOR_MULTILEVEL_GET_ACCELERATION_Y_AXIS_V8_V11                                 0x35
+#define SENSOR_MULTILEVEL_GET_ACCELERATION_Z_AXIS_V8_V11                                 0x36
+#define SENSOR_MULTILEVEL_GET_SMOKE_DENSITY_V8_V11                                       0x37
+#define SENSOR_MULTILEVEL_GET_WATER_FLOW_V9_V11                                          0x38
+#define SENSOR_MULTILEVEL_GET_WATER_PRESSURE_V9_V11                                      0x39
+#define SENSOR_MULTILEVEL_GET_RF_SIGNAL_STRENGTH_V9_V11                                  0x3A
+#define SENSOR_MULTILEVEL_GET_PARTICULATE_MATTER_V10_V11                                 0x3B
+#define SENSOR_MULTILEVEL_GET_RESPIRATORY_RATE_V10_V11                                   0x3C
+#define SENSOR_MULTILEVEL_GET_RELATIVE_MODULATION_LEVEL_V11                              0x3D
+#define SENSOR_MULTILEVEL_GET_BOILER_WATER_TEMPERATURE_V11                               0x3E
+#define SENSOR_MULTILEVEL_GET_DOMESTIC_HOT_WATER_TEMPERATURE_V11                         0x3F
+#define SENSOR_MULTILEVEL_GET_OUTSIDE_TEMPERATURE_V11                                    0x40
+#define SENSOR_MULTILEVEL_GET_EXHAUST_TEMPERATURE_V11                                    0x41
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_RESERVED1_MASK_V11                             0x07
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_SCALE_MASK_V11                                 0x18
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_SCALE_SHIFT_V11                                0x03
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_RESERVED2_MASK_V11                             0xE0
+#define SENSOR_MULTILEVEL_GET_PROPERTIES1_RESERVED2_SHIFT_V11                            0x05
+/* Values used for Sensor Multilevel Report command */
+#define SENSOR_MULTILEVEL_REPORT_TEMPERATURE_VERSION_1_V11                               0x01
+#define SENSOR_MULTILEVEL_REPORT_GENERAL_PURPOSE_VALUE_VERSION_1_V11                     0x02
+#define SENSOR_MULTILEVEL_REPORT_LUMINANCE_VERSION_1_V11                                 0x03
+#define SENSOR_MULTILEVEL_REPORT_POWER_VERSION_2_V11                                     0x04
+#define SENSOR_MULTILEVEL_REPORT_RELATIVE_HUMIDITY_VERSION_2_V11                         0x05
+#define SENSOR_MULTILEVEL_REPORT_VELOCITY_VERSION_2_V11                                  0x06
+#define SENSOR_MULTILEVEL_REPORT_DIRECTION_VERSION_2_V11                                 0x07
+#define SENSOR_MULTILEVEL_REPORT_ATMOSPHERIC_PRESSURE_VERSION_2_V11                      0x08
+#define SENSOR_MULTILEVEL_REPORT_BAROMETRIC_PRESSURE_VERSION_2_V11                       0x09
+#define SENSOR_MULTILEVEL_REPORT_SOLAR_RADIATION_VERSION_2_V11                           0x0A
+#define SENSOR_MULTILEVEL_REPORT_DEW_POINT_VERSION_2_V11                                 0x0B
+#define SENSOR_MULTILEVEL_REPORT_RAIN_RATE_VERSION_2_V11                                 0x0C
+#define SENSOR_MULTILEVEL_REPORT_TIDE_LEVEL_VERSION_2_V11                                0x0D
+#define SENSOR_MULTILEVEL_REPORT_WEIGHT_VERSION_3_V11                                    0x0E
+#define SENSOR_MULTILEVEL_REPORT_VOLTAGE_VERSION_3_V11                                   0x0F
+#define SENSOR_MULTILEVEL_REPORT_CURRENT_VERSION_3_V11                                   0x10
+#define SENSOR_MULTILEVEL_REPORT_CO2_LEVEL_VERSION_3_V11                                 0x11
+#define SENSOR_MULTILEVEL_REPORT_AIR_FLOW_VERSION_3_V11                                  0x12
+#define SENSOR_MULTILEVEL_REPORT_TANK_CAPACITY_VERSION_3_V11                             0x13
+#define SENSOR_MULTILEVEL_REPORT_DISTANCE_VERSION_3_V11                                  0x14
+#define SENSOR_MULTILEVEL_REPORT_ANGLE_POSITION_VERSION_4_V11                            0x15
+#define SENSOR_MULTILEVEL_REPORT_ROTATION_V5_V11                                         0x16
+#define SENSOR_MULTILEVEL_REPORT_WATER_TEMPERATURE_V5_V11                                0x17
+#define SENSOR_MULTILEVEL_REPORT_SOIL_TEMPERATURE_V5_V11                                 0x18
+#define SENSOR_MULTILEVEL_REPORT_SEISMIC_INTENSITY_V5_V11                                0x19
+#define SENSOR_MULTILEVEL_REPORT_SEISMIC_MAGNITUDE_V5_V11                                0x1A
+#define SENSOR_MULTILEVEL_REPORT_ULTRAVIOLET_V5_V11                                      0x1B
+#define SENSOR_MULTILEVEL_REPORT_ELECTRICAL_RESISTIVITY_V5_V11                           0x1C
+#define SENSOR_MULTILEVEL_REPORT_ELECTRICAL_CONDUCTIVITY_V5_V11                          0x1D
+#define SENSOR_MULTILEVEL_REPORT_LOUDNESS_V5_V11                                         0x1E
+#define SENSOR_MULTILEVEL_REPORT_MOISTURE_V5_V11                                         0x1F
+#define SENSOR_MULTILEVEL_REPORT_FREQUENCY_V6_V11                                        0x20
+#define SENSOR_MULTILEVEL_REPORT_TIME_V6_V11                                             0x21
+#define SENSOR_MULTILEVEL_REPORT_TARGET_TEMPERATURE_V6_V11                               0x22
+#define SENSOR_MULTILEVEL_REPORT_PARTICULATE_MATTER_2_5_V7_V11                           0x23
+#define SENSOR_MULTILEVEL_REPORT_FORMALDEHYDE_CH2O_LEVEL_V7_V11                          0x24
+#define SENSOR_MULTILEVEL_REPORT_RADON_CONCENTRATION_V7_V11                              0x25
+#define SENSOR_MULTILEVEL_REPORT_METHANE_DENSITY_CH4_V7_V11                              0x26
+#define SENSOR_MULTILEVEL_REPORT_VOLATILE_ORGANIC_COMPOUND_V7_V11                        0x27
+#define SENSOR_MULTILEVEL_REPORT_CARBON_MONOXIDE_CO_LEVEL_V7_V11                         0x28
+#define SENSOR_MULTILEVEL_REPORT_SOIL_HUMIDITY_V7_V11                                    0x29
+#define SENSOR_MULTILEVEL_REPORT_SOIL_REACTIVITY_V7_V11                                  0x2A
+#define SENSOR_MULTILEVEL_REPORT_SOIL_SALINITY_V7_V11                                    0x2B
+#define SENSOR_MULTILEVEL_REPORT_HEART_RATE_V7_V11                                       0x2C
+#define SENSOR_MULTILEVEL_REPORT_BLOOD_PRESSURE_V7_V11                                   0x2D
+#define SENSOR_MULTILEVEL_REPORT_MUSCLE_MASS_V7_V11                                      0x2E
+#define SENSOR_MULTILEVEL_REPORT_FAT_MASS_V7_V11                                         0x2F
+#define SENSOR_MULTILEVEL_REPORT_BONE_MASS_V7_V11                                        0x30
+#define SENSOR_MULTILEVEL_REPORT_TOTAL_BODY_WATER_TBW_V7_V11                             0x31
+#define SENSOR_MULTILEVEL_REPORT_BASIC_METABOLIC_RATE_BMR_V7_V11                         0x32
+#define SENSOR_MULTILEVEL_REPORT_BODY_MASS_INDEX_BMI_V7_V11                              0x33
+#define SENSOR_MULTILEVEL_REPORT_ACCELERATION_X_AXIS_V8_V11                              0x34
+#define SENSOR_MULTILEVEL_REPORT_ACCELERATION_Y_AXIS_V8_V11                              0x35
+#define SENSOR_MULTILEVEL_REPORT_ACCELERATION_Z_AXIS_V8_V11                              0x36
+#define SENSOR_MULTILEVEL_REPORT_SMOKE_DENSITY_V8_V11                                    0x37
+#define SENSOR_MULTILEVEL_REPORT_WATER_FLOW_V9_V11                                       0x38
+#define SENSOR_MULTILEVEL_REPORT_WATER_PRESSURE_V9_V11                                   0x39
+#define SENSOR_MULTILEVEL_REPORT_RF_SIGNAL_STRENGTH_V9_V11                               0x3A
+#define SENSOR_MULTILEVEL_REPORT_PARTICULATE_MATTER_V10_V11                              0x3B
+#define SENSOR_MULTILEVEL_REPORT_RESPIRATORY_RATE_V10_V11                                0x3C
+#define SENSOR_MULTILEVEL_REPORT_RELATIVE_MODULATION_LEVEL_V11                           0x3D
+#define SENSOR_MULTILEVEL_REPORT_BOILER_WATER_TEMPERATURE_V11                            0x3E
+#define SENSOR_MULTILEVEL_REPORT_DOMESTIC_HOT_WATER_TEMPERATURE_V11                      0x3F
+#define SENSOR_MULTILEVEL_REPORT_OUTSIDE_TEMPERATURE_V11                                 0x40
+#define SENSOR_MULTILEVEL_REPORT_EXHAUST_TEMPERATURE_V11                                 0x41
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_SIZE_MASK_V11                                     0x07
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_SCALE_MASK_V11                                    0x18
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_SCALE_SHIFT_V11                                   0x03
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_PRECISION_MASK_V11                                0xE0
+#define SENSOR_MULTILEVEL_REPORT_LEVEL_PRECISION_SHIFT_V11                               0x05
+/* Values used for Sensor Multilevel Supported Get Scale command */
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TEMPERATURE_VERSION_1_V11                  0x01
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_GENERAL_PURPOSE_VALUE_VERSION_1_V11        0x02
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_LUMINANCE_VERSION_1_V11                    0x03
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_POWER_VERSION_2_V11                        0x04
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RELATIVE_HUMIDITY_VERSION_2_V11            0x05
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_VELOCITY_VERSION_2_V11                     0x06
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_DIRECTION_VERSION_2_V11                    0x07
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ATMOSPHERIC_PRESSURE_VERSION_2_V11         0x08
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BAROMETRIC_PRESSURE_VERSION_2_V11          0x09
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOLAR_RADIATION_VERSION_2_V11              0x0A
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_DEW_POINT_VERSION_2_V11                    0x0B
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RAIN_RATE_VERSION_2_V11                    0x0C
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TIDE_LEVEL_VERSION_2_V11                   0x0D
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_WEIGHT_VERSION_3_V11                       0x0E
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_VOLTAGE_VERSION_3_V11                      0x0F
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_CURRENT_VERSION_3_V11                      0x10
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_CO2_LEVEL_VERSION_3_V11                    0x11
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_AIR_FLOW_VERSION_3_V11                     0x12
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TANK_CAPACITY_VERSION_3_V11                0x13
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_DISTANCE_VERSION_3_V11                     0x14
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ANGLE_POSITION_VERSION_4_V11               0x15
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ROTATION_V5_V11                            0x16
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_WATER_TEMPERATURE_V5_V11                   0x17
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOIL_TEMPERATURE_V5_V11                    0x18
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SEISMIC_INTENSITY_V5_V11                   0x19
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SEISMIC_MAGNITUDE_V5_V11                   0x1A
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ULTRAVIOLET_V5_V11                         0x1B
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ELECTRICAL_RESISTIVITY_V5_V11              0x1C
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ELECTRICAL_CONDUCTIVITY_V5_V11             0x1D
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_LOUDNESS_V5_V11                            0x1E
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_MOISTURE_V5_V11                            0x1F
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_FREQUENCY_V6_V11                           0x20
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TIME_V6_V11                                0x21
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TARGET_TEMPERATURE_V6_V11                  0x22
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_PARTICULATE_MATTER_2_5_V7_V11              0x23
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_FORMALDEHYDE_CH2O_LEVEL_V7_V11             0x24
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RADON_CONCENTRATION_V7_V11                 0x25
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_METHANE_DENSITY_CH4_V7_V11                 0x26
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_VOLATILE_ORGANIC_COMPOUND_V7_V11           0x27
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_CARBON_MONOXIDE_CO_LEVEL_V7_V11            0x28
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOIL_HUMIDITY_V7_V11                       0x29
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOIL_REACTIVITY_V7_V11                     0x2A
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SOIL_SALINITY_V7_V11                       0x2B
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_HEART_RATE_V7_V11                          0x2C
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BLOOD_PRESSURE_V7_V11                      0x2D
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_MUSCLE_MASS_V7_V11                         0x2E
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_FAT_MASS_V7_V11                            0x2F
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BONE_MASS_V7_V11                           0x30
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_TOTAL_BODY_WATER_TBW_V7_V11                0x31
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BASIC_METABOLIC_RATE_BMR_V7_V11            0x32
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BODY_MASS_INDEX_BMI_V7_V11                 0x33
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ACCELERATION_X_AXIS_V8_V11                 0x34
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ACCELERATION_Y_AXIS_V8_V11                 0x35
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_ACCELERATION_Z_AXIS_V8_V11                 0x36
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_SMOKE_DENSITY_V8_V11                       0x37
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_WATER_FLOW_V9_V11                          0x38
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_WATER_PRESSURE_V9_V11                      0x39
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RF_SIGNAL_STRENGTH_V9_V11                  0x3A
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_PARTICULATE_MATTER_V10_V11                 0x3B
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RESPIRATORY_RATE_V10_V11                   0x3C
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_RELATIVE_MODULATION_LEVEL_V11              0x3D
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_BOILER_WATER_TEMPERATURE_V11               0x3E
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_DOMESTIC_HOT_WATER_TEMPERATURE_V11         0x3F
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_OUTSIDE_TEMPERATURE_V11                    0x40
+#define SENSOR_MULTILEVEL_SUPPORTED_GET_SCALE_EXHAUST_TEMPERATURE_V11                    0x41
+/* Values used for Sensor Multilevel Supported Scale Report command */
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TEMPERATURE_VERSION_1_V11               0x01
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_GENERAL_PURPOSE_VALUE_VERSION_1_V11     0x02
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_LUMINANCE_VERSION_1_V11                 0x03
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_POWER_VERSION_2_V11                     0x04
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RELATIVE_HUMIDITY_VERSION_2_V11         0x05
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_VELOCITY_VERSION_2_V11                  0x06
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_DIRECTION_VERSION_2_V11                 0x07
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ATMOSPHERIC_PRESSURE_VERSION_2_V11      0x08
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BAROMETRIC_PRESSURE_VERSION_2_V11       0x09
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOLAR_RADIATION_VERSION_2_V11           0x0A
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_DEW_POINT_VERSION_2_V11                 0x0B
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RAIN_RATE_VERSION_2_V11                 0x0C
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TIDE_LEVEL_VERSION_2_V11                0x0D
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_WEIGHT_VERSION_3_V11                    0x0E
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_VOLTAGE_VERSION_3_V11                   0x0F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_CURRENT_VERSION_3_V11                   0x10
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_CO2_LEVEL_VERSION_3_V11                 0x11
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_AIR_FLOW_VERSION_3_V11                  0x12
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TANK_CAPACITY_VERSION_3_V11             0x13
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_DISTANCE_VERSION_3_V11                  0x14
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ANGLE_POSITION_VERSION_4_V11            0x15
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ROTATION_V5_V11                         0x16
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_WATER_TEMPERATURE_V5_V11                0x17
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOIL_TEMPERATURE_V5_V11                 0x18
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SEISMIC_INTENSITY_V5_V11                0x19
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SEISMIC_MAGNITUDE_V5_V11                0x1A
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ULTRAVIOLET_V5_V11                      0x1B
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ELECTRICAL_RESISTIVITY_V5_V11           0x1C
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ELECTRICAL_CONDUCTIVITY_V5_V11          0x1D
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_LOUDNESS_V5_V11                         0x1E
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_MOISTURE_V5_V11                         0x1F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_FREQUENCY_V6_V11                        0x20
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TIME_V6_V11                             0x21
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TARGET_TEMPERATURE_V6_V11               0x22
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PARTICULATE_MATTER_2_5_V7_V11           0x23
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_FORMALDEHYDE_CH2O_LEVEL_V7_V11          0x24
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RADON_CONCENTRATION_V7_V11              0x25
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_METHANE_DENSITY_CH4_V7_V11              0x26
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_VOLATILE_ORGANIC_COMPOUND_V7_V11        0x27
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_CARBON_MONOXIDE_CO_LEVEL_V7_V11         0x28
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOIL_HUMIDITY_V7_V11                    0x29
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOIL_REACTIVITY_V7_V11                  0x2A
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SOIL_SALINITY_V7_V11                    0x2B
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_HEART_RATE_V7_V11                       0x2C
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BLOOD_PRESSURE_V7_V11                   0x2D
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_MUSCLE_MASS_V7_V11                      0x2E
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_FAT_MASS_V7_V11                         0x2F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BONE_MASS_V7_V11                        0x30
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_TOTAL_BODY_WATER_TBW_V7_V11             0x31
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BASIC_METABOLIC_RATE_BMR_V7_V11         0x32
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BODY_MASS_INDEX_BMI_V7_V11              0x33
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ACCELERATION_X_AXIS_V8_V11              0x34
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ACCELERATION_Y_AXIS_V8_V11              0x35
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_ACCELERATION_Z_AXIS_V8_V11              0x36
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_SMOKE_DENSITY_V8_V11                    0x37
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_WATER_FLOW_V9_V11                       0x38
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_WATER_PRESSURE_V9_V11                   0x39
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RF_SIGNAL_STRENGTH_V9_V11               0x3A
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PARTICULATE_MATTER_V10_V11              0x3B
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RESPIRATORY_RATE_V10_V11                0x3C
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_RELATIVE_MODULATION_LEVEL_V11           0x3D
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_BOILER_WATER_TEMPERATURE_V11            0x3E
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_DOMESTIC_HOT_WATER_TEMPERATURE_V11      0x3F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_OUTSIDE_TEMPERATURE_V11                 0x40
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_EXHAUST_TEMPERATURE_V11                 0x41
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PROPERTIES1_SCALE_BIT_MASK_MASK_V11     0x0F
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PROPERTIES1_RESERVED_MASK_V11           0xF0
+#define SENSOR_MULTILEVEL_SUPPORTED_SCALE_REPORT_PROPERTIES1_RESERVED_SHIFT_V11          0x04
+
 /* Silence Alarm command class commands */
 #define SILENCE_ALARM_VERSION                                                            0x01
 #define SENSOR_ALARM_SET                                                                 0x01
@@ -5999,10 +7004,10 @@
 #define TIME_GET                                                                         0x01
 #define TIME_REPORT                                                                      0x02
 /* Values used for Time Report command */
-#define TIME_REPORT_HOUR_LOCAL_TIME_HOUR_LOCAL_TIME_MASK                                 0x1F
-#define TIME_REPORT_HOUR_LOCAL_TIME_RESERVED_MASK                                        0x60
-#define TIME_REPORT_HOUR_LOCAL_TIME_RESERVED_SHIFT                                       0x05
-#define TIME_REPORT_HOUR_LOCAL_TIME_RTC_FAILURE_BIT_MASK                                 0x80
+#define TIME_REPORT_PROPERTIES1_HOUR_LOCAL_TIME_MASK                                     0x1F
+#define TIME_REPORT_PROPERTIES1_RESERVED_MASK                                            0x60
+#define TIME_REPORT_PROPERTIES1_RESERVED_SHIFT                                           0x05
+#define TIME_REPORT_PROPERTIES1_RTC_FAILURE_BIT_MASK                                     0x80
 
 /* Time command class commands */
 #define TIME_VERSION_V2                                                                  0x02
@@ -6024,10 +7029,10 @@
 #define TIME_OFFSET_SET_LEVEL2_MINUTE_OFFSET_DST_MASK_V2                                 0x7F
 #define TIME_OFFSET_SET_LEVEL2_SIGN_OFFSET_DST_BIT_MASK_V2                               0x80
 /* Values used for Time Report command */
-#define TIME_REPORT_HOUR_LOCAL_TIME_HOUR_LOCAL_TIME_MASK_V2                              0x1F
-#define TIME_REPORT_HOUR_LOCAL_TIME_RESERVED_MASK_V2                                     0x60
-#define TIME_REPORT_HOUR_LOCAL_TIME_RESERVED_SHIFT_V2                                    0x05
-#define TIME_REPORT_HOUR_LOCAL_TIME_RTC_FAILURE_BIT_MASK_V2                              0x80
+#define TIME_REPORT_PROPERTIES1_HOUR_LOCAL_TIME_MASK_V2                                  0x1F
+#define TIME_REPORT_PROPERTIES1_RESERVED_MASK_V2                                         0x60
+#define TIME_REPORT_PROPERTIES1_RESERVED_SHIFT_V2                                        0x05
+#define TIME_REPORT_PROPERTIES1_RTC_FAILURE_BIT_MASK_V2                                  0x80
 
 /* Transport Service command class commands */
 #define TRANSPORT_SERVICE_VERSION_V2                                                     0x02
@@ -6103,6 +7108,27 @@
 #define USER_CODE_SET_RESERVED_BY_ADMINISTRATOR                                          0x02
 #define USER_CODE_SET_STATUS_NOT_AVAILABLE                                               0xFE
 
+/* User Code command class commands */
+#define USER_CODE_VERSION_V2                                                             0x02
+#define USER_CODE_GET_V2                                                                 0x02
+#define USER_CODE_REPORT_V2                                                              0x03
+#define USER_CODE_SET_V2                                                                 0x01
+#define USERS_NUMBER_GET_V2                                                              0x04
+#define USERS_NUMBER_REPORT_V2                                                           0x05
+#define EXTENDED_USER_CODE_SET_V2                                                        0x0B
+#define EXTENDED_USER_CODE_GET_V2                                                        0x0C
+#define EXTENDED_USER_CODE_REPORT_V2                                                     0x0D
+#define USER_CODE_CAPABILITIES_GET_V2                                                    0x06
+#define USER_CODE_CAPABILITIES_REPORT_V2                                                 0x07
+#define USER_CODE_KEYPAD_MODE_SET_V2                                                     0x08
+#define USER_CODE_KEYPAD_MODE_GET_V2                                                     0x09
+#define USER_CODE_KEYPAD_MODE_REPORT_V2                                                  0x0A
+#define MASTER_CODE_SET_V2                                                               0x0E
+#define MASTER_CODE_GET_V2                                                               0x0F
+#define MASTER_CODE_REPORT_V2                                                            0x10
+#define USER_CODE_CHECKSUM_GET_V2                                                        0x11
+#define USER_CODE_CHECKSUM_REPORT_V2                                                     0x12
+
 /* Version command class commands */
 #define VERSION_VERSION                                                                  0x01
 #define VERSION_COMMAND_CLASS_GET                                                        0x13
@@ -6116,6 +7142,23 @@
 #define VERSION_COMMAND_CLASS_REPORT_V2                                                  0x14
 #define VERSION_GET_V2                                                                   0x11
 #define VERSION_REPORT_V2                                                                0x12
+
+/* Version command class commands */
+#define VERSION_VERSION_V3                                                               0x03
+#define VERSION_COMMAND_CLASS_GET_V3                                                     0x13
+#define VERSION_COMMAND_CLASS_REPORT_V3                                                  0x14
+#define VERSION_GET_V3                                                                   0x11
+#define VERSION_REPORT_V3                                                                0x12
+#define VERSION_CAPABILITIES_GET_V3                                                      0x15
+#define VERSION_CAPABILITIES_REPORT_V3                                                   0x16
+#define VERSION_ZWAVE_SOFTWARE_GET_V3                                                    0x17
+#define VERSION_ZWAVE_SOFTWARE_REPORT_V3                                                 0x18
+/* Values used for Version Capabilities Report command */
+#define VERSION_CAPABILITIES_REPORT_PROPERTIES1_VERSION_BIT_MASK_V3                      0x01
+#define VERSION_CAPABILITIES_REPORT_PROPERTIES1_COMMAND_CLASS_BIT_MASK_V3                0x02
+#define VERSION_CAPABILITIES_REPORT_PROPERTIES1_Z_WAVE_SOFTWARE_BIT_MASK_V3              0x04
+#define VERSION_CAPABILITIES_REPORT_PROPERTIES1_RESERVED1_MASK_V3                        0xF8
+#define VERSION_CAPABILITIES_REPORT_PROPERTIES1_RESERVED1_SHIFT_V3                       0x03
 
 /* Wake Up command class commands */
 #define WAKE_UP_VERSION                                                                  0x01
@@ -6332,12 +7375,6 @@
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_OVERRIDE_BIT_MASK                              0x01
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_REPORTS_TO_FOLLOW_MASK                         0xFE
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_REPORTS_TO_FOLLOW_SHIFT                        0x01
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_1_MASK                               0x0F
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_2_MASK                               0xF0
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_2_SHIFT                              0x04
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_3_MASK                               0x0F
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_N_MASK                               0xF0
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_N_SHIFT                              0x04
 
 /* Schedule command class commands */
 #define SCHEDULE_VERSION_V2                                                              0x02
@@ -6393,12 +7430,6 @@
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_OVERRIDE_BIT_MASK_V2                           0x01
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_REPORTS_TO_FOLLOW_MASK_V2                      0xFE
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_REPORTS_TO_FOLLOW_SHIFT_V2                     0x01
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_1_MASK_V2                            0x0F
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_2_MASK_V2                            0xF0
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_2_SHIFT_V2                           0x04
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_3_MASK_V2                            0x0F
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_N_MASK_V2                            0xF0
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_N_SHIFT_V2                           0x04
 
 /* Schedule command class commands */
 #define SCHEDULE_VERSION_V3                                                              0x03
@@ -6462,21 +7493,80 @@
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_OVERRIDE_BIT_MASK_V3                           0x01
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_REPORTS_TO_FOLLOW_MASK_V3                      0xFE
 #define SCHEDULE_STATE_REPORT_PROPERTIES1_REPORTS_TO_FOLLOW_SHIFT_V3                     0x01
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_1_MASK_V3                            0x0F
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_2_MASK_V3                            0xF0
-#define SCHEDULE_STATE_REPORT_PROPERTIES2_ACTIVE_ID_2_SHIFT_V3                           0x04
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_3_MASK_V3                            0x0F
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_N_MASK_V3                            0xF0
-#define SCHEDULE_STATE_REPORT_PROPERTIES3_ACTIVE_ID_N_SHIFT_V3                           0x04
+
+/* Schedule command class commands */
+#define SCHEDULE_VERSION_V4                                                              0x04
+#define SCHEDULE_SUPPORTED_GET_V4                                                        0x01
+#define SCHEDULE_SUPPORTED_REPORT_V4                                                     0x02
+#define COMMAND_SCHEDULE_SET_V4                                                          0x03
+#define COMMAND_SCHEDULE_GET_V4                                                          0x04
+#define COMMAND_SCHEDULE_REPORT_V4                                                       0x05
+#define SCHEDULE_REMOVE_V4                                                               0x06
+#define SCHEDULE_STATE_SET_V4                                                            0x07
+#define SCHEDULE_STATE_GET_V4                                                            0x08
+#define SCHEDULE_STATE_REPORT_V4                                                         0x09
+#define SCHEDULE_SUPPORTED_COMMANDS_GET_V4                                               0x0A
+#define SCHEDULE_SUPPORTED_COMMANDS_REPORT_V4                                            0x0B
+/* Values used for Schedule Supported Report command */
+#define SCHEDULE_SUPPORTED_REPORT_PROPERTIES1_START_TIME_SUPPORT_MASK_V4                 0x3F
+#define SCHEDULE_SUPPORTED_REPORT_PROPERTIES1_FALLBACK_SUPPORT_BIT_MASK_V4               0x40
+#define SCHEDULE_SUPPORTED_REPORT_PROPERTIES1_SUPPORT_ENABLE_DISABLE_BIT_MASK_V4         0x80
+#define SCHEDULE_SUPPORTED_REPORT_PROPERTIES3_SUPPORTED_OVERRIDE_TYPES_MASK_V4           0x7F
+#define SCHEDULE_SUPPORTED_REPORT_PROPERTIES3_OVERRIDE_SUPPORT_BIT_MASK_V4               0x80
+/* Values used for Command Schedule Set command */
+#define COMMAND_SCHEDULE_SET_PROPERTIES1_START_MONTH_MASK_V4                             0x0F
+#define COMMAND_SCHEDULE_SET_PROPERTIES1_RECURRENCE_OFFSET_MASK_V4                       0xF0
+#define COMMAND_SCHEDULE_SET_PROPERTIES1_RECURRENCE_OFFSET_SHIFT_V4                      0x04
+#define COMMAND_SCHEDULE_SET_PROPERTIES2_START_DAY_OF_MONTH_MASK_V4                      0x1F
+#define COMMAND_SCHEDULE_SET_PROPERTIES2_RECURRENCE_MODE_MASK_V4                         0x60
+#define COMMAND_SCHEDULE_SET_PROPERTIES2_RECURRENCE_MODE_SHIFT_V4                        0x05
+#define COMMAND_SCHEDULE_SET_RECURRENCE_MODE_REPEAT_EVERY_N_HOURS_V4                     0x00
+#define COMMAND_SCHEDULE_SET_RECURRENCE_MODE_REPEAT_EVERY_N_DAYS_V4                      0x01
+#define COMMAND_SCHEDULE_SET_RECURRENCE_MODE_REPEAT_EVERY_N_WEEKS_V4                     0x02
+#define COMMAND_SCHEDULE_SET_PROPERTIES2_RESERVED1_BIT_MASK_V4                           0x80
+#define COMMAND_SCHEDULE_SET_PROPERTIES3_START_WEEKDAY_MASK_V4                           0x7F
+#define COMMAND_SCHEDULE_SET_PROPERTIES3_RESERVED2_BIT_MASK_V4                           0x80
+#define COMMAND_SCHEDULE_SET_PROPERTIES4_START_HOUR_MASK_V4                              0x1F
+#define COMMAND_SCHEDULE_SET_PROPERTIES4_DURATION_TYPE_MASK_V4                           0xE0
+#define COMMAND_SCHEDULE_SET_PROPERTIES4_DURATION_TYPE_SHIFT_V4                          0x05
+#define COMMAND_SCHEDULE_SET_PROPERTIES5_START_MINUTE_MASK_V4                            0x3F
+#define COMMAND_SCHEDULE_SET_PROPERTIES5_RELATIVE_BIT_MASK_V4                            0x40
+#define COMMAND_SCHEDULE_SET_PROPERTIES5_RESERVED3_BIT_MASK_V4                           0x80
+/* Values used for Command Schedule Get command */
+#define COMMAND_SCHEDULE_GET_PROPERTIES1_RESERVED_MASK_V4                                0x7F
+#define COMMAND_SCHEDULE_GET_PROPERTIES1_AID_RO_CTL_BIT_MASK_V4                          0x80
+/* Values used for Command Schedule Report command */
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES1_START_MONTH_MASK_V4                          0x0F
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES1_AID_RO_MASK_V4                               0xF0
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES1_AID_RO_SHIFT_V4                              0x04
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES2_START_DAY_OF_MONTH_MASK_V4                   0x1F
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES2_RECURRENCE_MODE_MASK_V4                      0x60
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES2_RECURRENCE_MODE_SHIFT_V4                     0x05
+#define COMMAND_SCHEDULE_REPORT_RECURRENCE_MODE_REPEAT_EVERY_N_HOURS_V4                  0x00
+#define COMMAND_SCHEDULE_REPORT_RECURRENCE_MODE_REPEAT_EVERY_N_DAYS_V4                   0x01
+#define COMMAND_SCHEDULE_REPORT_RECURRENCE_MODE_REPEAT_EVERY_N_WEEKS_V4                  0x02
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES2_AID_RO_CTL_BIT_MASK_V4                       0x80
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES3_START_WEEKDAY_MASK_V4                        0x7F
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES3_RESERVED1_BIT_MASK_V4                        0x80
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES4_START_HOUR_MASK_V4                           0x1F
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES4_DURATION_TYPE_MASK_V4                        0xE0
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES4_DURATION_TYPE_SHIFT_V4                       0x05
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES5_START_MINUTE_MASK_V4                         0x3F
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES5_RELATIVE_BIT_MASK_V4                         0x40
+#define COMMAND_SCHEDULE_REPORT_PROPERTIES5_RESERVED2_BIT_MASK_V4                        0x80
+/* Values used for Schedule State Report command */
+#define SCHEDULE_STATE_REPORT_PROPERTIES1_OVERRIDE_BIT_MASK_V4                           0x01
+#define SCHEDULE_STATE_REPORT_PROPERTIES1_REPORTS_TO_FOLLOW_MASK_V4                      0xFE
+#define SCHEDULE_STATE_REPORT_PROPERTIES1_REPORTS_TO_FOLLOW_SHIFT_V4                     0x01
 
 /* Network Management Primary command class commands */
 #define NETWORK_MANAGEMENT_PRIMARY_VERSION                                               0x01
 #define CONTROLLER_CHANGE                                                                0x01
 #define CONTROLLER_CHANGE_STATUS                                                         0x02
 /* Values used for Controller Change Status command */
-#define CONTROLLER_CHANGE_STATUS_PROPERTIES1_CAPABILITY_MASK                             0x7F
+#define CONTROLLER_CHANGE_STATUS_PROPERTIES1_Z_WAVE_PROTOCOL_SPECIFIC_PART_1_MASK        0x7F
 #define CONTROLLER_CHANGE_STATUS_PROPERTIES1_LISTENING_BIT_MASK                          0x80
-#define CONTROLLER_CHANGE_STATUS_PROPERTIES2_SECURITY_MASK                               0x7F
+#define CONTROLLER_CHANGE_STATUS_PROPERTIES2_Z_WAVE_PROTOCOL_SPECIFIC_PART_2_MASK        0x7F
 #define CONTROLLER_CHANGE_STATUS_PROPERTIES2_OPT_BIT_MASK                                0x80
 
 /* Zip Nd command class commands */
@@ -6798,24 +7888,18 @@
 #define IP_ASSOCIATION_GET                                                               0x02
 #define IP_ASSOCIATION_REPORT                                                            0x03
 #define IP_ASSOCIATION_REMOVE                                                            0x04
-/* Values used for Ip Association Set command */
-#define IP_ASSOCIATION_SET_PROPERTIES1_RESOURCE_NAME_LENGTH_MASK                         0x3F
-#define IP_ASSOCIATION_SET_PROPERTIES1_RESERVED_MASK                                     0xC0
-#define IP_ASSOCIATION_SET_PROPERTIES1_RESERVED_SHIFT                                    0x06
-/* Values used for Ip Association Report command */
-#define IP_ASSOCIATION_REPORT_PROPERTIES1_RESOURCE_NAME_LENGTH_MASK                      0x3F
-#define IP_ASSOCIATION_REPORT_PROPERTIES1_RESERVED_MASK                                  0xC0
-#define IP_ASSOCIATION_REPORT_PROPERTIES1_RESERVED_SHIFT                                 0x06
-/* Values used for Ip Association Remove command */
-#define IP_ASSOCIATION_REMOVE_PROPERTIES1_RESOURCE_NAME_LENGTH_MASK                      0x3F
-#define IP_ASSOCIATION_REMOVE_PROPERTIES1_RESERVED_MASK                                  0xC0
-#define IP_ASSOCIATION_REMOVE_PROPERTIES1_RESERVED_SHIFT                                 0x06
 
 /* Antitheft command class commands */
 #define ANTITHEFT_VERSION                                                                0x01
 #define ANTITHEFT_SET                                                                    0x01
 #define ANTITHEFT_GET                                                                    0x02
 #define ANTITHEFT_REPORT                                                                 0x03
+
+/* Anti-theft Unlock command class commands */
+#define ANTITHEFT_UNLOCK_STATE_GET                                                       0x01
+#define ANTITHEFT_UNLOCK_STATE_REPORT                                                    0x02
+#define ANTITHEFT_UNLOCK_SET                                                             0x03
+
 /* Values used for Antitheft Set command */
 #define ANTITHEFT_SET_PROPERTIES1_NUMBER_OF_MAGIC_CODE_BYTES_MASK                        0x7F
 #define ANTITHEFT_SET_PROPERTIES1_ENABLE_BIT_MASK                                        0x80
@@ -6863,14 +7947,6 @@
 #define ZWAVEPLUS_INFO_REPORT_ROLE_TYPE_SLAVE_SLEEPING_LISTENING_V2                      0x07
 #define ZWAVEPLUS_INFO_REPORT_NODE_TYPE_ZWAVEPLUS_NODE_V2                                0x00
 #define ZWAVEPLUS_INFO_REPORT_NODE_TYPE_ZWAVEPLUS_FOR_IP_GATEWAY_V2                      0x02
-
-/* Provisioning List command class commands */
-#define COMMAND_PROVISION_SET         0x01
-#define COMMAND_PROVISION_DELETE      0x02
-#define COMMAND_PROVISION_ITER_GET    0x03
-#define COMMAND_PROVISION_ITER_REPORT 0x04
-#define COMMAND_PROVISION_GET         0x05
-#define COMMAND_PROVISION_REPORT      0x06
 
 /* Zip Gateway command class commands */
 #define ZIP_GATEWAY_VERSION                                                              0x01
@@ -6976,22 +8052,33 @@
 
 /* Network Management Installation Maintenance command class commands */
 #define NETWORK_MANAGEMENT_INSTALLATION_MAINTENANCE_VERSION                              0x01
-#define LAST_WORKING_ROUTE_SET                                                           0x01
-#define LAST_WORKING_ROUTE_GET                                                           0x02
-#define LAST_WORKING_ROUTE_REPORT                                                        0x03
+#define PRIORITY_ROUTE_SET                                                               0x01
+#define PRIORITY_ROUTE_GET                                                               0x02
+#define PRIORITY_ROUTE_REPORT                                                            0x03
 #define STATISTICS_GET                                                                   0x04
 #define STATISTICS_REPORT                                                                0x05
 #define STATISTICS_CLEAR                                                                 0x06
 #define RSSI_GET                                                                         0x07
 #define RSSI_REPORT                                                                      0x08
-/* Values used for Last Working Route Set command */
-#define LAST_WORKING_ROUTE_SET_9_6_KBIT_SEC                                              0x01
-#define LAST_WORKING_ROUTE_SET_40_KBIT_SEC                                               0x02
-#define LAST_WORKING_ROUTE_SET_100_KBIT_SEC                                              0x03
-/* Values used for Last Working Route Report command */
-#define LAST_WORKING_ROUTE_REPORT_9_6_KBIT_SEC                                           0x01
-#define LAST_WORKING_ROUTE_REPORT_40_KBIT_SEC                                            0x02
-#define LAST_WORKING_ROUTE_REPORT_100_KBIT_SEC                                           0x03
+#define S2_RESYNCHRONIZATION_EVENT                                                       0x09
+#define EXTENDED_STATISTICS_GET                                                          0x0B
+#define EXTENDED_STATISTICS_REPORT                                                       0x0C
+#define LR_CHANNEL_CONFIGURATION_SET                                                     0x0A
+#define LR_CHANNEL_CONFIGURATION_GET                                                     0x0D
+#define LR_CHANNEL_CONFIGURATION_REPORT                                                  0x0E
+
+/* Values used for Priority Route Set command */
+#define PRIORITY_ROUTE_SET_9_6_KBIT_SEC                                                  0x01
+#define PRIORITY_ROUTE_SET_40_KBIT_SEC                                                   0x02
+#define PRIORITY_ROUTE_SET_100_KBIT_SEC                                                  0x03
+/* Values used for Priority Route Report command */
+#define PRIORITY_ROUTE_REPORT_NONE                                                       0x00
+#define PRIORITY_ROUTE_REPORT_ZW_PRIORITY_ROUTE_ZW_LWR                                   0x01
+#define PRIORITY_ROUTE_REPORT_ZW_PRIORITY_ROUTE_ZW_NLWR                                  0x02
+#define PRIORITY_ROUTE_REPORT_ZW_PRIORITY_ROUTE_APP_PR                                   0x10
+#define PRIORITY_ROUTE_REPORT_9_6_KBIT_SEC                                               0x01
+#define PRIORITY_ROUTE_REPORT_40_KBIT_SEC                                                0x02
+#define PRIORITY_ROUTE_REPORT_100_KBIT_SEC                                               0x03
 /* Values used for Statistics Report command */
 #define STATISTICS_REPORT_ROUTE_CHANGES_RC                                               0x00
 #define STATISTICS_REPORT_TRANSMISSION_COUNT_TC                                          0x01
@@ -6999,6 +8086,43 @@
 #define STATISTICS_REPORT_PACKET_ERROR_COUNT_PEC                                         0x03
 #define STATISTICS_REPORT_SUM_OF_TRANSMISSION_TIMES_TS                                   0x04
 #define STATISTICS_REPORT_SUM_OF_TRANSMISSION_TIMES_SQURARED_TS2                         0x05
+
+/* Values used for LR Channel configuration Set/Report */
+#define LR_CHANNEL_NOT_SUPPORTED                                                         0x00
+#define LR_CHANNEL_PRIMARY                                                               0x01
+#define LR_CHANNEL_SECONDARY                                                             0x02
+#define LR_CHANNEL_VALID(ch)                                                             (ch == LR_CHANNEL_PRIMARY || ch == LR_CHANNEL_SECONDARY)
+#define LR_CHANNEL_VALID_NOT_SUPPORTED(ch)                                               (ch == LR_CHANNEL_NOT_SUPPORTED || ch == LR_CHANNEL_PRIMARY || ch == LR_CHANNEL_SECONDARY)
+
+/* Network Management Installation Maintenance command class commands */
+#define NETWORK_MANAGEMENT_INSTALLATION_MAINTENANCE_VERSION_V2                           0x02
+#define PRIORITY_ROUTE_SET_V2                                                            0x01
+#define PRIORITY_ROUTE_GET_V2                                                            0x02
+#define PRIORITY_ROUTE_REPORT_V2                                                         0x03
+#define STATISTICS_GET_V2                                                                0x04
+#define STATISTICS_REPORT_V2                                                             0x05
+#define STATISTICS_CLEAR_V2                                                              0x06
+#define RSSI_GET_V2                                                                      0x07
+#define RSSI_REPORT_V2                                                                   0x08
+/* Values used for Priority Route Set command */
+#define PRIORITY_ROUTE_SET_9_6_KBIT_SEC_V2                                               0x01
+#define PRIORITY_ROUTE_SET_40_KBIT_SEC_V2                                                0x02
+#define PRIORITY_ROUTE_SET_100_KBIT_SEC_V2                                               0x03
+/* Values used for Priority Route Report command */
+#define PRIORITY_ROUTE_REPORT_NONE_V2                                                    0x00
+#define PRIORITY_ROUTE_REPORT_ZW_PRIORITY_ROUTE_ZW_LWR_V2                                0x01
+#define PRIORITY_ROUTE_REPORT_ZW_PRIORITY_ROUTE_ZW_NLWR_V2                               0x02
+#define PRIORITY_ROUTE_REPORT_ZW_PRIORITY_ROUTE_APP_PR_V2                                0x10
+#define PRIORITY_ROUTE_REPORT_9_6_KBIT_SEC_V2                                            0x01
+#define PRIORITY_ROUTE_REPORT_40_KBIT_SEC_V2                                             0x02
+#define PRIORITY_ROUTE_REPORT_100_KBIT_SEC_V2                                            0x03
+/* Values used for Statistics Report command */
+#define STATISTICS_REPORT_ROUTE_CHANGES_RC_V2                                            0x00
+#define STATISTICS_REPORT_TRANSMISSION_COUNT_TC_V2                                       0x01
+#define STATISTICS_REPORT_NEIGHBORS_NB_V2                                                0x02
+#define STATISTICS_REPORT_PACKET_ERROR_COUNT_PEC_V2                                      0x03
+#define STATISTICS_REPORT_SUM_OF_TRANSMISSION_TIMES_TS_V2                                0x04
+#define STATISTICS_REPORT_SUM_OF_TRANSMISSION_TIMES_SQURARED_TS2_V2                      0x05
 
 /* Zip Naming command class commands */
 #define ZIP_NAMING_VERSION                                                               0x01
@@ -7209,8 +8333,8 @@
 #define SECURITY_2_TRANSFER_END                                                          0x0C
 #define SECURITY_2_COMMANDS_SUPPORTED_GET                                                0x0D
 #define SECURITY_2_COMMANDS_SUPPORTED_REPORT                                             0x0E
-#define SECURITY_2_CAPABILITIES_GET                                                      0x0F
-#define SECURITY_2_CAPABILITIES_REPORT                                                   0x10
+#define SECURITY_2_CAPABILITIES_GET                                                      0x0F /*[OBSOLETED]*/
+#define SECURITY_2_CAPABILITIES_REPORT                                                   0x10 /*[OBSOLETED]*/
 /* Values used for Security 2 Nonce Report command */
 #define SECURITY_2_NONCE_REPORT_PROPERTIES1_SOS_BIT_MASK                                 0x01
 #define SECURITY_2_NONCE_REPORT_PROPERTIES1_MOS_BIT_MASK                                 0x02
@@ -7571,13 +8695,57 @@
 /* Values used for Initiate command */
 #define INITIATE_PROXY_INCLUSION                                                         0x01
 #define INITIATE_S0_INCLUSION                                                            0x02
+#define INITIATE_PROXY_INCLUSION_REPLACE                                                 0x03
 /* Values used for Complete command */
 #define COMPLETE_PROXY_INCLUSION                                                         0x01
 #define COMPLETE_S0_INCLUSION                                                            0x02
+#define COMPLETE_PROXY_INCLUSION_REPLACE                                                 0x03
 #define COMPLETE_STEP_OK                                                                 0x01
 #define COMPLETE_STEP_USER_REJECTED                                                      0x02
 #define COMPLETE_STEP_FAILED                                                             0x03
 #define COMPLETE_STEP_NOT_SUPPORTED                                                      0x04
+
+/* Node Provisioning command class commands */
+#define NODE_PROVISIONING_VERSION                                                        0x01
+#define NODE_PROVISIONING_SET                                                            0x01
+#define NODE_PROVISIONING_DELETE                                                         0x02
+#define NODE_PROVISIONING_LIST_ITERATION_GET                                             0x03
+#define NODE_PROVISIONING_LIST_ITERATION_REPORT                                          0x04
+#define NODE_PROVISIONING_GET                                                            0x05
+#define NODE_PROVISIONING_REPORT                                                         0x06
+/* Values used for Node Provisioning Set command */
+#define NODE_PROVISIONING_SET_PROPERTIES1_DSK_LENGTH_MASK                                0x1F
+#define NODE_PROVISIONING_SET_PROPERTIES1_RESERVED1_MASK                                 0xE0
+#define NODE_PROVISIONING_SET_PROPERTIES1_RESERVED1_SHIFT                                0x05
+/* Values used for Node Provisioning Delete command */
+#define NODE_PROVISIONING_DELETE_PROPERTIES1_DSK_LENGTH_MASK                             0x1F
+#define NODE_PROVISIONING_DELETE_PROPERTIES1_RESERVED1_MASK                              0xE0
+#define NODE_PROVISIONING_DELETE_PROPERTIES1_RESERVED1_SHIFT                             0x05
+/* Values used for Node Provisioning List Iteration Report command */
+#define NODE_PROVISIONING_LIST_ITERATION_REPORT_PROPERTIES1_DSK_LENGTH_MASK              0x1F
+#define NODE_PROVISIONING_LIST_ITERATION_REPORT_PROPERTIES1_RESERVED1_MASK               0xE0
+#define NODE_PROVISIONING_LIST_ITERATION_REPORT_PROPERTIES1_RESERVED1_SHIFT              0x05
+/* Values used for Node Provisioning Get command */
+#define NODE_PROVISIONING_GET_PROPERTIES1_DSK_LENGTH_MASK                                0x1F
+#define NODE_PROVISIONING_GET_PROPERTIES1_RESERVED1_MASK                                 0xE0
+#define NODE_PROVISIONING_GET_PROPERTIES1_RESERVED1_SHIFT                                0x05
+/* Values used for Node Provisioning Report command */
+#define NODE_PROVISIONING_REPORT_PROPERTIES1_DSK_LENGTH_MASK                             0x1F
+#define NODE_PROVISIONING_REPORT_PROPERTIES1_RESERVED_MASK                               0xE0
+#define NODE_PROVISIONING_REPORT_PROPERTIES1_RESERVED_SHIFT                              0x05
+
+/* Sound Switch command class commands */
+#define SOUND_SWITCH_VERSION                                                             0x01
+#define SOUND_SWITCH_TONES_NUMBER_GET                                                    0x01
+#define SOUND_SWITCH_TONES_NUMBER_REPORT                                                 0x02
+#define SOUND_SWITCH_TONE_INFO_GET                                                       0x03
+#define SOUND_SWITCH_TONE_INFO_REPORT                                                    0x04
+#define SOUND_SWITCH_CONFIGURATION_SET                                                   0x05
+#define SOUND_SWITCH_CONFIGURATION_GET                                                   0x06
+#define SOUND_SWITCH_CONFIGURATION_REPORT                                                0x07
+#define SOUND_SWITCH_TONE_PLAY_SET                                                       0x08
+#define SOUND_SWITCH_TONE_PLAY_GET                                                       0x09
+#define SOUND_SWITCH_TONE_PLAY_REPORT                                                    0x0A
 
 
 
