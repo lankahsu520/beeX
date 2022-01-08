@@ -10,7 +10,7 @@ What is MCTT
 
 # Depend on
 - [utilx9](https://github.com/lankahsu520/utilx9)
-- [zwave/zware][https://www.silabs.com/wireless/z-wave]
+- [zwave/zware](https://www.silabs.com/wireless/z-wave)
 - [github_](https://github.com/lankahsu520/github_)
 
 # Current Status
