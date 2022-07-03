@@ -448,7 +448,7 @@ void controller_status_adding_csa(Reporter_t *reporter, char *csa_pin)
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = ZWAVE_EVT_ADDING_CSA; // value
-	SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", csa_pin);
+	SAFE_SNPRINTF((char*)n_issueitem.data + idx, sizeof(n_issueitem.data)-idx, "%s", csa_pin);
 	idx += SAFE_STRLEN(csa_pin);
 	n_issueitem.data_len = idx;
 
@@ -488,7 +488,7 @@ void controller_status_adding_ssa(Reporter_t *reporter,char *dsk)
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = ZWAVE_EVT_ADDING_SSA; // value
-	SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", dsk);
+	SAFE_SNPRINTF((char*)n_issueitem.data + idx, sizeof(n_issueitem.data)-idx, "%s", dsk);
 	idx += SAFE_STRLEN(dsk);
 	n_issueitem.data_len = idx;
 
@@ -565,7 +565,7 @@ void controller_act_adding(Commander_t *commander, char *dsk)
 	if (dsk)
 	{
 		n_issueitem.data[idx++] = ZWAVE_EVT_ADDING_SSA; // value
-		SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", dsk);
+		SAFE_SNPRINTF((char*)n_issueitem.data + idx, sizeof(n_issueitem.data)-idx, "%s", dsk);
 		idx += SAFE_STRLEN(dsk);
 	}
 	else
@@ -863,7 +863,7 @@ void controller_act_replacing(Commander_t *commander, char *dsk)
 	if (dsk)
 	{
 		n_issueitem.data[idx++] = ZWAVE_EVT_REPLACING_SSA; // value
-		SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", dsk);
+		SAFE_SNPRINTF((char*)n_issueitem.data + idx, sizeof(n_issueitem.data)-idx, "%s", dsk);
 		idx += SAFE_STRLEN(dsk);
 	}
 	else
@@ -892,7 +892,7 @@ void controller_status_reset_rm(Reporter_t *reporter, char *homeid)
 	int ilen = SAFE_STRLEN(homeid);
 	if (ilen > 0)
 	{
-		SAFE_SPRINTF_EX(n_issueitem.data+idx, "%s", homeid);
+		SAFE_SNPRINTF(n_issueitem.data+idx, sizeof(n_issueitem.data)-idx, "%s", homeid);
 		idx += ilen;
 	}
 	idx ++;
@@ -1078,7 +1078,7 @@ void controller_status_learning_ssa(Reporter_t *reporter, char *ssa_pin)
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = ZWAVE_EVT_LEARNING_SSA; // value
-	SAFE_SPRINTF_EX((char*)n_issueitem.data + idx, "%s", ssa_pin);
+	SAFE_SNPRINTF((char*)n_issueitem.data + idx, sizeof(n_issueitem.data)-idx, "%s", ssa_pin);
 	idx += SAFE_STRLEN(ssa_pin);
 	n_issueitem.data_len = idx;
 
@@ -1533,7 +1533,7 @@ void controller_status_nw_homeid(Reporter_t *reporter, zwnetd_p nw_desp, char *u
 	}
 
 	int ilen = SAFE_STRLEN(homeid);
-	SAFE_SPRINTF_EX(n_issueitem.data+idx, "%s", homeid); // value
+	SAFE_SNPRINTF(n_issueitem.data+idx, sizeof(n_issueitem.data)-idx, "%s", homeid); // value
 	idx += ilen;
 	n_issueitem.data_len = idx;
 

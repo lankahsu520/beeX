@@ -19,6 +19,7 @@
 
 // ** app **
 static int is_quit = 0;
+static int is_client = 0;
 
 char iface_dev[LEN_OF_NAME_DEV] = "eth0";
 char iface_mac[LEN_OF_MAC]= "";
@@ -105,147 +106,147 @@ int bee_topic_issue_caller(char *topic, char *value, void *userdata)
 
 static void bee_notify_aborting(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_adding(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_basic(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_basic_set(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_battery(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_csc(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_configuration(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_door(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_luminance(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_humidity(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_learning(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_dimmer(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_meter(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_motion(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_node(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_nop(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_nw(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_op(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_replacing(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_rmfailed(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_removing(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_reseting(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_smoke(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_switch(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_tempature(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_tamper(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_wake_up_interval(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_wake_up_notification(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static void bee_notify_water(void *userdata, IssueItem_t *c_issueitem)
 {
-	DBG_DB_LN(DBG_TXT_ENTER);
+	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
 static Notify_t notify_bee = {
@@ -355,16 +356,19 @@ void timer_1sec_loop(uv_timer_t *handle)
 	else
 	{
 #ifdef USE_MCTT_BEE_DEMO
-		uint8_t nodeid = 3;
-		uint8_t epid = 0;
-		reporter_set_nodeid_ex(&reporter_bee, nodeid, epid);
-		if ( (now_t%2) == 0 )
+		if (is_client)
 		{
-			zwifd_alrm_tamper_open_report_bin(&reporter_bee);
-		}
-		else
-		{
-			zwifd_alrm_tamper_closed_report_bin(&reporter_bee);
+			uint8_t nodeid = 3;
+			uint8_t epid = 0;
+			reporter_set_nodeid_ex(&reporter_bee, nodeid, epid);
+			if ( (now_t%2) == 0 )
+			{
+				zwifd_alrm_tamper_open_report_bin(&reporter_bee);
+			}
+			else
+			{
+				zwifd_alrm_tamper_closed_report_bin(&reporter_bee);
+			}
 		}
 #endif
 	}
@@ -584,12 +588,13 @@ static void app_signal_register(void)
 }
 
 int option_index = 0;
-const char* short_options = "d:s:i:h";
+const char* short_options = "d:s:i:ch";
 static struct option long_options[] =
 {
 	{ "debug",       required_argument,   NULL,    'd'  },
 	{ "savepath",    required_argument,   NULL,    's'  },
 	{ "iface",       required_argument,   NULL,    'i'  },
+	{ "client",      no_argument,         NULL,    'v'  },
 	{ "help",        no_argument,         NULL,    'h'  },
 	{ 0,             0,                      0,    0    }
 };
@@ -600,6 +605,7 @@ static void app_showusage(int exit_code)
 					"  -d, --debug       debug level\n"
 					"  -s, --savepath    save path\n"
 					"  -i, --iface       iface\n"
+					"  -c, --client\n"
 					"  -h, --help\n", TAG);
 	printf( "Version: %s\n", version_show());
 	printf( "Example:\n"
@@ -632,6 +638,9 @@ static void app_ParseArguments(int argc, char **argv)
 				{
 					dbg_lvl_set(atoi(optarg));
 				}
+				break;
+			case 'c':
+				is_client = 1;
 				break;
 			default:
 				app_showusage(-1);

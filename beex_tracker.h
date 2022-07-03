@@ -28,7 +28,7 @@ extern "C"
 //******************************************************************************
 //** function **
 //******************************************************************************
-ChainXCtx_t *tracker_get_chainX(void );
+ChainX_t *tracker_get_chainX(void );
 char *tracker_get_frm_ip(void);
 
 void tracker_send(char *payload, int payload_len);

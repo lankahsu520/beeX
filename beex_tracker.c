@@ -16,7 +16,7 @@
 
 #include "beex_api.h"
 
-static ChainXCtx_t *chainX_mctt = NULL;
+static ChainX_t *chainX_mctt = NULL;
 static uint8_t tracker_order = 0;
 static uint8_t tracker_watch = 0;
 static uint8_t tracker_logging = 0;
@@ -28,7 +28,7 @@ static char my_macid[LEN_OF_MAC] = JVAL_C_MAC_NULL;
 CLIST(NotifyListHead);
 CLIST(LogginHead);
 
-ChainXCtx_t *tracker_get_chainX(void )
+ChainX_t *tracker_get_chainX(void )
 {
 	return chainX_mctt;
 }

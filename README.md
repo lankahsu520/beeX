@@ -1,4 +1,4 @@
-# Overview
+# 1. Overview
 Beex is an open source message handler that implements the MCTT protocol.
 
 What is MCTT
@@ -8,27 +8,37 @@ What is MCTT
 4. Each daemon (application) can be a server or client.
 5. Fixed Data Struct and include zwave (hcapi v8_12)
 
-# Depend on
+# 2. Depend on
 - [utilx9](https://github.com/lankahsu520/utilx9)
 - [zwave/zware](https://www.silabs.com/wireless/z-wave)
-- [github_](https://github.com/lankahsu520/github_)
 
-# Current Status
-
+# 3. Current Status
 
 
-# Build
+
+# 4. Build
    ```
 $ make
    ```
 
-# Example or Usage
+# 5. Example or Usage
 - beex_123 - an example. automatically trigger tamper notification and receive the notification.
+```bash
+# run as server
+$ ./beex_123 -d 2 -i enp0s3 &
+# this will get bee_notify_tamper !
 
+# run as client
+$ ./beex_123 -d 2 -i enp0s3 -c
+# this will be a client.
+# To trigger-bee_topic_issue_caller every second.
+# Also get bee_notify_tamper !
 
-# License
+```
+
+# 6. License
 beex is under the New BSD License (BSD-3-Clause).
 
 
-# Documentation
+# 7. Documentation
 Run an example and read it.

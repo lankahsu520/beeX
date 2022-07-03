@@ -333,7 +333,7 @@ void honeycomb_put_helper(Honeycomb_t *honeycomb_ctx, char *topic, char *payload
 								};
 								if (key)
 								{
-									SAFE_SPRINTF_EX(ir_manager.key, "%s/%s/%s", c_brand, c_model, c_key);
+									SAFE_SNPRINTF((char*)ir_manager.key, sizeof(ir_manager.key), "%s/%s/%s", c_brand, c_model, c_key);
 									//SAFE_MEMCPY(ir_manager.key, (char*)c_key, SAFE_STRLEN(c_key), LEN_OF_NAME32);
 								}
 								if (key)
@@ -1397,12 +1397,12 @@ static Notify_t notify_honeycomb = {
 	.watch_item_cb[NOTIFY_FN_ID_INFRARED] = honeycomb_notify_infrared,
 };
 
-json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_ctx)
+json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_req)
 {
 	json_t *jmac = NULL;
 	json_t *juuid = NULL;
 
-	if ( (honeycomb_ctx) && (topicx_ctx) )
+	if ( (honeycomb_ctx) && (topicx_req) )
 	{
 		uint16_t methodid = JVAL_METHODID_EVENT;
 		char *c_macid = NULL;
@@ -1441,7 +1441,7 @@ json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c
 				jmac = JSON_OBJ_GET_OBJ(honeycomb_ctx->jroot, c_macid);
 			}
 
-			SAFE_SPRINTF_EX(topicx_ctx->topic_mac, "%d/%s", methodid, c_macid);
+			SAFE_SPRINTF_EX(topicx_req->topic_mac, "%d/%s", methodid, c_macid);
 
 			if (jmac)
 			{
@@ -1450,7 +1450,7 @@ json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c
 				}
 				else
 				{
-					SAFE_SNPRINTF(topicx_ctx->topic_uuid, LEN_OF_TOPIC, "%s/%s", topicx_ctx->topic_mac, c_uuid);
+					SAFE_SNPRINTF(topicx_req->topic_uuid, LEN_OF_TOPIC, "%s/%s", topicx_req->topic_mac, c_uuid);
 
 					switch (act)
 					{
@@ -1472,19 +1472,19 @@ json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c
 			}
 		}
 
-		topicx_ctx->jmac = jmac;
-		topicx_ctx->juuid = juuid;
+		topicx_req->jmac = jmac;
+		topicx_req->juuid = juuid;
 	}
 
 	return juuid;
 }
 
-json_t *honeycomb_lookup_jnodeid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_ctx)
+json_t *honeycomb_lookup_jnodeid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_req)
 {
 	json_t *jnodeid = NULL;
-	if ( (honeycomb_ctx) && (topicx_ctx) )
+	if ( (honeycomb_ctx) && (topicx_req) )
 	{
-		json_t *juuid = honeycomb_lookup_juuid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_ctx);
+		json_t *juuid = honeycomb_lookup_juuid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_req);
 
 		if (juuid)
 		{
@@ -1512,7 +1512,7 @@ json_t *honeycomb_lookup_jnodeid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t 
 				jnodeid = JSON_OBJ_GET_OBJ(juuid, c_nodeid);
 			}
 
-			SAFE_SNPRINTF(topicx_ctx->topic_nodeid, LEN_OF_TOPIC, "%s/%s", topicx_ctx->topic_uuid, c_nodeid);
+			SAFE_SNPRINTF(topicx_req->topic_nodeid, LEN_OF_TOPIC, "%s/%s", topicx_req->topic_uuid, c_nodeid);
 
 			switch (act)
 			{
@@ -1532,18 +1532,18 @@ json_t *honeycomb_lookup_jnodeid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t 
 			}
 		}
 
-		topicx_ctx->jnodeid = jnodeid;
+		topicx_req->jnodeid = jnodeid;
 	}
 
 	return jnodeid;
 }
 
-json_t *honeycomb_lookup_jepid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_ctx)
+json_t *honeycomb_lookup_jepid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_req)
 {
 	json_t *jepid = NULL;
-	if ( (honeycomb_ctx) && (topicx_ctx) )
+	if ( (honeycomb_ctx) && (topicx_req) )
 	{
-		json_t *jnodeid = honeycomb_lookup_jnodeid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_ctx);
+		json_t *jnodeid = honeycomb_lookup_jnodeid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_req);
 
 		if (jnodeid)
 		{
@@ -1570,23 +1570,23 @@ json_t *honeycomb_lookup_jepid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c
 				jepid = JSON_OBJ_GET_OBJ(jnodeid, c_epid);
 			}
 
-			SAFE_SNPRINTF(topicx_ctx->topic_epid, LEN_OF_TOPIC, "%s/%s", topicx_ctx->topic_nodeid, c_epid);
+			SAFE_SNPRINTF(topicx_req->topic_epid, LEN_OF_TOPIC, "%s/%s", topicx_req->topic_nodeid, c_epid);
 
 			JSON_OBJ_FILL_STR(jepid, JKEY_COMM_CLASS, JVAL_CLASS_EPID);
 		}
 
-		topicx_ctx->jepid = jepid;
+		topicx_req->jepid = jepid;
 	}
 
 	return jepid;
 }
 
-json_t *honeycomb_lookup_jissueid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_ctx)
+json_t *honeycomb_lookup_jissueid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_req)
 {
 	json_t *jissueid = NULL;
-	if ( (honeycomb_ctx) && (topicx_ctx) )
+	if ( (honeycomb_ctx) && (topicx_req) )
 	{
-		json_t *jepid = honeycomb_lookup_jepid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_ctx);
+		json_t *jepid = honeycomb_lookup_jepid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_req);
 
 		if (jepid)
 		{
@@ -1602,10 +1602,10 @@ json_t *honeycomb_lookup_jissueid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t
 				jissueid = JSON_OBJ_GET_OBJ(jepid, c_issueid);
 			}
 
-			SAFE_SPRINTF_EX(topicx_ctx->topic_issueid, "%s/%s", topicx_ctx->topic_epid, c_issueid);
+			SAFE_SNPRINTF(topicx_req->topic_issueid, sizeof(topicx_req->topic_issueid), "%s/%s", topicx_req->topic_epid, c_issueid);
 		}
 
-		topicx_ctx->jissueid = jissueid;
+		topicx_req->jissueid = jissueid;
 	}
 
 	return jissueid;
