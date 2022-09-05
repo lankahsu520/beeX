@@ -29,6 +29,7 @@
 //** feature **
 //******************************************************************************
 #define USE_BEEX_123_UV
+//#define USE_AUTOSAVE
 #define USE_ASYNC_CREATE
 
 #define USE_MCTT_BEE

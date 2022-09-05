@@ -439,7 +439,7 @@ void async_loop(uv_async_t *handle)
 
 void app_save(void)
 {
-#ifdef USE_YK_P2P_MACRO
+#ifdef USE_AUTOSAVE
 	{// we dont need to save every 30mins.
 		honeycomb_save(&beex123_data);
 	}
