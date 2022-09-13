@@ -74,6 +74,9 @@ DUMMY_SBINS = $(SHELL_SBINS)
 CONFS = \
 				$(wildcard conf/*.conf)
 
+#** Target (AUTO_GENERATEDS) **
+AUTO_GENERATEDS = \
+
 TO_FOLDER =
 
 #** include *.mk **
@@ -98,7 +101,7 @@ $(CLEAN_BINS): $(CLEAN_OBJS) $(CLEAN_LIBS)
 	@echo ' '
 
 clean:
-	$(PJ_SH_RM) Makefile.bak $(CLEAN_BINS) $(CLEAN_BINS:=.elf) $(CLEAN_BINS:=.gdb)
+	$(PJ_SH_RM) Makefile.bak $(CLEAN_BINS) $(CLEAN_BINS:=.elf) $(CLEAN_BINS:=.gdb) $(AUTO_GENERATEDS)
 	$(PJ_SH_RM) .configured .patched $(addsuffix *, $(CLEAN_LIBS)) $(CLEAN_OBJS) $(CLEAN_OBJS:%.o=%.c.bak) $(CLEAN_OBJS:%.o=%.h.bak)
 	@for subbin in $(CLEAN_BINS); do \
 		($(PJ_SH_RM) $(SDK_BIN_DIR)/$$subbin;); \
@@ -112,9 +115,11 @@ clean:
 	@for subshell in $(SHELL_SBINS); do \
 		($(PJ_SH_RM) $(SDK_SBIN_DIR)/$$subshell;); \
 	done
-	@$(PJ_SH_RMDIR) build_xxx .meson_config build.meson meson_options.txt meson_public
 
 distclean: clean
+	[ -L meson_public ] && ($(PJ_SH_RMDIR) meson_public; ) || true
+	[ -d ./subprojects ] && [ -f meson.build ] && (meson subprojects purge --confirm;) || true
+	$(PJ_SH_RMDIR) build_xxx .meson_config build.meson meson_options.txt
 
 %.a: $(LIBXXX_OBJS)
 	@echo 'Building lib (static): $@'
@@ -131,36 +136,51 @@ distclean: clean
 	@echo ' '
 
 install: all
+	[ "$(CLEAN_BINS)" = "" ] || $(PJ_SH_MKDIR) $(SDK_BIN_DIR)
 	@for subbin in $(CLEAN_BINS); do \
 		$(PJ_SH_CP) $$subbin $(SDK_BIN_DIR); \
 		$(STRIP) $(SDK_BIN_DIR)/`basename $$subbin`; \
 	done
+	[ "$(CLEAN_LIBS)" = "" ] || $(PJ_SH_MKDIR) $(SDK_LIB_DIR)
 	@for sublib in $(CLEAN_LIBS); do \
 		$(PJ_SH_CP) $$sublib* $(SDK_LIB_DIR); \
 		$(STRIP) $(SDK_LIB_DIR)/$$sublib.$(VERSION_FULL); \
 	done
+	[ "$(HEADER_FILES)" = "" ] || $(PJ_SH_MKDIR) $(SDK_INC_DIR)
 	@for subheader in $(HEADER_FILES); do \
 		$(PJ_SH_CP) $$subheader $(SDK_INC_DIR); \
 	done
+	[ "$(SHELL_SBINS)" = "" ] || $(PJ_SH_MKDIR) $(SDK_SBIN_DIR)
 	@for subshell in $(SHELL_SBINS); do \
 		$(PJ_SH_CP) $$subshell $(SDK_SBIN_DIR); \
+	done
+	[ "$(CONFS)" = "" ] || $(PJ_SH_MKDIR) $(SDK_IOT_DIR)/$(TO_FOLDER)
+	@for conf in $(CONFS); do \
+		$(PJ_SH_CP) $$conf $(SDK_IOT_DIR)/$(TO_FOLDER); \
 	done
 
 romfs: install
 ifneq ("$(HOMEX_ROOT_DIR)", "")
+	[ "$(DUMMY_BINS)" = "" ] || $(PJ_SH_MKDIR) $(HOMEX_BIN_DIR)
 	@for subbin in $(DUMMY_BINS); do \
 		$(PJ_SH_CP) $$subbin $(HOMEX_BIN_DIR); \
 		$(STRIP) $(HOMEX_BIN_DIR)/`basename $$subbin`; \
 	done
+	[ "$(CLEAN_LIBS)" = "" ] || $(PJ_SH_MKDIR) $(HOMEX_LIB_DIR)
 	@for sublib in $(CLEAN_LIBS); do \
 		$(PJ_SH_CP) $$sublib* $(HOMEX_LIB_DIR); \
 		$(STRIP) $(HOMEX_LIB_DIR)/$$sublib.$(VERSION_FULL); \
 	done
+	#[ "$(HEADER_FILES)" = "" ] || $(PJ_SH_MKDIR) $(HOMEX_INC_DIR)
 	#@for subheader in $(HEADER_FILES); do \
 	#	$(PJ_SH_CP) $$subheader $(HOMEX_INC_DIR); \
 	#done
+	[ "$(DUMMY_SBINS)" = "" ] || $(PJ_SH_MKDIR) $(HOMEX_SBIN_DIR)
 	@for subshell in $(DUMMY_SBINS); do \
 		$(PJ_SH_CP) $$subshell $(HOMEX_SBIN_DIR); \
 	done
+	[ "$(CONFS)" = "" ] || $(PJ_SH_MKDIR) $(HOMEX_IOT_DIR)/$(TO_FOLDER)
+	@for conf in $(CONFS); do \
+		$(PJ_SH_CP) $$conf $(HOMEX_IOT_DIR)/$(TO_FOLDER); \
+	done
 endif
-
