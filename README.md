@@ -1,5 +1,5 @@
 # 1. Overview
-Beex is an open source message handler that implements the MCTT protocol.
+beeX is an open source message handler that implements the MCTT protocol.
 
 What is MCTT
 1. It is base on multicast (udp) protocol.
@@ -37,7 +37,7 @@ $ ./beex_123 -d 2 -i enp0s3 -c
 ```
 
 # 6. License
-beex is under the New BSD License (BSD-3-Clause).
+beeX is under the New BSD License (BSD-3-Clause).
 
 
 # 7. Documentation
