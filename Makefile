@@ -16,6 +16,11 @@ LIBNAME_MOD =
 LIBBEEX_VERSION="0x$(shell printf "%02X" $(VERSION_MAJOR))$(shell printf "%03X" $(VERSION_MINOR))$(shell printf "%03X" $(VERSION_REVISION))"
 
 #** CFLAGS & LDFLAGS **
+CXX_SET=.cpp
+CC_SET=$(CC)
+ifneq ("$(CXX_SET)", "")
+CC_SET=$(CXX)
+endif
 CFLAGS += $(CFLAGS_OTHERS) $(CFLAGS_CUSTOMER)
 
 CFLAGS += \
@@ -31,6 +36,9 @@ LIBXXX_OBJS += \
 							beex_tracker.o \
 							beex_report.o \
 							beex_translater.o
+
+# cpp
+LIBXXX_OBJS += \
 
 #** LIBXXX_yes **
 ifneq ("$(LIBNAME_A)", "")
@@ -57,7 +65,11 @@ HEADER_FILES = \
 #** librarys **
 LIBS_yes = $(LIBXXXS_yes)
 #** LIBS_yes, CLEAN_BINS, DUMMY_BINS  **
+ifneq ("$(wildcard ./library.mk)","")
 -include ./library.mk
+else
+-include $(PJ_MK_USER_LIB)
+endif
 
 LIBS += $(LIBS_yes)
 
@@ -69,7 +81,13 @@ CLEAN_LIBS = $(LIBXXX_A) $(LIBXXX_SO) $(LIBXXX_MOD)
 CLEAN_BINS += \
 							beex_123
 
+# cpp
+CLEAN_BINS += \
+
 #** Target (DUMMY_BINS) **
+DUMMY_BINS += \
+
+# cpp
 DUMMY_BINS += \
 
 CLEAN_BINS += $(DUMMY_BINS)
@@ -90,10 +108,10 @@ AUTO_GENERATEDS = \
 TO_FOLDER =
 
 .DEFAULT_GOAL = all
-.SUFFIXES: .c .o
+.SUFFIXES: .cpp .cpp.o .c .o
 
 .PHONY: all clean distclean install romfs
-all: .configured $(CLEAN_BINS) $(CLEAN_LIBS)
+all: $(CONFIGURED) $(CLEAN_BINS) $(CLEAN_LIBS)
 
 %.o: %.c $(HEADER_FILES)
 	@echo 'Compiling file: $<'
@@ -101,15 +119,29 @@ all: .configured $(CLEAN_BINS) $(CLEAN_LIBS)
 	@echo 'Finished compiling: $<'
 	@echo ' '
 
+%.o: %.cpp $(HEADER_FILES)
+	@echo 'Compiling file: $<'
+	$(CXX) $(CFLAGS) -c -o"$@" "$<"
+	@echo 'Finished compiling: $<'
+	@echo ' '
+
+%.cpp.o: %.cpp $(HEADER_FILES)
+	@echo 'Compiling file: $<'
+	$(CXX) $(CFLAGS) -c -o"$@" "$<"
+	@echo 'Finished compiling: $<'
+	@echo ' '
+
 $(CLEAN_BINS): $(CLEAN_OBJS) $(CLEAN_LIBS)
 	@echo 'Building target: $@'
-	$(CC) -o $@ $@.o $(LDFLAGS) $(LIBS)
+	#[ -f $@.cpp ] && $(CC_SET) -o $@ $@.o $(LDFLAGS) $(LIBS) || echo -n ""
+	#[ -f $@.c ] && $(CC) -o $@ $@.o $(LDFLAGS) $(LIBS) || echo -n ""
+	$(CC_SET) -o $@ $@.o $(LDFLAGS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 clean:
 	$(PJ_SH_RM) Makefile.bak $(CLEAN_BINS) $(CLEAN_BINS:=.elf) $(CLEAN_BINS:=.gdb) $(AUTO_GENERATEDS)
-	$(PJ_SH_RM) .configured .patched $(addsuffix *, $(CLEAN_LIBS)) $(CLEAN_OBJS) $(CLEAN_OBJS:%.o=%.c.bak) $(CLEAN_OBJS:%.o=%.h.bak)
+	$(PJ_SH_RM) Makefile.bak $(addsuffix *, $(CLEAN_LIBS)) $(CLEAN_OBJS) $(CLEAN_OBJS:%.o=%.c.bak) $(CLEAN_OBJS:%.o=%.h.bak) $(CLEAN_BINS:=.cpp.o)
 	@for subbin in $(CLEAN_BINS); do \
 		($(PJ_SH_RM) $(SDK_BIN_DIR)/$$subbin;); \
 	done
@@ -127,6 +159,7 @@ distclean: clean
 	[ -L meson_public ] && ($(PJ_SH_RMDIR) meson_public; ) || true
 	[ -d ./subprojects ] && [ -f meson.build ] && (meson subprojects purge --confirm;) || true
 	$(PJ_SH_RMDIR) build_xxx .meson_config build.meson meson_options.txt
+	$(PJ_SH_RM) $(CONFIGURED) .patched .unpack
 
 %.a: $(LIBXXX_OBJS)
 	@echo 'Building lib (static): $@'
@@ -136,7 +169,7 @@ distclean: clean
 
 %.so: $(LIBXXX_OBJS)
 	@echo 'Building lib (shared): $@'
-	$(CC) -shared $(LDFLAGS) -Wl,-soname,$@.$(VERSION_MAJOR) -o $@.$(VERSION_FULL) $(LIBXXX_OBJS)
+	$(CC_SET) -shared $(LDFLAGS) -Wl,-soname,$@.$(VERSION_MAJOR) -o $@.$(VERSION_FULL) $(LIBXXX_OBJS)
 	ln -sf $@.$(VERSION_FULL) $@.$(VERSION_MAJOR)
 	ln -sf $@.$(VERSION_MAJOR) $@
 	@echo 'Finished building lib (shared): $@'
@@ -151,7 +184,7 @@ install: all
 	[ "$(LIBXXX_SO)" = "" ] || $(PJ_SH_MKDIR) $(SDK_LIB_DIR)
 	@for sublib in $(LIBXXX_SO); do \
 		$(PJ_SH_CP) $$sublib* $(SDK_LIB_DIR); \
-		$(STRIP) $(SDK_LIB_DIR)/$$sublib.$(VERSION_FULL); \
+		$(STRIP) $(SDK_LIB_DIR)/`basename $$sublib.$(VERSION_FULL)`; \
 	done
 	[ "$(HEADER_FILES)" = "" ] || $(PJ_SH_MKDIR) $(SDK_INC_DIR)
 	@for subheader in $(HEADER_FILES); do \
@@ -176,7 +209,7 @@ ifneq ("$(HOMEX_ROOT_DIR)", "")
 	[ "$(LIBXXX_SO)" = "" ] || $(PJ_SH_MKDIR) $(HOMEX_LIB_DIR)
 	@for sublib in $(LIBXXX_SO); do \
 		$(PJ_SH_CP) $$sublib* $(HOMEX_LIB_DIR); \
-		$(STRIP) $(HOMEX_LIB_DIR)/$$sublib.$(VERSION_FULL); \
+		$(STRIP) $(HOMEX_LIB_DIR)/`basename $$sublib.$(VERSION_FULL)`; \
 	done
 	#[ "$(HEADER_FILES)" = "" ] || $(PJ_SH_MKDIR) $(HOMEX_INC_DIR)
 	#@for subheader in $(HEADER_FILES); do \
