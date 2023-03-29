@@ -490,7 +490,7 @@ static void app_loop(void)
 		commander_set_frm_mac(&commander_bee, iface_mac);
 
 		honeycomb_open(&beex123_data);
-		honeycomb_register(&beex123_data);
+		//honeycomb_register(&beex123_data);
 	}
 #endif
 

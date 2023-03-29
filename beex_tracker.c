@@ -183,6 +183,7 @@ static void tracker_order_func_cb(void *userdata, IssueItem_t *c_issueitem, ORDE
 
 	for (cur = clist_head(head); cur != NULL; cur = clist_item_next(cur))
 	{
+		DBG_TR_LN("(cur->c_uuid: %s, c_uuid: %s, fn_id: %d, cur->order_item_cb: %p)", cur->c_uuid, c_uuid, fn_id, cur->order_item_cb[fn_id]);
 		if ( (SAFE_STRCMP(c_uuid, JVAL_C_UUID_BROADCAST) == 0)  || (SAFE_STRCMP(cur->c_uuid, JVAL_C_UUID_BROADCAST) == 0) || (SAFE_STRCMP(cur->c_uuid, c_uuid) == 0) )
 		{
 			if (cur->order_item_cb[fn_id]) cur->order_item_cb[fn_id](userdata, c_issueitem);
@@ -244,7 +245,7 @@ void tracker_order_simple(void *userdata, IssueItem_t *c_issueitem, uint8_t dbg)
 	SAFE_SPRINTF_EX(node_str, "%s.%d", c_nodeid_to, epid_to);
 	SAFE_SPRINTF_EX(response, "0x%08X,%u", issueid, val);
 	SAFE_SPRINTF_EX(tag, "%s", JKEY_REPORT_COMMAND );
-
+	DBG_TR_LN("(issueid: %08X)", issueid);
 	switch (JKEY_ISSUEID_GATEWAY_MASK & issueid)
 	{
 		
@@ -486,6 +487,7 @@ void tracker_watch_simple(void *userdata, IssueItem_t *c_issueitem, uint8_t dbg)
 	SAFE_SPRINTF_EX(response, "0x%08X,", issueid);
 	BUFF_DUMP_BUFF(valp, data_len, ",", "0x", buff, LEN_OF_BUF256);
 	SAFE_STRCAT(response, buff);
+	DBG_TR_LN("(issueid: %08X)", issueid);
 	switch (issueid)
 	{
 		// 0x00000000
@@ -1474,7 +1476,7 @@ static void tracker_parser(void *userdata, unsigned char *payload, int payload_l
 	//uint16_t data_len = c_issueitem->data_len;
 
 	int match = 0;
-	DBG_TR_LN("(my_macid: %s, macid_frm: %s, macid_to: %s)", my_macid, c_macid_frm, c_macid_to);
+	DBG_TR_LN("(my_macid: %s, macid_frm: %s, macid_to: %s, methodid: %d)", my_macid, c_macid_frm, c_macid_to, methodid);
 	switch (methodid)
 	{
 		case JVAL_METHODID_EVENT:
@@ -1506,6 +1508,53 @@ static void tracker_parser(void *userdata, unsigned char *payload, int payload_l
 	}
 }
 
+QueueX_t *mcttX_q = NULL;
+
+typedef struct mcttX_Struct
+{
+	void *userdata;
+	unsigned char *payload;
+	int payload_len;
+} mcttX_t;
+
+static int mcttX_q_exec_cb(void *arg)
+{
+	mcttX_t *data_pop = (mcttX_t *)arg;
+
+	if ( (data_pop) )
+	{
+		tracker_parser(data_pop->userdata, data_pop->payload, data_pop->payload_len);
+	}
+
+	return 0;
+}
+
+static int mcttX_q_free_cb(void *arg)
+{
+	mcttX_t *data_pop = (mcttX_t *)arg;
+
+	if (data_pop)
+	{
+		SAFE_FREE(data_pop->payload);
+	}
+
+	return 0;
+}
+
+static void tracker_parser_cb(void *userdata, unsigned char *payload, int payload_len)
+{
+	if ( (payload) && (payload_len >= (sizeof(IssueItem_t)-MAX_DATA_OF_ISSUE_ITEM) ) )
+	{
+		mcttX_t data_new;
+		data_new.userdata = userdata;
+		data_new.payload = (void*)SAFE_CALLOC(1, payload_len+1);
+		SAFE_MEMCPY(data_new.payload, payload, payload_len, payload_len);
+		data_new.payload_len = payload_len;
+
+		queuex_push(mcttX_q, (void*)&data_new);
+	}
+}
+
 void tracker_send(char *buff, int buff_len)
 {
 	if ( (chainX_mctt) && (chainX_quit_check(chainX_mctt)==0) )
@@ -1516,6 +1565,13 @@ void tracker_send(char *buff, int buff_len)
 
 void tracker_close(void)
 {
+	if (mcttX_q)
+	{
+		queuex_thread_stop(mcttX_q);
+		queuex_thread_close(mcttX_q);
+		mcttX_q= NULL;
+	}
+
 	if (chainX_mctt)
 	{
 		mctt_thread_close(chainX_mctt);
@@ -1528,7 +1584,14 @@ void tracker_close(void)
 
 void tracker_init(void *userdata, char *macid)
 {
-	chainX_mctt = mctt_thread_init(userdata, MCTT_IP, MCTT_PORT, tracker_parser);
+	mcttX_q = queuex_thread_init("mcttX_q", 30, sizeof(mcttX_t), mcttX_q_exec_cb, mcttX_q_free_cb);
+	if (mcttX_q)
+	{
+		//mcttX_q->dbg_more = DBG_LVL_DEBUG;
+		queuex_isready(mcttX_q, 5);
+	}
+
+	chainX_mctt = mctt_thread_init(userdata, MCTT_IP, MCTT_PORT, tracker_parser_cb);
 
 	SAFE_SPRINTF_EX(my_macid, "%s", macid);
 
