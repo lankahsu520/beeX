@@ -95,8 +95,11 @@ char* translate_device_class(uint8_t basic)
 
 char *translate_specific(uint8_t generic, uint8_t specific)
 {
-	if (specific == 0x00) return "SPECIFIC_TYPE_NOT_USED";
-	
+	if (specific == 0x00)
+	{
+		return "SPECIFIC_TYPE_NOT_USED";
+	}
+
 	switch (generic)
 	{
 		case GENERIC_TYPE_GENERIC_CONTROLLER: // 0x01
@@ -574,27 +577,47 @@ char *translate_generic(uint8_t generic)
 
 void translate_color_component_mask(uint16_t color_component_mask, char *mask_name)
 {
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_WARM_WHITE))
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_WARM_WHITE))
+	{
 		strcat(mask_name, "Warm White/");
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_COLD_WHITE))
+	}
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_COLD_WHITE))
+	{
 		strcat(mask_name, "Cold White/");
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_RED))
+	}
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_RED))
+	{
 		strcat(mask_name, "Red/");
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_GREEN))
+	}
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_GREEN))
+	{
 		strcat(mask_name, "Green/");
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_BLUE))
+	}
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_BLUE))
+	{
 		strcat(mask_name, "Blue/");
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_AMBER))
+	}
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_AMBER))
+	{
 		strcat(mask_name, "Amber/");
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_CYAN))
+	}
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_CYAN))
+	{
 		strcat(mask_name, "Cyan/");
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_PURPLE))
+	}
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_PURPLE))
+	{
 		strcat(mask_name, "Purple/");
-	if ( color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_INDEXED_COLOR))
+	}
+	if (color_component_mask & (uint16_t)pow(2, COLOR_COMPONENT_INDEXED_COLOR))
+	{
 		strcat(mask_name, "Indexed Color/");
+	}
 
-	if ( mask_name[strlen(mask_name)-1] =='/' )
+	if (mask_name[strlen(mask_name)-1] =='/')
+	{
 		mask_name[strlen(mask_name)-1] = '\0';
+	}
 }
 
 char *translate_color_name(uint16_t id)
@@ -636,28 +659,44 @@ char *translate_color_name(uint16_t id)
 
 void translate_propty(uint8_t propty, char *propty_name)
 {
-	if ( propty & IF_PROPTY_SECURE)
+	if (propty & IF_PROPTY_SECURE)
+	{
 		strcat(propty_name, "IF_PROPTY_SECURE/");
-	if ( propty & IF_PROPTY_UNSECURE)
+	}
+	if (propty & IF_PROPTY_UNSECURE)
+	{
 		strcat(propty_name, "IF_PROPTY_UNSECURE/");
-	if ( propty & IF_PROPTY_HIDDEN)
+	}
+	if (propty & IF_PROPTY_HIDDEN)
+	{
 		strcat(propty_name, "IF_PROPTY_HIDDEN/");
+	}
 
-	if ( propty_name[strlen(propty_name)-1] =='/' )
+	if (propty_name[strlen(propty_name)-1] =='/')
+	{
 		propty_name[strlen(propty_name)-1] = '\0';
+	}
 }
 
 void translate_ctl_role(uint8_t ctl_role, char *ctl_role_name)
 {
-	if ( ctl_role & ZWNET_CTLR_ROLE_PROXY)
+	if (ctl_role & ZWNET_CTLR_ROLE_PROXY)
+	{
 		strcat(ctl_role_name, "ZWNET_CTLR_ROLE_PROXY/");
-	if ( ctl_role & ZWNET_CTLR_ROLE_INCL)
+	}
+	if (ctl_role & ZWNET_CTLR_ROLE_INCL)
+	{
 		strcat(ctl_role_name, "ZWNET_CTLR_ROLE_INCL/");
-	if ( ctl_role & ZWNET_CTLR_ROLE_PRI)
+	}
+	if (ctl_role & ZWNET_CTLR_ROLE_PRI)
+	{
 		strcat(ctl_role_name, "ZWNET_CTLR_ROLE_PRI/");
+	}
 
-	if ( ctl_role_name[strlen(ctl_role_name)-1] =='/' )
+	if (ctl_role_name[strlen(ctl_role_name)-1] =='/')
+	{
 		ctl_role_name[strlen(ctl_role_name)-1] = '\0';
+	}
 }
 
 char* translate_op_add_node(uint8_t add_node)
@@ -1197,11 +1236,11 @@ char* translate_node_sts(uint8_t sts)
 		case ZWNET_NODE_STS_UP:
 			return "ZWNET_NODE_STS_UP";
 			break;
-#ifdef ZWNET_NODE_STS_SLEEP			
+#ifdef ZWNET_NODE_STS_SLEEP
 		case ZWNET_NODE_STS_SLEEP:
 			return "ZWNET_NODE_STS_SLEEP";
 			break;
-#endif			
+#endif
 		default:
 			return "ZWNET_NODE_STS_XXX";
 			break;
@@ -1479,27 +1518,45 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_SMOKE_L:
-					if (prefix) return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_SMOKE_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_SMOKE_L";
+					}
 					return "ZW_ALRM_EVT_SMOKE_L";
 					break;
 				case ZW_ALRM_EVT_SMOKE:
-					if (prefix) return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_SMOKE";
+					if (prefix)
+					{
+						return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_SMOKE";
+					}
 					return "ZW_ALRM_EVT_SMOKE";
 					break;
 				case ZW_ALRM_EVT_SMOKE_TEST:
-					if (prefix) return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_SMOKE_TEST";
+					if (prefix)
+					{
+						return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_SMOKE_TEST";
+					}
 					return "ZW_ALRM_EVT_SMOKE_TEST";
 					break;
 				case ZW_ALRM_EVT_SMOKE_REPLA:
-					if (prefix) return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_SMOKE_REPLA";
+					if (prefix)
+					{
+						return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_SMOKE_REPLA";
+					}
 					return "ZW_ALRM_EVT_SMOKE_REPLA";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_SMOKE/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1508,27 +1565,45 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_CO/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_CO_L:
-					if (prefix) return "ZW_ALRM_CO/ZW_ALRM_EVT_CO_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO/ZW_ALRM_EVT_CO_L";
+					}
 					return "ZW_ALRM_EVT_CO_L";
 					break;
 				case ZW_ALRM_EVT_CO:
-					if (prefix) return "ZW_ALRM_CO/ZW_ALRM_EVT_CO";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO/ZW_ALRM_EVT_CO";
+					}
 					return "ZW_ALRM_EVT_CO";
 					break;
 				case ZW_ALRM_EVT_CO_TEST:
-					if (prefix) return "ZW_ALRM_CO/ZW_ALRM_EVT_CO_TEST";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO/ZW_ALRM_EVT_CO_TEST";
+					}
 					return "ZW_ALRM_EVT_CO_TEST";
 					break;
 				case ZW_ALRM_EVT_CO_REPLA:
-					if (prefix) return "ZW_ALRM_CO/ZW_ALRM_EVT_CO_REPLA";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO/ZW_ALRM_EVT_CO_REPLA";
+					}
 					return "ZW_ALRM_EVT_CO_REPLA";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_CO/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1537,23 +1612,38 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_CO2/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO2/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_CO2_L:
-					if (prefix) return "ZW_ALRM_CO2/ZW_ALRM_EVT_CO2_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO2/ZW_ALRM_EVT_CO2_L";
+					}
 					return "ZW_ALRM_EVT_CO2_L";
 					break;
 				case ZW_ALRM_EVT_CO2:
-					if (prefix) return "ZW_ALRM_CO2/ZW_ALRM_EVT_CO2";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO2/ZW_ALRM_EVT_CO2";
+					}
 					return "ZW_ALRM_EVT_CO2";
 					break;
 				case ZW_ALRM_EVT_CO2_REPLA:
-					if (prefix) return "ZW_ALRM_CO2/ZW_ALRM_EVT_CO2_REPLA";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO2/ZW_ALRM_EVT_CO2_REPLA";
+					}
 					return "ZW_ALRM_EVT_CO2_REPLA";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_CO2/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_CO2/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1562,35 +1652,59 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_HEAT/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_HEAT/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_OVERHEAT_L:
-					if (prefix) return "ZW_ALRM_HEAT/ZW_ALRM_EVT_OVERHEAT_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_HEAT/ZW_ALRM_EVT_OVERHEAT_L";
+					}
 					return "ZW_ALRM_EVT_OVERHEAT_L";
 					break;
 				case ZW_ALRM_EVT_OVERHEAT:
-					if (prefix) return "ZW_ALRM_HEAT/ZW_ALRM_EVT_OVERHEAT";
+					if (prefix)
+					{
+						return "ZW_ALRM_HEAT/ZW_ALRM_EVT_OVERHEAT";
+					}
 					return "ZW_ALRM_EVT_OVERHEAT";
 					break;
 				case ZW_ALRM_EVT_TEMP_RISE_L:
-					if (prefix) return "ZW_ALRM_HEAT/ZW_ALRM_EVT_TEMP_RISE_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_HEAT/ZW_ALRM_EVT_TEMP_RISE_L";
+					}
 					return "ZW_ALRM_EVT_TEMP_RISE_L";
 					break;
 				case ZW_ALRM_EVT_TEMP_RISE:
-					if (prefix) return "ZW_ALRM_HEAT/ZW_ALRM_EVT_TEMP_RISE";
+					if (prefix)
+					{
+						return "ZW_ALRM_HEAT/ZW_ALRM_EVT_TEMP_RISE";
+					}
 					return "ZW_ALRM_EVT_TEMP_RISE";
 					break;
 				case ZW_ALRM_EVT_UNDRHEAT_L:
-					if (prefix) return "ZW_ALRM_HEAT/ZW_ALRM_EVT_UNDRHEAT_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_HEAT/ZW_ALRM_EVT_UNDRHEAT_L";
+					}
 					return "ZW_ALRM_EVT_UNDRHEAT_L";
 					break;
 				case ZW_ALRM_EVT_UNDRHEAT:
-					if (prefix) return "ZW_ALRM_HEAT/ZW_ALRM_EVT_UNDRHEAT";
+					if (prefix)
+					{
+						return "ZW_ALRM_HEAT/ZW_ALRM_EVT_UNDRHEAT";
+					}
 					return "ZW_ALRM_EVT_UNDRHEAT";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_HEAT/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_HEAT/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1599,27 +1713,45 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_WATER/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_WATER/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_LEAK_L:
-					if (prefix) return "ZW_ALRM_WATER/ZW_ALRM_EVT_LEAK_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_WATER/ZW_ALRM_EVT_LEAK_L";
+					}
 					return "ZW_ALRM_EVT_LEAK_L";
 					break;
 				case ZW_ALRM_EVT_LEAK:
-					if (prefix) return "ZW_ALRM_WATER/ZW_ALRM_EVT_LEAK";
+					if (prefix)
+					{
+						return "ZW_ALRM_WATER/ZW_ALRM_EVT_LEAK";
+					}
 					return "ZW_ALRM_EVT_LEAK";
 					break;
 				case ZW_ALRM_EVT_LVL_L:
-					if (prefix) return "ZW_ALRM_WATER/ZW_ALRM_EVT_LVL_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_WATER/ZW_ALRM_EVT_LVL_L";
+					}
 					return "ZW_ALRM_EVT_LVL_L";
 					break;
 				case ZW_ALRM_EVT_LVL:
-					if (prefix) return "ZW_ALRM_WATER/ZW_ALRM_EVT_LVL";
+					if (prefix)
+					{
+						return "ZW_ALRM_WATER/ZW_ALRM_EVT_LVL";
+					}
 					return "ZW_ALRM_EVT_LVL";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_WATER/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_WATER/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1628,103 +1760,178 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_MANUAL_LCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_MANUAL_LCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_MANUAL_LCK";
+					}
 					return "ZW_ALRM_EVT_MANUAL_LCK";
 					break;
 				case ZW_ALRM_EVT_MANUAL_ULCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_MANUAL_ULCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_MANUAL_ULCK";
+					}
 					return "ZW_ALRM_EVT_MANUAL_ULCK";
 					break;
 				case ZW_ALRM_EVT_RF_LCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_LCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_LCK";
+					}
 					return "ZW_ALRM_EVT_RF_LCK";
 					break;
 				case ZW_ALRM_EVT_RF_ULCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_ULCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_ULCK";
+					}
 					return "ZW_ALRM_EVT_RF_ULCK";
 					break;
 				case ZW_ALRM_EVT_KEYPAD_LCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_KEYPAD_LCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_KEYPAD_LCK";
+					}
 					return "ZW_ALRM_EVT_KEYPAD_LCK";
 					break;
 				case ZW_ALRM_EVT_KEYPAD_ULCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_KEYPAD_ULCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_KEYPAD_ULCK";
+					}
 					return "ZW_ALRM_EVT_KEYPAD_ULCK";
 					break;
 				case ZW_ALRM_EVT_MANUAL_NOT_FUL_LCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_MANUAL_NOT_FUL_LCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_MANUAL_NOT_FUL_LCK";
+					}
 					return "ZW_ALRM_EVT_MANUAL_NOT_FUL_LCK";
 					break;
 				case ZW_ALRM_EVT_RF_NOT_FUL_LCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_NOT_FUL_LCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_NOT_FUL_LCK";
+					}
 					return "ZW_ALRM_EVT_RF_NOT_FUL_LCK";
 					break;
 				case ZW_ALRM_EVT_AUTO_LCK:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_AUTO_LCK";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_AUTO_LCK";
+					}
 					return "ZW_ALRM_EVT_AUTO_LCK";
 					break;
 				case ZW_ALRM_EVT_AUTO_NOT_FUL_OPER:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_AUTO_NOT_FUL_OPER";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_AUTO_NOT_FUL_OPER";
+					}
 					return "ZW_ALRM_EVT_AUTO_NOT_FUL_OPER";
 					break;
 				case ZW_ALRM_EVT_LCK_JAMMED:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_LCK_JAMMED";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_LCK_JAMMED";
+					}
 					return "ZW_ALRM_EVT_LCK_JAMMED";
 					break;
 				case ZW_ALRM_EVT_ALL_CODE_DEL:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_ALL_CODE_DEL";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_ALL_CODE_DEL";
+					}
 					return "ZW_ALRM_EVT_ALL_CODE_DEL";
 					break;
 				case ZW_ALRM_EVT_1_CODE_DEL:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_1_CODE_DEL";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_1_CODE_DEL";
+					}
 					return "ZW_ALRM_EVT_1_CODE_DEL";
 					break;
 				case ZW_ALRM_EVT_CODE_ADDED:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_CODE_ADDED";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_CODE_ADDED";
+					}
 					return "ZW_ALRM_EVT_CODE_ADDED";
 					break;
 				case ZW_ALRM_EVT_CODE_DUP:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_CODE_DUP";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_CODE_DUP";
+					}
 					return "ZW_ALRM_EVT_CODE_DUP";
 					break;
 				case ZW_ALRM_EVT_KEYPAD_DISABLED:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_KEYPAD_DISABLED";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_KEYPAD_DISABLED";
+					}
 					return "ZW_ALRM_EVT_KEYPAD_DISABLED";
 					break;
 				case ZW_ALRM_EVT_KEYPAD_BUSY:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_KEYPAD_BUSY";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_KEYPAD_BUSY";
+					}
 					return "ZW_ALRM_EVT_KEYPAD_BUSY";
 					break;
 				case ZW_ALRM_EVT_NEW_PROG_CODE:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_NEW_PROG_CODE";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_NEW_PROG_CODE";
+					}
 					return "ZW_ALRM_EVT_NEW_PROG_CODE";
 					break;
 				case ZW_ALRM_EVT_USR_CODE_LIMIT:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_USR_CODE_LIMIT";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_USR_CODE_LIMIT";
+					}
 					return "ZW_ALRM_EVT_USR_CODE_LIMIT";
 					break;
 				case ZW_ALRM_EVT_RF_ULCK_INVLD_CODE:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_ULCK_INVLD_CODE";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_ULCK_INVLD_CODE";
+					}
 					return "ZW_ALRM_EVT_RF_ULCK_INVLD_CODE";
 					break;
 				case ZW_ALRM_EVT_RF_LCK_INVLD_CODE:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_LCK_INVLD_CODE";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_RF_LCK_INVLD_CODE";
+					}
 					return "ZW_ALRM_EVT_RF_LCK_INVLD_CODE";
 					break;
 				case ZW_ALRM_EVT_WINDOW_DOOR_OPEN:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_WINDOW_DOOR_OPEN";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_WINDOW_DOOR_OPEN";
+					}
 					return "ZW_ALRM_EVT_WINDOW_DOOR_OPEN";
 					break;
 				case ZW_ALRM_EVT_WINDOW_DOOR_CLOSED:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_WINDOW_DOOR_CLOSED";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_WINDOW_DOOR_CLOSED";
+					}
 					return "ZW_ALRM_EVT_WINDOW_DOOR_CLOSED";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_LOCK/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_LOCK/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1733,43 +1940,73 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_INTRUSION_L:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_INTRUSION_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_INTRUSION_L";
+					}
 					return "ZW_ALRM_EVT_INTRUSION_L";
 					break;
 				case ZW_ALRM_EVT_INTRUSION:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_INTRUSION";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_INTRUSION";
+					}
 					return "ZW_ALRM_EVT_INTRUSION";
 					break;
 				case ZW_ALRM_EVT_TMPR_COVER:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_TMPR_COVER";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_TMPR_COVER";
+					}
 					return "ZW_ALRM_EVT_TMPR_COVER";
 					break;
 				case ZW_ALRM_EVT_TMPR_CODE:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_TMPR_CODE";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_TMPR_CODE";
+					}
 					return "ZW_ALRM_EVT_TMPR_CODE";
 					break;
 				case ZW_ALRM_EVT_GLASS_L:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_GLASS_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_GLASS_L";
+					}
 					return "ZW_ALRM_EVT_GLASS_L";
 					break;
 				case ZW_ALRM_EVT_GLASS:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_GLASS";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_GLASS";
+					}
 					return "ZW_ALRM_EVT_GLASS";
 					break;
 				case ZW_ALRM_EVT_MOTION_DET_L:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_MOTION_DET_L";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_MOTION_DET_L";
+					}
 					return "ZW_ALRM_EVT_MOTION_DET_L";
 					break;
 				case ZW_ALRM_EVT_MOTION_DET:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_MOTION_DET";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_MOTION_DET";
+					}
 					return "ZW_ALRM_EVT_MOTION_DET";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_BURGLAR/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1778,55 +2015,94 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_POWER:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_POWER";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_POWER";
+					}
 					return "ZW_ALRM_EVT_POWER";
 					break;
 				case ZW_ALRM_EVT_AC_OFF:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_AC_OFF";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_AC_OFF";
+					}
 					return "ZW_ALRM_EVT_AC_OFF";
 					break;
 				case ZW_ALRM_EVT_AC_ON:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_AC_ON";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_AC_ON";
+					}
 					return "ZW_ALRM_EVT_AC_ON";
 					break;
 				case ZW_ALRM_EVT_SURGE:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_SURGE";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_SURGE";
+					}
 					return "ZW_ALRM_EVT_SURGE";
 					break;
 				case ZW_ALRM_EVT_VOLT_DROP:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_VOLT_DROP";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_VOLT_DROP";
+					}
 					return "ZW_ALRM_EVT_VOLT_DROP";
 					break;
 				case ZW_ALRM_EVT_OVER_CURRENT:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_OVER_CURRENT";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_OVER_CURRENT";
+					}
 					return "ZW_ALRM_EVT_OVER_CURRENT";
 					break;
 				case ZW_ALRM_EVT_OVER_VOLT:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_OVER_VOLT";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_OVER_VOLT";
+					}
 					return "ZW_ALRM_EVT_OVER_VOLT";
 					break;
 				case ZW_ALRM_EVT_OVER_LOAD:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_OVER_LOAD";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_OVER_LOAD";
+					}
 					return "ZW_ALRM_EVT_OVER_LOAD";
 					break;
 				case ZW_ALRM_EVT_LOAD_ERR:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_LOAD_ERR";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_LOAD_ERR";
+					}
 					return "ZW_ALRM_EVT_LOAD_ERR";
 					break;
 				case ZW_ALRM_EVT_REPLACE_BATT_SOON:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_REPLACE_BATT_SOON";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_REPLACE_BATT_SOON";
+					}
 					return "ZW_ALRM_EVT_REPLACE_BATT_SOON";
 					break;
 				case ZW_ALRM_EVT_REPLACE_BATT_NOW:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_REPLACE_BATT_NOW";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_REPLACE_BATT_NOW";
+					}
 					return "ZW_ALRM_EVT_REPLACE_BATT_NOW";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_POWER/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_POWER/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1835,27 +2111,45 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_HW:
-					if (prefix) return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_HW";
+					if (prefix)
+					{
+						return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_HW";
+					}
 					return "ZW_ALRM_EVT_HW";
 					break;
 				case ZW_ALRM_EVT_SW:
-					if (prefix) return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_SW";
+					if (prefix)
+					{
+						return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_SW";
+					}
 					return "ZW_ALRM_EVT_SW";
 					break;
 				case ZW_ALRM_EVT_HW_OEM_CODE:
-					if (prefix) return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_HW_OEM_CODE";
+					if (prefix)
+					{
+						return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_HW_OEM_CODE";
+					}
 					return "ZW_ALRM_EVT_HW_OEM_CODE";
 					break;
 				case ZW_ALRM_EVT_SW_OEM_CODE:
-					if (prefix) return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_SW_OEM_CODE";
+					if (prefix)
+					{
+						return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_SW_OEM_CODE";
+					}
 					return "ZW_ALRM_EVT_SW_OEM_CODE";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_SYSTEM/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1864,23 +2158,38 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_POLICE:
-					if (prefix) return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_POLICE";
+					if (prefix)
+					{
+						return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_POLICE";
+					}
 					return "ZW_ALRM_EVT_POLICE";
 					break;
 				case ZW_ALRM_EVT_FIRE:
-					if (prefix) return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_FIRE";
+					if (prefix)
+					{
+						return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_FIRE";
+					}
 					return "ZW_ALRM_EVT_FIRE";
 					break;
 				case ZW_ALRM_EVT_MEDICAL:
-					if (prefix) return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_MEDICAL";
+					if (prefix)
+					{
+						return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_MEDICAL";
+					}
 					return "ZW_ALRM_EVT_MEDICAL";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_EMERGENCY/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -1889,19 +2198,31 @@ char* translate_alarm_event(uint8_t type, uint8_t event, uint8_t prefix)
 			switch (event)
 			{
 				case ZW_ALRM_EVT_INACTIVE_CLEAR:
-					if (prefix) return "ZW_ALRM_CLOCK/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					if (prefix)
+					{
+						return "ZW_ALRM_CLOCK/ZW_ALRM_EVT_INACTIVE_CLEAR";
+					}
 					return "ZW_ALRM_EVT_INACTIVE_CLEAR";
 					break;
 				case ZW_ALRM_EVT_WKUP:
-					if (prefix) return "ZW_ALRM_CLOCK/ZW_ALRM_EVT_WKUP";
+					if (prefix)
+					{
+						return "ZW_ALRM_CLOCK/ZW_ALRM_EVT_WKUP";
+					}
 					return "ZW_ALRM_EVT_WKUP";
 					break;
 				case ZW_ALRM_EVT_TIMER_ENDED:
-					if (prefix) return "ZW_ALRM_CLOCK/ZW_ALRM_EVT_TIMER_ENDED";
+					if (prefix)
+					{
+						return "ZW_ALRM_CLOCK/ZW_ALRM_EVT_TIMER_ENDED";
+					}
 					return "ZW_ALRM_EVT_TIMER_ENDED";
 					break;
 				default:
-					if (prefix) return "ZW_ALRM_CLOCK/ZW_ALRM_EVT_UNKNOWN";
+					if (prefix)
+					{
+						return "ZW_ALRM_CLOCK/ZW_ALRM_EVT_UNKNOWN";
+					}
 					return "ZW_ALRM_EVT_UNKNOWN";
 					break;
 			}
@@ -2361,7 +2682,8 @@ uint8_t translate_sensor_mask_to_unit(uint8_t sensor_unit_mask)
 	for (i=0; i<4; i++)
 	{
 		if (sensor_unit_mask & (1 << i))
-		{ //Found supported unit
+		{
+			//Found supported unit
 			ret = i;
 			break;
 		}
@@ -2439,21 +2761,35 @@ char* translate_door_mode(uint8_t mode)
 
 void translate_door_cond(uint8_t cond, char *cond_name)
 {
-	if ( cond & ZW_COND_DOOR_MASK)
+	if (cond & ZW_COND_DOOR_MASK)
+	{
 		strcat(cond_name, "door closed/");
+	}
 	else
+	{
 		strcat(cond_name, "door open/");
-	if ( cond & ZW_COND_BOLT_MASK)
+	}
+	if (cond & ZW_COND_BOLT_MASK)
+	{
 		strcat(cond_name, "bolt unlocked/");
+	}
 	else
+	{
 		strcat(cond_name, "bolt locked/");
-	if ( cond & ZW_COND_LATCH_MASK)
+	}
+	if (cond & ZW_COND_LATCH_MASK)
+	{
 		strcat(cond_name, "latch closed/");
+	}
 	else
+	{
 		strcat(cond_name, "latch open/");
+	}
 
-	if ( cond_name[strlen(cond_name)-1] =='/' )
+	if (cond_name[strlen(cond_name)-1] =='/')
+	{
 		cond_name[strlen(cond_name)-1] = '\0';
+	}
 }
 
 char* translate_door_op_type(uint8_t type)
@@ -2572,45 +2908,75 @@ void translate_meter_unit_sup(uint8_t type, uint8_t unit, char *unit_name)
 	switch (type)
 	{
 		case ZW_METER_TYPE_ELEC:
-			if ( unit & ZW_METER_SUP_UNIT_ELEC_KWH)
+			if (unit & ZW_METER_SUP_UNIT_ELEC_KWH)
+			{
 				strcat(unit_name, "kWh/");
-			if ( unit & ZW_METER_SUP_UNIT_ELEC_KVAH)
+			}
+			if (unit & ZW_METER_SUP_UNIT_ELEC_KVAH)
+			{
 				strcat(unit_name, "kVAh/");
-			if ( unit & ZW_METER_SUP_UNIT_ELEC_W)
+			}
+			if (unit & ZW_METER_SUP_UNIT_ELEC_W)
+			{
 				strcat(unit_name, "W/");
-			if ( unit & ZW_METER_SUP_UNIT_ELEC_PULSE)
+			}
+			if (unit & ZW_METER_SUP_UNIT_ELEC_PULSE)
+			{
 				strcat(unit_name, "pulse count/");
-			if ( unit & ZW_METER_SUP_UNIT_ELEC_V)
+			}
+			if (unit & ZW_METER_SUP_UNIT_ELEC_V)
+			{
 				strcat(unit_name, "V/");
-			if ( unit & ZW_METER_SUP_UNIT_ELEC_A)
+			}
+			if (unit & ZW_METER_SUP_UNIT_ELEC_A)
+			{
 				strcat(unit_name, "A/");
-			if ( unit & ZW_METER_SUP_UNIT_ELEC_PF)
+			}
+			if (unit & ZW_METER_SUP_UNIT_ELEC_PF)
+			{
 				strcat(unit_name, "power factor/");
+			}
 			break;
 		case ZW_METER_TYPE_GAS:
-			if ( unit & ZW_METER_SUP_UNIT_GAS_CM)
+			if (unit & ZW_METER_SUP_UNIT_GAS_CM)
+			{
 				strcat(unit_name, "cubic meters/");
-			if ( unit & ZW_METER_SUP_UNIT_GAS_CM)
+			}
+			if (unit & ZW_METER_SUP_UNIT_GAS_CM)
+			{
 				strcat(unit_name, "cubic feet/");
-			if ( unit & ZW_METER_SUP_UNIT_GAS_CM)
+			}
+			if (unit & ZW_METER_SUP_UNIT_GAS_CM)
+			{
 				strcat(unit_name, "pulse count/");
+			}
 			break;
 		case ZW_METER_TYPE_WATER:
-			if ( unit & ZW_METER_SUP_UNIT_WATER_CM)
+			if (unit & ZW_METER_SUP_UNIT_WATER_CM)
+			{
 				strcat(unit_name, "cubic meters/");
-			if ( unit & ZW_METER_SUP_UNIT_WATER_CF)
+			}
+			if (unit & ZW_METER_SUP_UNIT_WATER_CF)
+			{
 				strcat(unit_name, "cubic feet/");
-			if ( unit & ZW_METER_SUP_UNIT_WATER_GAL)
+			}
+			if (unit & ZW_METER_SUP_UNIT_WATER_GAL)
+			{
 				strcat(unit_name, "US gallons/");
-			if ( unit & ZW_METER_SUP_UNIT_WATER_PULSE)
+			}
+			if (unit & ZW_METER_SUP_UNIT_WATER_PULSE)
+			{
 				strcat(unit_name, "Upulse count/");
+			}
 			break;
 		default:
 			break;
-	}	
+	}
 
-	if ( unit_name[strlen(unit_name)-1] =='/' )
+	if (unit_name[strlen(unit_name)-1] =='/')
+	{
 		unit_name[strlen(unit_name)-1] = '\0';
+	}
 }
 
 char* translate_meter_rate(uint8_t rate_type)
@@ -2689,7 +3055,7 @@ char* translate_dur(uint8_t dur)
 			return "done";
 			break;
 		default:
-			if ( (0x01<=dur) && (dur<=0x7F) )
+			if ((0x01<=dur) && (dur<=0x7F))
 			{
 				return "seconds";
 			}
@@ -2717,7 +3083,7 @@ char* translate_multilevel_level(uint8_t level)
 			return "off";
 			break;
 		default:
-			if ( (level>= 0x01) && (level<=0x63))
+			if ((level>= 0x01) && (level<=0x63))
 			{
 				return "%";
 			}
@@ -2921,7 +3287,7 @@ char* translate_thermostat_mode(uint8_t mode)
 		case ZW_THRMO_MD_MANUFACTURER_SPECIFC:
 			return "ZW_THRMO_MD_MANUFACTURER_SPECIFC";
 			break;
-#endif			
+#endif
 		default:
 			return "ZW_THRMO_MD_XXX";
 			break;
@@ -2981,7 +3347,7 @@ char* translate_thermostat_op_state(uint8_t state)
 		case ZW_THRMO_OP_STA_3RD_STAGE_AUX_HEAT:
 			return "ZW_THRMO_OP_STA_3RD_STAGE_AUX_HEAT";
 			break;
-#endif			
+#endif
 		default:
 			return "ZW_THRMO_OP_STA_XXX";
 			break;
@@ -3135,7 +3501,7 @@ char* translate_thermostat_fan_state(uint8_t state)
 		// 8
 		case ZW_THRMO_FAN_STA_CIR_QUIET:
 			return "ZW_THRMO_FAN_STA_CIR_QUIET";
-			break;			
+			break;
 		default:
 			return "ZW_THRMO_FAN_STA_XXX";
 			break;
@@ -3162,7 +3528,8 @@ const char * translate_power_level(uint8_t lvl)
 {
 	const char *ret;
 
-	switch (lvl) {
+	switch (lvl)
+	{
 		case 1:
 			ret = "-1dBm";
 			break;
@@ -3203,7 +3570,8 @@ const char * translate_power_level(uint8_t lvl)
 const char * translate_power_level_power(uint8_t power)
 {
 	const char *ret;
-	switch (power) {
+	switch (power)
+	{
 		case POWERLEVEL_TEST_NODE_SET_NORMALPOWER:
 			ret = "POWERLEVEL_TEST_NODE_SET_NORMALPOWER";
 			break;
@@ -3246,7 +3614,8 @@ const char * translate_power_level_status(uint8_t status)
 {
 	const char *ret;
 
-	switch (status) {
+	switch (status)
+	{
 		//case POWERLEVEL_TEST_NODE_REPORT_ZW_TEST_NOT_A_NODEID:
 		//	ret = "POWERLEVEL_TEST_NODE_REPORT_ZW_TEST_NOT_A_NODEID";
 		//	break;
@@ -3281,7 +3650,8 @@ const char * translate_controller_state_to_string(int state)
 {
 	const char *ret;
 
-	switch (state) {
+	switch (state)
+	{
 		case ZWNET_OP_ADD_NODE:
 			ret = "adding";
 			break;
@@ -3289,11 +3659,11 @@ const char * translate_controller_state_to_string(int state)
 			ret = "resetting";
 			break;
 		case ZWNET_OP_RM_NODE:
-			ret = "removing";	
+			ret = "removing";
 			break;
 		default:
 			ret = "none";
-		break;
+			break;
 	}
 
 	return ret;
@@ -3306,66 +3676,186 @@ const char *translate_cc(uint16_t cls)
 
 	switch (cls)
 	{
-		case COMMAND_CLASS_ALARM: ret = "CC_ALARM"; break;
-		case COMMAND_CLASS_APPLICATION_STATUS: ret = "CC_APPLICATION_STATUS"; break;
-		case COMMAND_CLASS_ASSOCIATION: ret = "CC_ASSOCIATION"; break;
-		case COMMAND_CLASS_ASSOCIATION_GRP_INFO: ret = "CC_ASSOCIATION_GRP_INFO"; break;
-		case COMMAND_CLASS_BASIC: ret = "CC_BASIC"; break;
-		case COMMAND_CLASS_BATTERY: ret = "CC_BATTERY"; break;
-		case COMMAND_CLASS_CENTRAL_SCENE: ret = "CC_CENTRAL_SCENE"; break;
-		case COMMAND_CLASS_CLOCK: ret = "CC_CLOCK"; break;
-		case COMMAND_CLASS_CONFIGURATION: ret = "CC_CONFIGURATION"; break;
-		case COMMAND_CLASS_CONTROLLER_REPLICATION: ret = "CC_CONTROLLER_REPLICATION"; break;
-		case COMMAND_CLASS_CRC_16_ENCAP: ret = "CC_CRC_16_ENCAP"; break;
-		case COMMAND_CLASS_DEVICE_RESET_LOCALLY: ret = "CC_DEVICE_RESET_LOCALLY"; break;
-		case COMMAND_CLASS_DOOR_LOCK: ret = "CC_DOOR_LOCK"; break;
-		case COMMAND_CLASS_DOOR_LOCK_LOGGING: ret = "CC_DOOR_LOCK_LOGGING"; break;
-		case COMMAND_CLASS_FIRMWARE_UPDATE_MD: ret = "CC_FIRMWARE_UPDATE_MD"; break;
-		case COMMAND_CLASS_INCLUSION_CONTROLLER: ret = "CC_INCLUSION_CONTROLLER"; break;
-		case COMMAND_CLASS_IP_ASSOCIATION: ret = "CC_IP_ASSOCIATION"; break;
-		case COMMAND_CLASS_MAILBOX: ret = "CC_MAILBOX"; break;
-		case COMMAND_CLASS_MANUFACTURER_SPECIFIC: ret = "CC_MANUFACTURER_SPECIFIC"; break;
-		case COMMAND_CLASS_METER: ret = "CC_METER"; break;
-		case COMMAND_CLASS_MULTI_CHANNEL_ASSOCIATION_V2: ret = "CC_MULTI_CHANNEL_ASSOCIATION_V2"; break;
-		case COMMAND_CLASS_MULTI_CHANNEL_V2: ret = "CC_MULTI_CHANNEL_V2"; break;
-		case COMMAND_CLASS_MULTI_CMD: ret = "CC_MULTI_CMD"; break;
-		case COMMAND_CLASS_NETWORK_MANAGEMENT_BASIC: ret = "CC_CLASS_NETWORK_MANAGEMENT_BASIC"; break;
-		case COMMAND_CLASS_NETWORK_MANAGEMENT_INCLUSION: ret = "CC_NETWORK_MANAGEMENT_INCLUSION"; break;
-		case COMMAND_CLASS_NETWORK_MANAGEMENT_INSTALLATION_MAINTENANCE: ret = "CC_NETWORK_MANAGEMENT_INSTALLATION_MAINTENANCE"; break;
-		case COMMAND_CLASS_NETWORK_MANAGEMENT_PROXY: ret = "CC_CLASS_NETWORK_MANAGEMENT_PROXY"; break;
-		case COMMAND_CLASS_NODE_NAMING: ret = "CC_NODE_NAMING"; break;
-		case COMMAND_CLASS_POWERLEVEL: ret = "CC_POWERLEVEL"; break;
-		case COMMAND_CLASS_PROTECTION: ret = "CC_PROTECTION"; break;
-		case COMMAND_CLASS_SCENE_ACTIVATION: ret = "CC_SCENE_ACTIVATION"; break;
-		case COMMAND_CLASS_SCENE_ACTUATOR_CONF: ret = "CC_SCENE_ACTUATOR_CONF"; break;
-		case COMMAND_CLASS_SCHEDULE_ENTRY_LOCK: ret = "CC_SCHEDULE_ENTRY_LOCK"; break;
-		case COMMAND_CLASS_SECURITY: ret = "CC_SECURITY"; break;
-		case COMMAND_CLASS_SECURITY_2: ret = "CC_SECURITY_2"; break;
-		case COMMAND_CLASS_SENSOR_BINARY: ret = "CC_SENSOR_BINARY"; break;
-		case COMMAND_CLASS_SENSOR_MULTILEVEL: ret = "CC_SENSOR_MULTILEVEL"; break;
-		case COMMAND_CLASS_SIMPLE_AV_CONTROL: ret = "CC_SIMPLE_AV_CONTROL"; break;
-		case COMMAND_CLASS_SUPERVISION: ret = "CC_SUPERVISION"; break;
-		case COMMAND_CLASS_SWITCH_ALL: ret = "CC_SWITCH_ALL"; break;
-		case COMMAND_CLASS_SWITCH_BINARY: ret = "CC_SWITCH_BINARY"; break;
-		case COMMAND_CLASS_SWITCH_COLOR: ret = "CC_SWITCH_COLOR"; break;
-		case COMMAND_CLASS_SWITCH_MULTILEVEL: ret = "CC_SWITCH_MULTILEVEL"; break;
-		case COMMAND_CLASS_THERMOSTAT_FAN_MODE: ret = "CC_THERMOSTAT_FAN_MODE"; break;
-		case COMMAND_CLASS_THERMOSTAT_FAN_STATE: ret = "CC_THERMOSTAT_FAN_STATE"; break;
-		case COMMAND_CLASS_THERMOSTAT_MODE: ret = "CC_THERMOSTAT_MODE"; break;
-		case COMMAND_CLASS_THERMOSTAT_OPERATING_STATE: ret = "CC_THERMOSTAT_OPERATING_STATE"; break;
-		case COMMAND_CLASS_THERMOSTAT_SETPOINT: ret = "CC_THERMOSTAT_SETPOINT"; break;
-		case COMMAND_CLASS_TIME: ret = "CC_TIME"; break;
-		case COMMAND_CLASS_TIME_PARAMETERS: ret = "CC_TIME_PARAMETERS"; break;
-		case COMMAND_CLASS_TRANSPORT_SERVICE: ret = "CC_TRANSPORT_SERVICE"; break;
-		case COMMAND_CLASS_USER_CODE: ret = "CC_USER_CODE"; break;
-		case COMMAND_CLASS_VERSION: ret = "CC_VERSION"; break;
-		case COMMAND_CLASS_WAKE_UP: ret = "CC_WAKE_UP"; break;
-		case COMMAND_CLASS_ZIP: ret = "CC_CLASS_ZIP"; break;
-		case COMMAND_CLASS_ZIP_GATEWAY: ret = "CC_ZIP_GATEWAY"; break;
-		case COMMAND_CLASS_ZIP_NAMING: ret = "CC_ZIP_NAMING"; break;
-		case COMMAND_CLASS_ZIP_PORTAL: ret = "CC_ZIP_PORTAL"; break;
-		case COMMAND_CLASS_ZWAVEPLUS_INFO: ret = "CC_ZWAVEPLUS_INFO"; break;
-		default: ret = "CC_XXX"; break;
+		case COMMAND_CLASS_ALARM:
+			ret = "CC_ALARM";
+			break;
+		case COMMAND_CLASS_APPLICATION_STATUS:
+			ret = "CC_APPLICATION_STATUS";
+			break;
+		case COMMAND_CLASS_ASSOCIATION:
+			ret = "CC_ASSOCIATION";
+			break;
+		case COMMAND_CLASS_ASSOCIATION_GRP_INFO:
+			ret = "CC_ASSOCIATION_GRP_INFO";
+			break;
+		case COMMAND_CLASS_BASIC:
+			ret = "CC_BASIC";
+			break;
+		case COMMAND_CLASS_BATTERY:
+			ret = "CC_BATTERY";
+			break;
+		case COMMAND_CLASS_CENTRAL_SCENE:
+			ret = "CC_CENTRAL_SCENE";
+			break;
+		case COMMAND_CLASS_CLOCK:
+			ret = "CC_CLOCK";
+			break;
+		case COMMAND_CLASS_CONFIGURATION:
+			ret = "CC_CONFIGURATION";
+			break;
+		case COMMAND_CLASS_CONTROLLER_REPLICATION:
+			ret = "CC_CONTROLLER_REPLICATION";
+			break;
+		case COMMAND_CLASS_CRC_16_ENCAP:
+			ret = "CC_CRC_16_ENCAP";
+			break;
+		case COMMAND_CLASS_DEVICE_RESET_LOCALLY:
+			ret = "CC_DEVICE_RESET_LOCALLY";
+			break;
+		case COMMAND_CLASS_DOOR_LOCK:
+			ret = "CC_DOOR_LOCK";
+			break;
+		case COMMAND_CLASS_DOOR_LOCK_LOGGING:
+			ret = "CC_DOOR_LOCK_LOGGING";
+			break;
+		case COMMAND_CLASS_FIRMWARE_UPDATE_MD:
+			ret = "CC_FIRMWARE_UPDATE_MD";
+			break;
+		case COMMAND_CLASS_INCLUSION_CONTROLLER:
+			ret = "CC_INCLUSION_CONTROLLER";
+			break;
+		case COMMAND_CLASS_IP_ASSOCIATION:
+			ret = "CC_IP_ASSOCIATION";
+			break;
+		case COMMAND_CLASS_MAILBOX:
+			ret = "CC_MAILBOX";
+			break;
+		case COMMAND_CLASS_MANUFACTURER_SPECIFIC:
+			ret = "CC_MANUFACTURER_SPECIFIC";
+			break;
+		case COMMAND_CLASS_METER:
+			ret = "CC_METER";
+			break;
+		case COMMAND_CLASS_MULTI_CHANNEL_ASSOCIATION_V2:
+			ret = "CC_MULTI_CHANNEL_ASSOCIATION_V2";
+			break;
+		case COMMAND_CLASS_MULTI_CHANNEL_V2:
+			ret = "CC_MULTI_CHANNEL_V2";
+			break;
+		case COMMAND_CLASS_MULTI_CMD:
+			ret = "CC_MULTI_CMD";
+			break;
+		case COMMAND_CLASS_NETWORK_MANAGEMENT_BASIC:
+			ret = "CC_CLASS_NETWORK_MANAGEMENT_BASIC";
+			break;
+		case COMMAND_CLASS_NETWORK_MANAGEMENT_INCLUSION:
+			ret = "CC_NETWORK_MANAGEMENT_INCLUSION";
+			break;
+		case COMMAND_CLASS_NETWORK_MANAGEMENT_INSTALLATION_MAINTENANCE:
+			ret = "CC_NETWORK_MANAGEMENT_INSTALLATION_MAINTENANCE";
+			break;
+		case COMMAND_CLASS_NETWORK_MANAGEMENT_PROXY:
+			ret = "CC_CLASS_NETWORK_MANAGEMENT_PROXY";
+			break;
+		case COMMAND_CLASS_NODE_NAMING:
+			ret = "CC_NODE_NAMING";
+			break;
+		case COMMAND_CLASS_POWERLEVEL:
+			ret = "CC_POWERLEVEL";
+			break;
+		case COMMAND_CLASS_PROTECTION:
+			ret = "CC_PROTECTION";
+			break;
+		case COMMAND_CLASS_SCENE_ACTIVATION:
+			ret = "CC_SCENE_ACTIVATION";
+			break;
+		case COMMAND_CLASS_SCENE_ACTUATOR_CONF:
+			ret = "CC_SCENE_ACTUATOR_CONF";
+			break;
+		case COMMAND_CLASS_SCHEDULE_ENTRY_LOCK:
+			ret = "CC_SCHEDULE_ENTRY_LOCK";
+			break;
+		case COMMAND_CLASS_SECURITY:
+			ret = "CC_SECURITY";
+			break;
+		case COMMAND_CLASS_SECURITY_2:
+			ret = "CC_SECURITY_2";
+			break;
+		case COMMAND_CLASS_SENSOR_BINARY:
+			ret = "CC_SENSOR_BINARY";
+			break;
+		case COMMAND_CLASS_SENSOR_MULTILEVEL:
+			ret = "CC_SENSOR_MULTILEVEL";
+			break;
+		case COMMAND_CLASS_SIMPLE_AV_CONTROL:
+			ret = "CC_SIMPLE_AV_CONTROL";
+			break;
+		case COMMAND_CLASS_SUPERVISION:
+			ret = "CC_SUPERVISION";
+			break;
+		case COMMAND_CLASS_SWITCH_ALL:
+			ret = "CC_SWITCH_ALL";
+			break;
+		case COMMAND_CLASS_SWITCH_BINARY:
+			ret = "CC_SWITCH_BINARY";
+			break;
+		case COMMAND_CLASS_SWITCH_COLOR:
+			ret = "CC_SWITCH_COLOR";
+			break;
+		case COMMAND_CLASS_SWITCH_MULTILEVEL:
+			ret = "CC_SWITCH_MULTILEVEL";
+			break;
+		case COMMAND_CLASS_THERMOSTAT_FAN_MODE:
+			ret = "CC_THERMOSTAT_FAN_MODE";
+			break;
+		case COMMAND_CLASS_THERMOSTAT_FAN_STATE:
+			ret = "CC_THERMOSTAT_FAN_STATE";
+			break;
+		case COMMAND_CLASS_THERMOSTAT_MODE:
+			ret = "CC_THERMOSTAT_MODE";
+			break;
+		case COMMAND_CLASS_THERMOSTAT_OPERATING_STATE:
+			ret = "CC_THERMOSTAT_OPERATING_STATE";
+			break;
+		case COMMAND_CLASS_THERMOSTAT_SETPOINT:
+			ret = "CC_THERMOSTAT_SETPOINT";
+			break;
+		case COMMAND_CLASS_TIME:
+			ret = "CC_TIME";
+			break;
+		case COMMAND_CLASS_TIME_PARAMETERS:
+			ret = "CC_TIME_PARAMETERS";
+			break;
+		case COMMAND_CLASS_TRANSPORT_SERVICE:
+			ret = "CC_TRANSPORT_SERVICE";
+			break;
+		case COMMAND_CLASS_USER_CODE:
+			ret = "CC_USER_CODE";
+			break;
+		case COMMAND_CLASS_VERSION:
+			ret = "CC_VERSION";
+			break;
+		case COMMAND_CLASS_WAKE_UP:
+			ret = "CC_WAKE_UP";
+			break;
+		case COMMAND_CLASS_ZIP:
+			ret = "CC_CLASS_ZIP";
+			break;
+		case COMMAND_CLASS_ZIP_GATEWAY:
+			ret = "CC_ZIP_GATEWAY";
+			break;
+		case COMMAND_CLASS_ZIP_NAMING:
+			ret = "CC_ZIP_NAMING";
+			break;
+		case COMMAND_CLASS_ZIP_PORTAL:
+			ret = "CC_ZIP_PORTAL";
+			break;
+		case COMMAND_CLASS_ZWAVEPLUS_INFO:
+			ret = "CC_ZWAVEPLUS_INFO";
+			break;
+		default:
+			ret = "CC_XXX";
+			break;
 	}
 
 	return ret;
@@ -3386,11 +3876,11 @@ static void translate_cfg_CommandClass(void)
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_SWITCH_BINARY].name, "CC_SWITCH_BINARY"); // 0x25
 
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_SWITCH_MULTILEVEL].name, "CC_SWITCH_MULTILEVEL"); // 0x26
-	
+
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_SWITCH_ALL].name, "CC_SWITCH_ALL"); // 0x27
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_SCENE_ACTIVATION].name, "CC_SCENE_ACTIVATION"); // 0x2b
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_SCENE_ACTUATOR_CONF].name, "CC_SCENE_ACTUATOR_CONF"); // 0x2c
-	
+
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_SENSOR_BINARY].name, "CC_SENSOR_BINARY"); // 0x30
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_SENSOR_MULTILEVEL].name, "CC_SENSOR_MULTILEVEL"); // 0x31
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_METER].name, "CC_METER"); // 0x32
@@ -3415,7 +3905,7 @@ static void translate_cfg_CommandClass(void)
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_IP_ASSOCIATION].name, "CC_IP_ASSOCIATION"); // 0x5c
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_ZWAVEPLUS_INFO].name, "CC_ZWAVEPLUS_INFO"); // 0x5e
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_ZIP_GATEWAY].name, "CC_ZIP_GATEWAY"); // 0x5f
-	
+
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_MULTI_CHANNEL_V2].name, "CC_MULTI_CHANNEL_V2"); // 0x60
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_ZIP_PORTAL].name, "CC_ZIP_PORTAL"); // 0x61
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_DOOR_LOCK].name, "CC_DOOR_LOCK"); // 0x62
@@ -3436,7 +3926,7 @@ static void translate_cfg_CommandClass(void)
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_PROTECTION].name, "CC_PROTECTION"); // 0x75
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_NODE_NAMING].name, "CC_NODE_NAMING"); // 0x77
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_FIRMWARE_UPDATE_MD].name, "CC_FIRMWARE_UPDATE_MD"); // 0x7a
-	
+
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_BATTERY].name, "CC_BATTERY"); // 0x80
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_CLOCK].name, "CC_CLOCK"); // 0x81
 	SAFE_SPRINTF_EX(CommandClassArray[COMMAND_CLASS_WAKE_UP].name, "CC_WAKE_UP"); // 0x84
@@ -3464,167 +3954,167 @@ static void translate_cfg_SensorName(void)
 	// ** SensorName **
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TEMP].name, "ZW_SENSOR_TYPE_TEMP"); // 0x01
 	SensorNameArray[ZW_SENSOR_TYPE_TEMP].report = JKEY_REPORT_TEMPERATURE;
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TEMP].unit[ZW_SENSOR_UNIT_TEMP_CEL], "Celsius"); // 0x01.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TEMP].unit[ZW_SENSOR_UNIT_TEMP_FAHR], "Fahrenheit"); // 0x01.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TEMP].unit[ZW_SENSOR_UNIT_TEMP_CEL], "Celsius"); // 0x01.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TEMP].unit[ZW_SENSOR_UNIT_TEMP_FAHR], "Fahrenheit"); // 0x01.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_GP].name, "ZW_SENSOR_TYPE_GP"); // 0x02
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_GP].unit[ZW_SENSOR_UNIT_GP_PERC], "%%"); // 0x02.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_GP].unit[ZW_SENSOR_UNIT_GP_NODIM], "ZW_SENSOR_UNIT_GP_NODIM"); // 0x02.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_GP].unit[ZW_SENSOR_UNIT_GP_PERC], "%%"); // 0x02.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_GP].unit[ZW_SENSOR_UNIT_GP_NODIM], "ZW_SENSOR_UNIT_GP_NODIM"); // 0x02.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LUM].name, "ZW_SENSOR_TYPE_LUM"); // 0x03
 	SensorNameArray[ZW_SENSOR_TYPE_LUM].report = JKEY_REPORT_LUMINANCE;
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LUM].unit[ZW_SENSOR_UNIT_LUM_PERC], "%%"); // 0x03.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LUM].unit[ZW_SENSOR_UNIT_LUM_LUX], "Lux"); // 0x03.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LUM].unit[ZW_SENSOR_UNIT_LUM_PERC], "%%"); // 0x03.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LUM].unit[ZW_SENSOR_UNIT_LUM_LUX], "Lux"); // 0x03.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_POW].name, "ZW_SENSOR_TYPE_POW"); // 0x04
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_POW].unit[ZW_SENSOR_UNIT_POW_W], "w"); // 0x04.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_POW].unit[ZW_SENSOR_UNIT_POW_BTU], "Btu/h"); // 0x04.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_POW].unit[ZW_SENSOR_UNIT_POW_W], "w"); // 0x04.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_POW].unit[ZW_SENSOR_UNIT_POW_BTU], "Btu/h"); // 0x04.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_HUMD].name, "ZW_SENSOR_TYPE_HUMD"); // 0x05
 	SensorNameArray[ZW_SENSOR_TYPE_HUMD].report = JKEY_REPORT_HUMIDITY;
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_HUMD].unit[ZW_SENSOR_UNIT_HUMD_PERC], "%%"); // 0x05.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_HUMD].unit[ZW_SENSOR_UNIT_HUMD_ABS], "g/m3"); // 0x05.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_HUMD].unit[ZW_SENSOR_UNIT_HUMD_PERC], "%%"); // 0x05.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_HUMD].unit[ZW_SENSOR_UNIT_HUMD_ABS], "g/m3"); // 0x05.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VELO].name, "ZW_SENSOR_TYPE_VELO"); // 0x06
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VELO].unit[ZW_SENSOR_UNIT_VELO_MS], "m/s"); // 0x06.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VELO].unit[ZW_SENSOR_UNIT_VELO_MPH], "mph"); // 0x06.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VELO].unit[ZW_SENSOR_UNIT_VELO_MS], "m/s"); // 0x06.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VELO].unit[ZW_SENSOR_UNIT_VELO_MPH], "mph"); // 0x06.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIR].name, "ZW_SENSOR_TYPE_DIR"); // 0x07
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIR].unit[ZW_SENSOR_UNIT_DIR_DEG], "degrees"); // 0x07.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIR].unit[ZW_SENSOR_UNIT_DIR_DEG], "degrees"); // 0x07.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ATM].name, "ZW_SENSOR_TYPE_ATM"); // 0x08
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ATM].unit[ZW_SENSOR_UNIT_ATM_KPA], "kPa"); // 0x08.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ATM].unit[ZW_SENSOR_UNIT_ATM_HG], "inches of Mercury"); // 0x08.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ATM].unit[ZW_SENSOR_UNIT_ATM_KPA], "kPa"); // 0x08.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ATM].unit[ZW_SENSOR_UNIT_ATM_HG], "inches of Mercury"); // 0x08.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BARO].name, "ZW_SENSOR_TYPE_BARO"); // 0x09
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BARO].unit[ZW_SENSOR_UNIT_BARO_KPA], "kPa"); // 0x09.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BARO].unit[ZW_SENSOR_UNIT_BARO_HG], "inches of Mercury"); // 0x09.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BARO].unit[ZW_SENSOR_UNIT_BARO_KPA], "kPa"); // 0x09.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BARO].unit[ZW_SENSOR_UNIT_BARO_HG], "inches of Mercury"); // 0x09.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SLR].name, "ZW_SENSOR_TYPE_SLR"); // 0x0A
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SLR].unit[ZW_SENSOR_UNIT_SLR_WM2], "W/m2"); // 0x0A.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SLR].unit[ZW_SENSOR_UNIT_SLR_WM2], "W/m2"); // 0x0A.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DEW].name, "ZW_SENSOR_TYPE_DEW"); // 0x0B
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DEW].unit[ZW_SENSOR_UNIT_DEW_CEL], "Celsius"); // 0x0B.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DEW].unit[ZW_SENSOR_UNIT_DEW_FAHR], "Fahrenheit"); // 0x0B.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DEW].unit[ZW_SENSOR_UNIT_DEW_CEL], "Celsius"); // 0x0B.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DEW].unit[ZW_SENSOR_UNIT_DEW_FAHR], "Fahrenheit"); // 0x0B.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAIN].name, "ZW_SENSOR_TYPE_RAIN"); // 0x0C
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAIN].unit[ZW_SENSOR_UNIT_RAIN_MMH], "mm/h"); // 0x0C.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAIN].unit[ZW_SENSOR_UNIT_RAIN_INH], "in/h"); // 0x0C.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAIN].unit[ZW_SENSOR_UNIT_RAIN_MMH], "mm/h"); // 0x0C.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAIN].unit[ZW_SENSOR_UNIT_RAIN_INH], "in/h"); // 0x0C.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TIDE].name, "ZW_SENSOR_TYPE_TIDE"); // 0x0D
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TIDE].unit[ZW_SENSOR_UNIT_TIDE_M], "m"); // 0x0D.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TIDE].unit[ZW_SENSOR_UNIT_TIDE_FT], "feet"); // 0x0D.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TIDE].unit[ZW_SENSOR_UNIT_TIDE_M], "m"); // 0x0D.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TIDE].unit[ZW_SENSOR_UNIT_TIDE_FT], "feet"); // 0x0D.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WGT].name, "ZW_SENSOR_TYPE_WGT"); // 0x0E
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WGT].unit[ZW_SENSOR_UNIT_WGT_KG], "kg"); // 0x0E.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WGT].unit[ZW_SENSOR_UNIT_WGT_LBS], "pounds"); // 0x0E.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WGT].unit[ZW_SENSOR_UNIT_WGT_KG], "kg"); // 0x0E.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WGT].unit[ZW_SENSOR_UNIT_WGT_LBS], "pounds"); // 0x0E.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VOLT].name, "ZW_SENSOR_TYPE_VOLT"); // 0x0F
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VOLT].unit[ZW_SENSOR_UNIT_VOLT_V], "V"); // 0x0F.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VOLT].unit[ZW_SENSOR_UNIT_VOLT_MV], "mV"); // 0x0F.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VOLT].unit[ZW_SENSOR_UNIT_VOLT_V], "V"); // 0x0F.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VOLT].unit[ZW_SENSOR_UNIT_VOLT_MV], "mV"); // 0x0F.0x01
 
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CUR].name, "ZW_SENSOR_TYPE_CUR"); // 0x10
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CUR].unit[ZW_SENSOR_UNIT_CUR_A], "A"); // 0x10.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CUR].unit[ZW_SENSOR_UNIT_CUR_MA], "mA"); // 0x10.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CUR].unit[ZW_SENSOR_UNIT_CUR_A], "A"); // 0x10.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CUR].unit[ZW_SENSOR_UNIT_CUR_MA], "mA"); // 0x10.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CO2].name, "ZW_SENSOR_TYPE_CO2"); // 0x11
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CO2].unit[ZW_SENSOR_UNIT_CO2_PPM], "ppm"); // 0x11.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CO2].unit[ZW_SENSOR_UNIT_CO2_PPM], "ppm"); // 0x11.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AIR].name, "ZW_SENSOR_TYPE_AIR"); // 0x12
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AIR].unit[ZW_SENSOR_UNIT_AIR_M3H], "m3/h"); // 0x12.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AIR].unit[ZW_SENSOR_UNIT_AIR_CFM], "cfm"); // 0x12.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AIR].unit[ZW_SENSOR_UNIT_AIR_M3H], "m3/h"); // 0x12.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AIR].unit[ZW_SENSOR_UNIT_AIR_CFM], "cfm"); // 0x12.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TANK].name, "ZW_SENSOR_TYPE_TANK"); // 0x13
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TANK].unit[ZW_SENSOR_UNIT_TANK_L], "l"); // 0x13.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TANK].unit[ZW_SENSOR_UNIT_TANK_CBM], "cbm"); // 0x13.0x01
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TANK].unit[ZW_SENSOR_UNIT_TANK_GAL], "US gallons"); // 0x13.0x02
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TANK].unit[ZW_SENSOR_UNIT_TANK_L], "l"); // 0x13.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TANK].unit[ZW_SENSOR_UNIT_TANK_CBM], "cbm"); // 0x13.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TANK].unit[ZW_SENSOR_UNIT_TANK_GAL], "US gallons"); // 0x13.0x02
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIST].name, "ZW_SENSOR_TYPE_DIST"); // 0x14
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIST].unit[ZW_SENSOR_UNIT_DIST_M], "m"); // 0x14.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIST].unit[ZW_SENSOR_UNIT_DIST_CM], "cm"); // 0x14.0x01
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIST].unit[ZW_SENSOR_UNIT_DIST_FT], "feet"); // 0x14.0x02
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIST].unit[ZW_SENSOR_UNIT_DIST_M], "m"); // 0x14.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIST].unit[ZW_SENSOR_UNIT_DIST_CM], "cm"); // 0x14.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_DIST].unit[ZW_SENSOR_UNIT_DIST_FT], "feet"); // 0x14.0x02
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AGL].name, "ZW_SENSOR_TYPE_AGL"); // 0x15
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AGL].unit[ZW_SENSOR_UNIT_AGL_PERC], "%%"); // 0x15.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AGL].unit[ZW_SENSOR_UNIT_AGL_DEGN], "degrees"); // 0x15.0x01
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AGL].unit[ZW_SENSOR_UNIT_AGL_DEGS], "degrees"); // 0x15.0x02
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AGL].unit[ZW_SENSOR_UNIT_AGL_PERC], "%%"); // 0x15.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AGL].unit[ZW_SENSOR_UNIT_AGL_DEGN], "degrees"); // 0x15.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_AGL].unit[ZW_SENSOR_UNIT_AGL_DEGS], "degrees"); // 0x15.0x02
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ROT].name, "ZW_SENSOR_TYPE_ROT"); // 0x16
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ROT].unit[ZW_SENSOR_UNIT_ROT_RPM], "rpm"); // 0x16.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ROT].unit[ZW_SENSOR_UNIT_ROT_HZ], "Hz"); // 0x16.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ROT].unit[ZW_SENSOR_UNIT_ROT_RPM], "rpm"); // 0x16.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ROT].unit[ZW_SENSOR_UNIT_ROT_HZ], "Hz"); // 0x16.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WTR_TEMP].name, "ZW_SENSOR_TYPE_WTR_TEMP"); // 0x17
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WTR_TEMP].unit[ZW_SENSOR_UNIT_WTR_TEMP_CEL], "Celsius"); // 0x17.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WTR_TEMP].unit[ZW_SENSOR_UNIT_WTR_TEMP_FAHR], "Fahrenheit"); // 0x17.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WTR_TEMP].unit[ZW_SENSOR_UNIT_WTR_TEMP_CEL], "Celsius"); // 0x17.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WTR_TEMP].unit[ZW_SENSOR_UNIT_WTR_TEMP_FAHR], "Fahrenheit"); // 0x17.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_TEMP].name, "ZW_SENSOR_TYPE_SOIL_TEMP"); // 0x18
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_TEMP].unit[ZW_SENSOR_UNIT_SOIL_TEMP_CEL], "Celsius"); // 0x18.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_TEMP].unit[ZW_SENSOR_UNIT_SOIL_TEMP_FAHR], "Fahrenheit"); // 0x18.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_TEMP].unit[ZW_SENSOR_UNIT_SOIL_TEMP_CEL], "Celsius"); // 0x18.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_TEMP].unit[ZW_SENSOR_UNIT_SOIL_TEMP_FAHR], "Fahrenheit"); // 0x18.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].name, "ZW_SENSOR_TYPE_SEIS_INT"); // 0x19
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].unit[ZW_SENSOR_UNIT_SEIS_INT_MERC], "Mercalli"); // 0x19.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].unit[ZW_SENSOR_UNIT_SEIS_INT_EMCRO], "European Macroseismic"); // 0x19.0x01
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].unit[ZW_SENSOR_UNIT_SEIS_INT_LIEDU], "Liedu"); // 0x19.0x02
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].unit[ZW_SENSOR_UNIT_SEIS_INT_SHNDO], "Shindo"); // 0x19.0x03
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].unit[ZW_SENSOR_UNIT_SEIS_INT_MERC], "Mercalli"); // 0x19.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].unit[ZW_SENSOR_UNIT_SEIS_INT_EMCRO], "European Macroseismic"); // 0x19.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].unit[ZW_SENSOR_UNIT_SEIS_INT_LIEDU], "Liedu"); // 0x19.0x02
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_INT].unit[ZW_SENSOR_UNIT_SEIS_INT_SHNDO], "Shindo"); // 0x19.0x03
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].name, "ZW_SENSOR_TYPE_SEIS_MAG"); // 0x1A
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].unit[ZW_SENSOR_UNIT_SEIS_MAG_LOCAL], "Local (ML)"); // 0x1A.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].unit[ZW_SENSOR_UNIT_SEIS_MAG_MOM], "Moment (MW)"); // 0x1A.0x01
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].unit[ZW_SENSOR_UNIT_SEIS_MAG_SWAVE], "Surface wave (MS)"); // 0x1A.0x02
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].unit[ZW_SENSOR_UNIT_SEIS_MAG_BWAVE], "Body wave (MB"); // 0x1A.0x03
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].unit[ZW_SENSOR_UNIT_SEIS_MAG_LOCAL], "Local (ML)"); // 0x1A.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].unit[ZW_SENSOR_UNIT_SEIS_MAG_MOM], "Moment (MW)"); // 0x1A.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].unit[ZW_SENSOR_UNIT_SEIS_MAG_SWAVE], "Surface wave (MS)"); // 0x1A.0x02
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SEIS_MAG].unit[ZW_SENSOR_UNIT_SEIS_MAG_BWAVE], "Body wave (MB"); // 0x1A.0x03
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_UV].name, "ZW_SENSOR_TYPE_UV"); // 0x1B
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_UV].unit[ZW_SENSOR_UNIT_UV_INDEX], "UV index"); // 0x1B.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_UV].unit[ZW_SENSOR_UNIT_UV_INDEX], "UV index"); // 0x1B.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ELEC_RES].name, "ZW_SENSOR_TYPE_ELEC_RES"); // 0x1C
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ELEC_RES].unit[ZW_SENSOR_UNIT_ELEC_RES_OHMM], "ohm metre"); // 0x1C.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ELEC_RES].unit[ZW_SENSOR_UNIT_ELEC_RES_OHMM], "ohm metre"); // 0x1C.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ELEC_COND].name, "ZW_SENSOR_TYPE_ELEC_COND"); // 0x1D
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ELEC_COND].unit[ZW_SENSOR_UNIT_ELEC_COND_SIEM], "siemens per metre (S/m)"); // 0x1D.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ELEC_COND].unit[ZW_SENSOR_UNIT_ELEC_COND_SIEM], "siemens per metre (S/m)"); // 0x1D.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LOUDNESS].name, "ZW_SENSOR_TYPE_LOUDNESS"); // 0x1E
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LOUDNESS].unit[ZW_SENSOR_UNIT_LOUDNESS_ABS], "Absolute loudness (dB)"); // 0x1E.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LOUDNESS].unit[ZW_SENSOR_UNIT_LOUDNESS_A_WT], "A-weighted decibels (dBA)"); // 0x1E.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LOUDNESS].unit[ZW_SENSOR_UNIT_LOUDNESS_ABS], "Absolute loudness (dB)"); // 0x1E.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_LOUDNESS].unit[ZW_SENSOR_UNIT_LOUDNESS_A_WT], "A-weighted decibels (dBA)"); // 0x1E.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].name, "ZW_SENSOR_TYPE_MOIST"); // 0x1F
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].unit[ZW_SENSOR_UNIT_MOIST_PERC], "%%"); // 0x1F.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].unit[ZW_SENSOR_UNIT_MOIST_VOL_WTR], "Volume water content (m3/m3)"); // 0x1F.0x01
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].unit[ZW_SENSOR_UNIT_MOIST_IMPD], "Impedance (k ohm)"); // 0x1F.0x02
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].unit[ZW_SENSOR_UNIT_MOIST_WTR_ACT], "Water activity (aw)"); // 0x1F.0x03
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].unit[ZW_SENSOR_UNIT_MOIST_PERC], "%%"); // 0x1F.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].unit[ZW_SENSOR_UNIT_MOIST_VOL_WTR], "Volume water content (m3/m3)"); // 0x1F.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].unit[ZW_SENSOR_UNIT_MOIST_IMPD], "Impedance (k ohm)"); // 0x1F.0x02
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MOIST].unit[ZW_SENSOR_UNIT_MOIST_WTR_ACT], "Water activity (aw)"); // 0x1F.0x03
 
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_FREQ].name, "ZW_SENSOR_TYPE_FREQ"); // 0x20
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_FREQ].unit[ZW_SENSOR_UNIT_FREQ_HZ], "Hz"); // 0x20.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_FREQ].unit[ZW_SENSOR_UNIT_FREQ_KHZ], "kHz"); // 0x20.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_FREQ].unit[ZW_SENSOR_UNIT_FREQ_HZ], "Hz"); // 0x20.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_FREQ].unit[ZW_SENSOR_UNIT_FREQ_KHZ], "kHz"); // 0x20.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TIME].name, "ZW_SENSOR_TYPE_TIME"); // 0x21
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TIME].unit[ZW_SENSOR_UNIT_TIME_SEC], "seconds"); // 0x21.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TIME].unit[ZW_SENSOR_UNIT_TIME_SEC], "seconds"); // 0x21.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TGT_TEMP].name, "ZW_SENSOR_TYPE_TGT_TEMP"); // 0x22
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TGT_TEMP].unit[ZW_SENSOR_UNIT_TGT_TEMP_CEL], "Celsius"); // 0x22.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TGT_TEMP].unit[ZW_SENSOR_UNIT_TGT_TEMP_FAHR], "Fahrenheit"); // 0x22.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TGT_TEMP].unit[ZW_SENSOR_UNIT_TGT_TEMP_CEL], "Celsius"); // 0x22.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TGT_TEMP].unit[ZW_SENSOR_UNIT_TGT_TEMP_FAHR], "Fahrenheit"); // 0x22.0x01
 
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_PM_2_5].name, "ZW_SENSOR_TYPE_PM_2_5"); // 0x23
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_PM_2_5].unit[ZW_SENSOR_UNIT_PM_2_5_MM3], "mol/m3"); // 0x23.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_PM_2_5].unit[ZW_SENSOR_UNIT_PM_2_5_UGM3], "ug/m3"); // 0x23.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_PM_2_5].unit[ZW_SENSOR_UNIT_PM_2_5_MM3], "mol/m3"); // 0x23.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_PM_2_5].unit[ZW_SENSOR_UNIT_PM_2_5_UGM3], "ug/m3"); // 0x23.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_F_CH2O].name, "ZW_SENSOR_TYPE_F_CH2O"); // 0x24
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_F_CH2O].unit[ZW_SENSOR_UNIT_F_CH2O_MM3], "mol/m3"); // 0x24.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_F_CH2O].unit[ZW_SENSOR_UNIT_F_CH2O_MM3], "mol/m3"); // 0x24.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAD_CONT].name, "ZW_SENSOR_TYPE_RAD_CONT"); // 0x25
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAD_CONT].unit[ZW_SENSOR_UNIT_RAD_CONT_BQM3], "bq/m3"); // 0x25.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAD_CONT].unit[ZW_SENSOR_UNIT_RAD_CONT_PCIL], "pCi/L"); // 0x25.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAD_CONT].unit[ZW_SENSOR_UNIT_RAD_CONT_BQM3], "bq/m3"); // 0x25.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RAD_CONT].unit[ZW_SENSOR_UNIT_RAD_CONT_PCIL], "pCi/L"); // 0x25.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_METH_DENS].name, "ZW_SENSOR_TYPE_METH_DENS"); // 0x26
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_METH_DENS].unit[ZW_SENSOR_UNIT_METH_DENS_MM3], "mol/m3"); // 0x26.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_METH_DENS].unit[ZW_SENSOR_UNIT_METH_DENS_MM3], "mol/m3"); // 0x26.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VOC].name, "ZW_SENSOR_TYPE_VOC"); // 0x27
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VOC].unit[ZW_SENSOR_UNIT_VOC_MM3], "mol/m3"); // 0x27.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_VOC].unit[ZW_SENSOR_UNIT_VOC_MM3], "mol/m3"); // 0x27.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CO_LVL].name, "ZW_SENSOR_TYPE_CO_LVL"); // 0x28
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CO_LVL].unit[ZW_SENSOR_UNIT_CO_LVL_MM3], "mol/m3"); // 0x28.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_CO_LVL].unit[ZW_SENSOR_UNIT_CO_LVL_MM3], "mol/m3"); // 0x28.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_HUMD].name, "ZW_SENSOR_TYPE_SOIL_HUMD"); // 0x29
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_HUMD].unit[ZW_SENSOR_UNIT_CO_LVL_MM3], "%%"); // 0x29.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_HUMD].unit[ZW_SENSOR_UNIT_CO_LVL_MM3], "%%"); // 0x29.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_REAC].name, "ZW_SENSOR_TYPE_SOIL_REAC"); // 0x2A
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_REAC].unit[ZW_SENSOR_UNIT_SOIL_REAC_PH], "pH"); // 0x2A.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_REAC].unit[ZW_SENSOR_UNIT_SOIL_REAC_PH], "pH"); // 0x2A.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_SAL].name, "ZW_SENSOR_TYPE_SOIL_SAL"); // 0x2B
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_SAL].unit[ZW_SENSOR_UNIT_SOIL_SAL_MM3], "mol/m3"); // 0x2B.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SOIL_SAL].unit[ZW_SENSOR_UNIT_SOIL_SAL_MM3], "mol/m3"); // 0x2B.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_HEART_RT].name, "ZW_SENSOR_TYPE_HEART_RT"); // 0x2C
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_HEART_RT].unit[ZW_SENSOR_UNIT_HEART_RT_BPM], "Bpm"); // 0x2C.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_HEART_RT].unit[ZW_SENSOR_UNIT_HEART_RT_BPM], "Bpm"); // 0x2C.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BLOOD_PRS].name, "ZW_SENSOR_TYPE_BLOOD_PRS"); // 0x2D
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BLOOD_PRS].unit[ZW_SENSOR_UNIT_BLOOD_PRS_SYS], "mmHg"); // 0x2D.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BLOOD_PRS].unit[ZW_SENSOR_UNIT_BLOOD_PRS_DIA], "mmHg"); // 0x2D.0x01
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BLOOD_PRS].unit[ZW_SENSOR_UNIT_BLOOD_PRS_SYS], "mmHg"); // 0x2D.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BLOOD_PRS].unit[ZW_SENSOR_UNIT_BLOOD_PRS_DIA], "mmHg"); // 0x2D.0x01
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MUSCLE_MS].name, "ZW_SENSOR_TYPE_MUSCLE_MS"); // 0x2E
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MUSCLE_MS].unit[ZW_SENSOR_UNIT_MUSCLE_MS_KG], "kg"); // 0x2E.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_MUSCLE_MS].unit[ZW_SENSOR_UNIT_MUSCLE_MS_KG], "kg"); // 0x2E.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_FAT_MS].name, "ZW_SENSOR_TYPE_FAT_MS"); // 0x2F
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_FAT_MS].unit[ZW_SENSOR_UNIT_FAT_MS_KG], "kg"); // 0x2F.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_FAT_MS].unit[ZW_SENSOR_UNIT_FAT_MS_KG], "kg"); // 0x2F.0x00
 
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BONE_MS].name, "ZW_SENSOR_TYPE_BONE_MS"); // 0x30
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BONE_MS].unit[ZW_SENSOR_UNIT_BONE_MS_KG], "kg"); // 0x30.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BONE_MS].unit[ZW_SENSOR_UNIT_BONE_MS_KG], "kg"); // 0x30.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TBW].name, "ZW_SENSOR_TYPE_TBW"); // 0x31
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TBW].unit[ZW_SENSOR_UNIT_TBW_KG], "kg"); // 0x31.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_TBW].unit[ZW_SENSOR_UNIT_TBW_KG], "kg"); // 0x31.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BMR].name, "ZW_SENSOR_TYPE_BMR"); // 0x32
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BMR].unit[ZW_SENSOR_UNIT_BMR_J], "J"); // 0x32.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BMR].unit[ZW_SENSOR_UNIT_BMR_J], "J"); // 0x32.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BMI].name, "ZW_SENSOR_TYPE_BMI"); // 0x33
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BMI].unit[ZW_SENSOR_UNIT_BMI_IDX], "idx"); // 0x33.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_BMI].unit[ZW_SENSOR_UNIT_BMI_IDX], "idx"); // 0x33.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_X].name, "ZW_SENSOR_TYPE_ACCEL_X"); // 0x34
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_X].unit[ZW_SENSOR_UNIT_ACCEL_X_MS2], "m/s2"); // 0x34.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_X].unit[ZW_SENSOR_UNIT_ACCEL_X_MS2], "m/s2"); // 0x34.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_Y].name, "ZW_SENSOR_TYPE_ACCEL_Y"); // 0x35
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_Y].unit[ZW_SENSOR_UNIT_ACCEL_Z_MS2], "m/s2"); // 0x35.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_Y].unit[ZW_SENSOR_UNIT_ACCEL_Z_MS2], "m/s2"); // 0x35.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_Z].name, "ZW_SENSOR_TYPE_ACCEL_Z"); // 0x36
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_Z].unit[ZW_SENSOR_UNIT_ACCEL_Z_MS2], "m/s2"); // 0x36.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_ACCEL_Z].unit[ZW_SENSOR_UNIT_ACCEL_Z_MS2], "m/s2"); // 0x36.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SMOKE_DEN].name, "ZW_SENSOR_TYPE_SMOKE_DEN"); // 0x37
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SMOKE_DEN].unit[ZW_SENSOR_UNIT_SMOKE_DEN_PERC], "%%"); // 0x37.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_SMOKE_DEN].unit[ZW_SENSOR_UNIT_SMOKE_DEN_PERC], "%%"); // 0x37.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WATER_FLW].name, "ZW_SENSOR_TYPE_WATER_FLW"); // 0x38
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WATER_FLW].unit[ZW_SENSOR_UNIT_WATER_FLW_LHR], "(l/h"); // 0x38.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WATER_FLW].unit[ZW_SENSOR_UNIT_WATER_FLW_LHR], "(l/h"); // 0x38.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WATER_PRS].name, "ZW_SENSOR_TYPE_WATER_PRS"); // 0x39
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WATER_PRS].unit[ZW_SENSOR_UNIT_WATER_PRS_KPA], "kPa"); // 0x39.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_WATER_PRS].unit[ZW_SENSOR_UNIT_WATER_PRS_KPA], "kPa"); // 0x39.0x00
 	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RF_SGN].name, "ZW_SENSOR_TYPE_RF_SGN"); // 0x3A
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RF_SGN].unit[ZW_SENSOR_UNIT_RF_SGN_RSSI], "%%"); // 0x3A.0x00
-		SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RF_SGN].unit[ZW_SENSOR_UNIT_RF_SGN_DBM], "dBm"); // 0x3A.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RF_SGN].unit[ZW_SENSOR_UNIT_RF_SGN_RSSI], "%%"); // 0x3A.0x00
+	SAFE_SPRINTF_EX(SensorNameArray[ZW_SENSOR_TYPE_RF_SGN].unit[ZW_SENSOR_UNIT_RF_SGN_DBM], "dBm"); // 0x3A.0x00
 }
 
 void translater_open(void)
@@ -3636,7 +4126,7 @@ void translater_open(void)
 		//CommandClassArray[i].id = i;
 		SAFE_SPRINTF_EX(CommandClassArray[i].name, "XXX");
 	}
-	
+
 	for (i=0; i< LEN_OF_1BYTE_DEFINE; i++)
 	{
 		//SensorNameArray[i].id = i;
@@ -3662,13 +4152,19 @@ char* translate_ctl_capabilities(uint8_t ctl_cap)
 	static char ctl_capabilities_name[128] = "";
 
 	memset(ctl_capabilities_name, 0, sizeof(ctl_capabilities_name));
-	if ( ctl_cap & ZWNET_CTLR_CAP_S2)
+	if (ctl_cap & ZWNET_CTLR_CAP_S2)
+	{
 		strcat(ctl_capabilities_name, "ZWNET_CTLR_CAP_S2 (0x01)/");
-	if ( ctl_cap & ZWNET_CTLR_CAP_INC_ON_BEHALF)
+	}
+	if (ctl_cap & ZWNET_CTLR_CAP_INC_ON_BEHALF)
+	{
 		strcat(ctl_capabilities_name, "ZWNET_CTLR_CAP_INC_ON_BEHALF (0x02)/");
+	}
 
-	if ( ctl_capabilities_name[strlen(ctl_capabilities_name)-1] =='/' )
+	if (ctl_capabilities_name[strlen(ctl_capabilities_name)-1] =='/')
+	{
 		ctl_capabilities_name[strlen(ctl_capabilities_name)-1] = '\0';
+	}
 	return ctl_capabilities_name;
 }
 
@@ -3738,37 +4234,55 @@ char* translate_node_propty(uint8_t propty, uint8_t id)
 	static char propty_name[128] = "";
 
 	memset(propty_name, 0, sizeof(propty_name));
-	if ( propty & NODE_PROPTY_SECURE_CAP_S0)
+	if (propty & NODE_PROPTY_SECURE_CAP_S0)
 	{
 		if (id)
+		{
 			strcat(propty_name, "S0 (0x01)/");
+		}
 		else
+		{
 			strcat(propty_name, "S0/");
+		}
 	}
-	if ( propty & NODE_PROPTY_SECURE_CAP_S2)
+	if (propty & NODE_PROPTY_SECURE_CAP_S2)
 	{
 		if (id)
+		{
 			strcat(propty_name, "S2 (0x02)/");
+		}
 		else
+		{
 			strcat(propty_name, "S2/");
+		}
 	}
-	if ( propty & NODE_PROPTY_ADD_SECURE)
+	if (propty & NODE_PROPTY_ADD_SECURE)
 	{
 		if (id)
+		{
 			strcat(propty_name, "Security (0x04)/");
+		}
 		else
+		{
 			strcat(propty_name, "Security/");
+		}
 	}
-	if ( propty & NODE_PROPTY_ADD_INSECURE)
+	if (propty & NODE_PROPTY_ADD_INSECURE)
 	{
 		if (id)
+		{
 			strcat(propty_name, "Non-Security (0x08)/");
+		}
 		else
+		{
 			strcat(propty_name, "Non-Security/");
+		}
 	}
 
-	if ( propty_name[strlen(propty_name)-1] =='/' )
+	if (propty_name[strlen(propty_name)-1] =='/')
+	{
 		propty_name[strlen(propty_name)-1] = '\0';
+	}
 	return propty_name;
 }
 
@@ -3777,33 +4291,49 @@ char* translate_requested_keys(uint8_t req_keys, uint8_t id)
 	static char req_keys_name[128] = "";
 
 	memset(req_keys_name, 0, sizeof(req_keys_name));
-	if ( req_keys & SEC_KEY_BITMSK_S2_K2)
+	if (req_keys & SEC_KEY_BITMSK_S2_K2)
 	{
 		if (id)
+		{
 			strcat(req_keys_name, "S2_K2 (0x04)/");
+		}
 		else
+		{
 			strcat(req_keys_name, "S2_K2/");
+		}
 	}
-	if ( req_keys & SEC_KEY_BITMSK_S2_K1)
+	if (req_keys & SEC_KEY_BITMSK_S2_K1)
 	{
 		if (id)
+		{
 			strcat(req_keys_name, "S2_K1 (0x02)/");
+		}
 		else
+		{
 			strcat(req_keys_name, "S2_K1/");
+		}
 	}
-	if ( req_keys & SEC_KEY_BITMSK_S2_K0)
+	if (req_keys & SEC_KEY_BITMSK_S2_K0)
 	{
 		if (id)
+		{
 			strcat(req_keys_name, "S2_K0 (0x01)/");
+		}
 		else
+		{
 			strcat(req_keys_name, "S2_K0/");
+		}
 	}
-	if ( req_keys & SEC_KEY_BITMSK_S0)
+	if (req_keys & SEC_KEY_BITMSK_S0)
 	{
 		if (id)
+		{
 			strcat(req_keys_name, "S0 (0x80)/");
+		}
 		else
+		{
 			strcat(req_keys_name, "S0/");
+		}
 	}
 
 	strcat(req_keys_name, "Non-Security");

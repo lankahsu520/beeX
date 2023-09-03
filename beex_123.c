@@ -51,7 +51,7 @@ void bee_subscribe_put(Honeycomb_t *honeycomb_ctx, char *topic, char *payload)
 int bee_topic_add_uuid_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
-	if ( (topic) && (value) )
+	if ((topic) && (value))
 	{
 		DBG_IF_LN("(topic: %s, value: %s)", topic, value);
 	}
@@ -62,7 +62,7 @@ int bee_topic_add_uuid_caller(char *topic, char *value, void *userdata)
 int bee_topic_del_uuid_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
-	if ( (topic) && (value) )
+	if ((topic) && (value))
 	{
 		DBG_IF_LN("(topic: %s, value: %s)", topic, value);
 	}
@@ -73,7 +73,7 @@ int bee_topic_del_uuid_caller(char *topic, char *value, void *userdata)
 int bee_topic_add_node_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
-	if ( (topic) && (value) )
+	if ((topic) && (value))
 	{
 		DBG_IF_LN("(topic: %s, value: %s)", topic, value);
 	}
@@ -84,7 +84,7 @@ int bee_topic_add_node_caller(char *topic, char *value, void *userdata)
 int bee_topic_del_node_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
-	if ( (topic) && (value) )
+	if ((topic) && (value))
 	{
 		DBG_IF_LN("(topic: %s, value: %s)", topic, value);
 	}
@@ -96,7 +96,7 @@ int bee_topic_del_node_caller(char *topic, char *value, void *userdata)
 int bee_topic_issue_caller(char *topic, char *value, void *userdata)
 {
 	int ret = 0;
-	if ( (topic) && (value) )
+	if ((topic) && (value))
 	{
 		DBG_IF_LN("(topic: %s, value: %s)", topic, value);
 	}
@@ -249,7 +249,8 @@ static void bee_notify_water(void *userdata, IssueItem_t *c_issueitem)
 	DBG_IF_LN(DBG_TXT_ENTER);
 }
 
-static Notify_t notify_bee = {
+static Notify_t notify_bee =
+{
 	//.watch_item_cb[NOTIFY_FN_ID_READY] = master_notify_ready,
 	.watch_item_cb[NOTIFY_FN_ID_ADDING] = bee_notify_adding,
 	.watch_item_cb[NOTIFY_FN_ID_REMOVING] = bee_notify_removing,
@@ -288,7 +289,8 @@ static Notify_t notify_bee = {
 	.watch_item_cb[NOTIFY_FN_ID_WAKE_UP_NOTIFICATION] = bee_notify_wake_up_notification,
 };
 
-static Reporter_t reporter_bee = {
+static Reporter_t reporter_bee =
+{
 	.methodid = JVAL_METHODID_EVENT,
 
 	//.id_frm.c_macid = c_macid,
@@ -297,7 +299,8 @@ static Reporter_t reporter_bee = {
 	.id_frm.epid = 0
 };
 
-static Commander_t commander_bee = {
+static Commander_t commander_bee =
+{
 	.methodid = JVAL_METHODID_PUT,
 
 	//.id_frm.c_macid = c_macid,
@@ -308,10 +311,11 @@ static Commander_t commander_bee = {
 	//.id_to.c_macid = c_macid,
 	//.id_to.c_uuid = c_uuid,
 	.id_to.c_nodeid = JVAL_C_NODEID_BROADCAST,
-	.id_to.epid = JVAL_EPID_BASE, 
+	.id_to.epid = JVAL_EPID_BASE,
 };
 
-Honeycomb_t beex123_data = {
+Honeycomb_t beex123_data =
+{
 	.keepothers = 0,
 	.uuid_root = BEEX_UUID,
 	.order = 0,
@@ -361,7 +365,7 @@ void timer_1sec_loop(uv_timer_t *handle)
 			uint8_t nodeid = 3;
 			uint8_t epid = 0;
 			reporter_set_nodeid_ex(&reporter_bee, nodeid, epid);
-			if ( (now_t%2) == 0 )
+			if ((now_t%2) == 0)
 			{
 				zwifd_alrm_tamper_open_report_bin(&reporter_bee);
 			}
@@ -405,7 +409,7 @@ void timer_30mins_loop(uv_timer_t *handle)
 void app_stop_uv(uv_async_t *handle, int force)
 {
 	static int is_free = 0;
-	if ( (is_free==0) && (app_quit()==1) )
+	if ((is_free==0) && (app_quit()==1))
 	{
 		is_free = 1;
 		if (uv_loop)
@@ -440,7 +444,8 @@ void async_loop(uv_async_t *handle)
 void app_save(void)
 {
 #ifdef USE_AUTOSAVE
-	{// we dont need to save every 30mins.
+	{
+		// we dont need to save every 30mins.
 		honeycomb_save(&beex123_data);
 	}
 #endif
@@ -514,14 +519,14 @@ static void app_loop(void)
 		SAFE_UV_LOOP_CLOSE(uv_loop);
 	}
 #else
-	while ( app_quit()==0 )
+	while (app_quit()==0)
 	{
 #ifdef USE_MCTT_BEE_DEMO
 		time_t now_t = time((time_t *)NULL);
 		uint8_t nodeid = 3;
 		uint8_t epid = 0;
 		reporter_set_nodeid_ex(&reporter_bee, nodeid, epid);
-		if ( (now_t%2) == 0 )
+		if ((now_t%2) == 0)
 		{
 			zwifd_alrm_tamper_open_report_bin(&reporter_bee);
 		}
@@ -578,13 +583,13 @@ static void app_signal_handler(int signum)
 
 static void app_signal_register(void)
 {
-	signal(SIGINT, app_signal_handler );
-	signal(SIGTERM, app_signal_handler );
-	signal(SIGHUP, app_signal_handler );
-	signal(SIGUSR1, app_signal_handler );
-	signal(SIGUSR2, app_signal_handler );
+	signal(SIGINT, app_signal_handler);
+	signal(SIGTERM, app_signal_handler);
+	signal(SIGHUP, app_signal_handler);
+	signal(SIGUSR1, app_signal_handler);
+	signal(SIGUSR2, app_signal_handler);
 
-	signal(SIGPIPE, SIG_IGN );
+	signal(SIGPIPE, SIG_IGN);
 }
 
 int option_index = 0;
@@ -601,15 +606,15 @@ static struct option long_options[] =
 
 static void app_showusage(int exit_code)
 {
-	printf( "Usage: %s\n"
-					"  -d, --debug       debug level\n"
-					"  -s, --savepath    save path\n"
-					"  -i, --iface       iface\n"
-					"  -c, --client\n"
-					"  -h, --help\n", TAG);
-	printf( "Version: %s\n", version_show());
-	printf( "Example:\n"
-					"  %s -s /tmp -d 2\n", TAG);
+	printf("Usage: %s\n"
+		"  -d, --debug       debug level\n"
+		"  -s, --savepath    save path\n"
+		"  -i, --iface       iface\n"
+		"  -c, --client\n"
+		"  -h, --help\n", TAG);
+	printf("Version: %s\n", version_show());
+	printf("Example:\n"
+		"  %s -s /tmp -d 2\n", TAG);
 	exit(exit_code);
 }
 
@@ -617,7 +622,7 @@ static void app_ParseArguments(int argc, char **argv)
 {
 	int opt;
 
-	while((opt = getopt_long (argc, argv, short_options, long_options, &option_index)) != -1)
+	while ((opt = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1)
 	{
 		switch (opt)
 		{
@@ -649,7 +654,7 @@ static void app_ParseArguments(int argc, char **argv)
 	}
 }
 
-// ./bin/beex_123 -d 2 -s /tmp -i enp0s9 
+// ./bin/beex_123 -d 2 -s /tmp -i enp0s9
 int main(int argc, char *argv[])
 {
 	app_ParseArguments(argc, argv);
@@ -657,7 +662,7 @@ int main(int argc, char *argv[])
 	atexit(app_exit);
 
 	SAFE_STDOUT_NONE();
-	if ( app_init() == -1 )
+	if (app_init() == -1)
 	{
 		return -1;
 	}

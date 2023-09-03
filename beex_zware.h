@@ -197,7 +197,7 @@ typedef enum
 {
 	OP_ADD_NODE_ZWNET_STA_GET_GW_DSK=5,
 	OP_ADD_NODE_ZWNET_STA_GET_NODE_INFO,
-	
+
 	OP_ADD_NODE_ZWNET_STA_ASSIGN_RR=10,
 	OP_ADD_NODE_ZWNET_STA_GET_VER_CC,
 	OP_ADD_NODE_ZWNET_STA_GET_ZWPLUS_INFO,
@@ -206,10 +206,10 @@ typedef enum
 	OP_ADD_NODE_ZWNET_STA_WKUP_CFG,
 	OP_ADD_NODE_ZWNET_STA_MULTI_INSTANCE,
 	OP_ADD_NODE_ZWNET_STA_MULTI_CHANNEL,
-	
+
 	OP_ADD_NODE_ACT_END_POINT,
 	OP_ADD_NODE_ZWNET_STA_GET_EP_INFO,
-	
+
 	OP_ADD_NODE_S_EP_STA_XXX=31,
 
 #ifdef DEVICE_INTERVIEW_ORDER
@@ -233,7 +233,7 @@ typedef enum
 	OP_ADD_NODE_S_EP_STA_GET_THRMO_FAN_MD,
 	OP_ADD_NODE_S_EP_STA_GET_THRMO_MD,
 	OP_ADD_NODE_S_EP_STA_GET_THRMO_SETP,
-	
+
 	OP_ADD_NODE_S_EP_STA_GET_MUL_SWITCH,
 
 	OP_ADD_NODE_S_EP_STA_GET_ALARM,
@@ -301,10 +301,10 @@ typedef struct
 	uint32_t	    id;			/**< home id */
 	uint8_t	        ctl_id;		/**< Z/IP controller node id*/
 	uint8_t	        ctl_role;   /**< Z/IP controller role. A bit-mask of ZWNET_CTLR_ROLE_XXX */
-    uint8_t	        ctl_cap;    /**< Z/IP controller capabilities. A bit-mask of ZWNET_CTLR_CAP_XXX */
+	uint8_t	        ctl_cap;    /**< Z/IP controller capabilities. A bit-mask of ZWNET_CTLR_CAP_XXX */
 	uint8_t	        ctl_zw_role;/**< Z/IP controller Z-wave role, ZW_ROLE_XXX */
-    void            *user;      /**< User specified information that was passed to zwnet_init() */
-    void            *plt_ctx;   /**< Platform context for printing of output text messages*/
+	void            *user;      /**< User specified information that was passed to zwnet_init() */
+	void            *plt_ctx;   /**< Platform context for printing of output text messages*/
 }
 zwnetd_t, *zwnetd_p;
 
@@ -322,8 +322,8 @@ zwnetd_t, *zwnetd_p;
 /** Group record */
 typedef struct
 {
-    uint8_t     grp_cnt;                  /**< Number of group id in the grp_id array*/
-    uint8_t     grp_id[IF_REC_MAX_GROUPS];/**< Group id for the controller to set its node id into the group*/
+	uint8_t     grp_cnt;                  /**< Number of group id in the grp_id array*/
+	uint8_t     grp_id[IF_REC_MAX_GROUPS];/**< Group id for the controller to set its node id into the group*/
 
 } if_rec_grp_t;
 
@@ -405,10 +405,10 @@ Used to create and delete post-set polling commands to a device
 /** device id */
 typedef struct
 {
-    uint8_t   type;                         ///< device id type: DEV_ID_TYPE_XXX
-    uint8_t   format;                       ///< device id data format: DEV_ID_FMT_XXX
-    uint8_t   len;                          ///< device id length
-    uint8_t   dev_id[MAX_DEV_ID_LEN + 1];   ///< device id
+	uint8_t   type;                         ///< device id type: DEV_ID_TYPE_XXX
+	uint8_t   format;                       ///< device id data format: DEV_ID_FMT_XXX
+	uint8_t   len;                          ///< device id length
+	uint8_t   dev_id[MAX_DEV_ID_LEN + 1];   ///< device id
 
 } dev_id_t;
 
@@ -426,7 +426,7 @@ typedef struct
 {
 	uint8_t		hw_ver;		    /**< Hardware version*/
 	uint8_t		fw_cnt;		    /**< Number of firmwares in the device, excluding the Z-wave firmware*/
-    uint16_t    rsvd;           /**< Padding to make sure fw_ver is 4-byte aligned */
+	uint16_t    rsvd;           /**< Padding to make sure fw_ver is 4-byte aligned */
 	uint16_t	fw_ver[1];		/**< Firmware versions place holder as indicated in fw_cnt*/
 }
 ext_ver_t;
@@ -442,20 +442,20 @@ ext_ver_t;
 typedef struct  _zwnoded
 {
 	uint8_t		nodeid;			/**< Node ID */
-    uint8_t		propty;	        /**< Properties of the node (bit-mask): NODE_PROPTY_XXX */
+	uint8_t		propty;	        /**< Properties of the node (bit-mask): NODE_PROPTY_XXX */
 	uint16_t	vid;			/**< Vendor ID */
 	uint16_t	type;			/**< Vendor Product Type */
 	uint16_t	pid;			/**< Product ID */
-    zwnet_p     net;            /**< Network that the node belongs to */
-    dev_id_t    dev_id;         /**< Device ID */
+	zwnet_p     net;            /**< Network that the node belongs to */
+	dev_id_t    dev_id;         /**< Device ID */
 	uint16_t	proto_ver;		/**< Z-Wave Protocol Version*/
 	uint16_t	app_ver;		/**< Application Version*/
 	uint8_t		lib_type;		/**< Z-Wave Library Type*/
-    uint8_t     category;	    /**< Device category, DEV_XXX */
+	uint8_t     category;	    /**< Device category, DEV_XXX */
 	uint8_t		sensor;		    /**< Flag to indicate whether the node is a sensor (FLIRS) */
-    uint8_t     sleep_cap;      /**< Flag to indicate the node is capable to sleep  (i.e. non-listening and support Wake up command class) */
-    uint8_t     listen;         /**< Flag to indicate the node is always listening */
-    int32_t     wkup_intv;      /**< Wake up interval in seconds. Negative value = invalid or unknown */
+	uint8_t     sleep_cap;      /**< Flag to indicate the node is capable to sleep  (i.e. non-listening and support Wake up command class) */
+	uint8_t     listen;         /**< Flag to indicate the node is always listening */
+	int32_t     wkup_intv;      /**< Wake up interval in seconds. Negative value = invalid or unknown */
 	uint8_t		s2_keys_valid;  /**< Flag to indicate whether s2_grnt_keys is valid */
 	uint8_t		s2_grnt_keys;   /**< Security 2 granted keys (bit-mask), see SEC_KEY_BITMSK_XXX
                                      NOTE: This is valid only s2_keys_valid = 1*/
@@ -508,8 +508,8 @@ Interface with functionalities that correspond to Z-wave command class
 /** Group member */
 typedef struct
 {
-    uint8_t     node_id;    /**< node id*/
-    uint8_t     ep_id;      /**< endpoint id*/
+	uint8_t     node_id;    /**< node id*/
+	uint8_t     ep_id;      /**< endpoint id*/
 } grp_member_t;
 
 // 2457
@@ -545,9 +545,9 @@ Switches can be switched on/off
 /** Switch data */
 typedef struct
 {
-    uint8_t curr_val;  	/**< current value: 0 = off; 0xFE = Unknown; 0xFF = On. */
-    uint8_t tgt_val;	/**< target value with same interpretation as curr_val */
-    uint8_t dur;	    /**< Duration: 0 = already at the target; 0x01~0x7F = seconds; 0x80~0xFD = 1~126 minutes;
+	uint8_t curr_val;  	/**< current value: 0 = off; 0xFE = Unknown; 0xFF = On. */
+	uint8_t tgt_val;	/**< target value with same interpretation as curr_val */
+	uint8_t dur;	    /**< Duration: 0 = already at the target; 0x01~0x7F = seconds; 0x80~0xFD = 1~126 minutes;
                                        0xFE = Unknown duration; 0xFF = reserved*/
 }
 zwswitch_t, *zwswitch_p;
@@ -564,9 +564,9 @@ Levels can be set and auto-(in/de)cremented with start/stop
 /** Multilevel switch data */
 typedef struct
 {
-    uint8_t curr_val;  	/**< current value: 0 = off; 0x01~0x63 = percentage (%);0xFE = Unknown; 0xFF = On. */
-    uint8_t tgt_val;	/**< target value with same interpretation as curr_val */
-    uint8_t dur;	    /**< Duration: 0 = already at the target; 0x01~0x7F = seconds; 0x80~0xFD = 1~126 minutes;
+	uint8_t curr_val;  	/**< current value: 0 = off; 0x01~0x63 = percentage (%);0xFE = Unknown; 0xFF = On. */
+	uint8_t tgt_val;	/**< target value with same interpretation as curr_val */
+	uint8_t dur;	    /**< Duration: 0 = already at the target; 0x01~0x7F = seconds; 0x80~0xFD = 1~126 minutes;
                                        0xFE = Unknown duration; 0xFF = reserved*/
 }
 zwlevel_dat_t, *zwlevel_dat_p;
@@ -853,12 +853,12 @@ zwlevel_dat_t, *zwlevel_dat_p;
 /** sensor data */
 typedef struct
 {
-    uint8_t     type;		/**< ZW_SENSOR_TYPE_XXX */
-    uint8_t     precision;  /**< Decimal places of the value.  The decimal
+	uint8_t     type;		/**< ZW_SENSOR_TYPE_XXX */
+	uint8_t     precision;  /**< Decimal places of the value.  The decimal
                                  value 1025 with precision 2 is therefore equal to 10.25.*/
-    uint8_t     unit;	    /**< ZW_SENSOR_UNIT_XXX */
-    uint8_t     size;	    /**< data size: 1,2,or 4 bytes*/
-    uint8_t     data[4];	/**< sensor data (a signed number) with the first byte
+	uint8_t     unit;	    /**< ZW_SENSOR_UNIT_XXX */
+	uint8_t     size;	    /**< data size: 1,2,or 4 bytes*/
+	uint8_t     data[4];	/**< sensor data (a signed number) with the first byte
                                  is the most significant byte*/
 }
 zwsensor_t, *zwsensor_p;
@@ -867,11 +867,11 @@ zwsensor_t, *zwsensor_p;
 /** Device configuration single parameter*/
 typedef struct
 {
-    uint8_t     param_num;	    /**< parameter number */
-    uint8_t     size;	        /**< data size: 1,2,or 4 bytes*/
-    uint8_t     data[4];	    /**< data (a signed or unsigned number, depending on parameter number data format) with the
+	uint8_t     param_num;	    /**< parameter number */
+	uint8_t     size;	        /**< data size: 1,2,or 4 bytes*/
+	uint8_t     data[4];	    /**< data (a signed or unsigned number, depending on parameter number data format) with the
                                      first byte (i.e. data[0]) is the most significant byte*/
-    uint8_t     use_default;	/**< only valid for configuration set command. Parameter flag: 1=use default factory setting and ignore data[];
+	uint8_t     use_default;	/**< only valid for configuration set command. Parameter flag: 1=use default factory setting and ignore data[];
                                      0=use the value in data[]*/
 } zwconfig_t, *zwconfig_p;
 
@@ -952,19 +952,19 @@ zwmeter_t, *zwmeter_p;
 /** meter data */
 typedef struct
 {
-    uint8_t     type;		/**< ZW_METER_TYPE_XXX */
-    uint8_t     precision;  /**< Decimal places of the value.  The decimal
+	uint8_t     type;		/**< ZW_METER_TYPE_XXX */
+	uint8_t     precision;  /**< Decimal places of the value.  The decimal
                                  value 1025 with precision 2 is therefore equal to 10.25.*/
-    uint8_t     unit;	    /**< ZW_METER_UNIT_XXX */
-    uint8_t     size;	    /**< data size: 1,2,or 4 bytes*/
-    uint8_t     data[4];	/**< meter data (a signed number) with the first byte
+	uint8_t     unit;	    /**< ZW_METER_UNIT_XXX */
+	uint8_t     size;	    /**< data size: 1,2,or 4 bytes*/
+	uint8_t     data[4];	/**< meter data (a signed number) with the first byte
                                  is the most significant byte*/
-    uint16_t    delta_time; /**< elapsed time in seconds between the �Meter Value and the �Previous
+	uint16_t    delta_time; /**< elapsed time in seconds between the �Meter Value and the �Previous
                                  Meter Value measurements.  If delta_time = 0, it means no �Previous
                                  Meter Value measurement*/
-    uint8_t     prv_data[4];/**< previous meter data (a signed number) with the first byte
+	uint8_t     prv_data[4];/**< previous meter data (a signed number) with the first byte
                                  is the most significant byte. This field is valid only if delta_time > 0*/
-    uint8_t     rate_type;	/**< rate type: ZW_METER_RATE_XXX */
+	uint8_t     rate_type;	/**< rate type: ZW_METER_RATE_XXX */
 
 }
 zwmeter_dat_t, *zwmeter_dat_p;
@@ -973,10 +973,10 @@ zwmeter_dat_t, *zwmeter_dat_p;
 /** meter capabilities */
 typedef struct
 {
-    uint8_t     type;		/**< ZW_METER_TYPE_XXX */
-    uint8_t     reset_cap;	/**< capability to reset all accumulated values stored in the meter device.
+	uint8_t     type;		/**< ZW_METER_TYPE_XXX */
+	uint8_t     reset_cap;	/**< capability to reset all accumulated values stored in the meter device.
                                  1=reset supported, 0=not supported. See zwif_meter_reset()*/
-    uint8_t     unit_sup;   /**< supported unit bit-mask : ZW_METER_SUP_UNIT_XXX */
+	uint8_t     unit_sup;   /**< supported unit bit-mask : ZW_METER_SUP_UNIT_XXX */
 }
 zwmeter_cap_t, *zwmeter_cap_p;
 
@@ -984,9 +984,9 @@ zwmeter_cap_t, *zwmeter_cap_p;
 /** Basic data */
 typedef struct
 {
-    uint8_t curr_val;  	/**< current value: 0 = off; 0x01~0x63 = percentage (%);0xFE = Unknown; 0xFF = On. */
-    uint8_t tgt_val;	/**< target value with same interpretation as curr_val */
-    uint8_t dur;	    /**< Duration: 0 = already at the target; 0x01~0x7F = seconds; 0x80~0xFD = 1~126 minutes;
+	uint8_t curr_val;  	/**< current value: 0 = off; 0x01~0x63 = percentage (%);0xFE = Unknown; 0xFF = On. */
+	uint8_t tgt_val;	/**< target value with same interpretation as curr_val */
+	uint8_t dur;	    /**< Duration: 0 = already at the target; 0x01~0x7F = seconds; 0x80~0xFD = 1~126 minutes;
                                        0xFE = Unknown duration; 0xFF = reserved*/
 }
 zwbasic_t, *zwbasic_p;
@@ -1025,18 +1025,18 @@ Used to secure/unsecure a lock type as well as setting the configuration of an a
 /** Door lock operation mode*/
 typedef struct
 {
-    uint8_t     mode;           /**< Current door lock mode (ZW_DOOR_XXX) */
-    uint8_t     out_mode;       /**< Outside door handles mode. It's a 4-bit mask; bit=0 for disabled, bit=1 for enabled.
+	uint8_t     mode;           /**< Current door lock mode (ZW_DOOR_XXX) */
+	uint8_t     out_mode;       /**< Outside door handles mode. It's a 4-bit mask; bit=0 for disabled, bit=1 for enabled.
                                      When disabled, the actual handle cannot open the door locally.
                                      When enabled, the actual handle can open the door locally*/
-    uint8_t     in_mode;        /**< Inside door handles mode. It's a 4-bit mask; bit=0 for disabled, bit=1 for enabled*/
-    uint8_t     cond;           /**< Door condition. See ZW_COND_XXX_MASK */
-    uint8_t     tmout_min;      /**< The remaining time in minutes before the door lock will automatically be locked again.
+	uint8_t     in_mode;        /**< Inside door handles mode. It's a 4-bit mask; bit=0 for disabled, bit=1 for enabled*/
+	uint8_t     cond;           /**< Door condition. See ZW_COND_XXX_MASK */
+	uint8_t     tmout_min;      /**< The remaining time in minutes before the door lock will automatically be locked again.
                                      Value of 0xFE means timeout is not supported*/
-    uint8_t     tmout_sec;      /**< The remaining time in seconds before the door lock will automatically be locked again.
+	uint8_t     tmout_sec;      /**< The remaining time in seconds before the door lock will automatically be locked again.
                                      Value of 0xFE means timeout is not supported*/
-    uint8_t     tgt_mode;	    /**< Target door lock mode (ZW_DOOR_XXX) */
-    uint8_t     dur;	        /**< Duration: 0 = already at the target; 0x01~0x7F = seconds; 0x80~0xFD = 1~126 minutes;
+	uint8_t     tgt_mode;	    /**< Target door lock mode (ZW_DOOR_XXX) */
+	uint8_t     dur;	        /**< Duration: 0 = already at the target; 0x01~0x7F = seconds; 0x80~0xFD = 1~126 minutes;
                                      0xFE = Unknown duration; 0xFF = reserved*/
 }
 zwdlck_op_t, *zwdlck_op_p;
@@ -1055,13 +1055,13 @@ zwdlck_op_t, *zwdlck_op_p;
 /** Door lock configuration */
 typedef struct
 {
-    uint8_t     type;           /**< Door lock operation type (ZW_DOOR_OP_XXX) */
-    uint8_t     out_sta;        /**< Outside door handles state. It's a 4-bit mask; bit=0 for disable, bit=1 for enable
+	uint8_t     type;           /**< Door lock operation type (ZW_DOOR_OP_XXX) */
+	uint8_t     out_sta;        /**< Outside door handles state. It's a 4-bit mask; bit=0 for disable, bit=1 for enable
                                      When disabled, the actual handle cannot open the door locally.
                                      When enabled, the actual handle can open the door locally*/
-    uint8_t     in_sta;         /**< Inside door handles state. It's a 4-bit mask; bit=0 for disable, bit=1 for enable*/
-    uint8_t     tmout_min;      /**< Lock timeout in minutes. Valid value: 0 to 253. Value of 0xFE means timeout is not supported*/
-    uint8_t     tmout_sec;      /**< Lock timeout in seconds. Valid value: 0 to 59. Value of 0xFE means timeout is not supported*/
+	uint8_t     in_sta;         /**< Inside door handles state. It's a 4-bit mask; bit=0 for disable, bit=1 for enable*/
+	uint8_t     tmout_min;      /**< Lock timeout in minutes. Valid value: 0 to 253. Value of 0xFE means timeout is not supported*/
+	uint8_t     tmout_sec;      /**< Lock timeout in seconds. Valid value: 0 to 59. Value of 0xFE means timeout is not supported*/
 }
 zwdlck_cfg_t, *zwdlck_cfg_p;
 
@@ -1090,10 +1090,10 @@ Used to manage user codes required to unlock a lock
 /** User code */
 typedef struct
 {
-    uint8_t     id;                     /**< User identifier */
-    uint8_t     id_sts;                 /**< User id status*/
-    uint8_t     code_len;               /**< User code length*/
-    uint8_t     code[MAX_USRCOD_LENGTH];/**< User code; minimum length = 4, maximum length = 10*/
+	uint8_t     id;                     /**< User identifier */
+	uint8_t     id_sts;                 /**< User id status*/
+	uint8_t     code_len;               /**< User code length*/
+	uint8_t     code[MAX_USRCOD_LENGTH];/**< User code; minimum length = 4, maximum length = 10*/
 }
 zwusrcod_t, *zwusrcod_p;
 
@@ -1408,21 +1408,21 @@ Used to report alarm or service conditions
 /** Alarm */
 typedef struct
 {
-    uint8_t     type;           /**< Vendor specific alarm type*/
-    uint8_t     level;          /**< Vendor specific alarm level*/
-    uint8_t     ex_info;        /**< Flag to indicate the following extended info fields are valid.
+	uint8_t     type;           /**< Vendor specific alarm type*/
+	uint8_t     level;          /**< Vendor specific alarm level*/
+	uint8_t     ex_info;        /**< Flag to indicate the following extended info fields are valid.
                                      1= valid; 0= invalid (no extended info fields)*/
-    /*extended info fields*/
-    uint8_t     ex_zensr_nodeid;/**< Zensor Net source node id. This field is 0 if device is not based on Zensor Net*/
-    uint8_t     ex_status;      /**< Z-wave alarm status (ZW_ALRM_STS_XXX) */
-    uint8_t     ex_type;        /**< Z-wave alarm type (ZW_ALRM_XXX) */
-    uint8_t     ex_event;       /**< Z-wave alarm event (ZW_ALRM_EVT_XXX) */
+	/*extended info fields*/
+	uint8_t     ex_zensr_nodeid;/**< Zensor Net source node id. This field is 0 if device is not based on Zensor Net*/
+	uint8_t     ex_status;      /**< Z-wave alarm status (ZW_ALRM_STS_XXX) */
+	uint8_t     ex_type;        /**< Z-wave alarm type (ZW_ALRM_XXX) */
+	uint8_t     ex_event;       /**< Z-wave alarm event (ZW_ALRM_EVT_XXX) */
 	uint8_t		ex_has_sequence;/**< Flag to indicate whether this report has sequence number as stored in "ex_sequence_no".
 									 1=valid; 0 = invalid */
 	uint8_t		ex_sequence_no;	/**< Z-wave alarm sequence number. Only valid if field ex_has_sequence is 1.*/
-    uint8_t     ex_evt_len;     /**< Z-wave alarm event parameter length. Zero if the event has no parameter */
-    uint8_t     ex_evt_type;    /**< Z-wave alarm event parameter type (ZW_ALRM_PARAM_XXX) */
-    uint8_t     ex_evt_prm[1];  /**< Z-wave alarm event parameter place holder*/
+	uint8_t     ex_evt_len;     /**< Z-wave alarm event parameter length. Zero if the event has no parameter */
+	uint8_t     ex_evt_type;    /**< Z-wave alarm event parameter type (ZW_ALRM_PARAM_XXX) */
+	uint8_t     ex_evt_prm[1];  /**< Z-wave alarm event parameter place holder*/
 }
 zwalrm_t, *zwalrm_p;
 
@@ -1564,12 +1564,12 @@ Used to control and read settings of thermostat setpoint
 /** Thermostat setpoint data */
 typedef struct
 {
-    uint8_t     type;		/**< ZW_THRMO_SETP_TYP_XXX */
-    uint8_t     precision;  /**< Decimal places of the value.  The decimal
+	uint8_t     type;		/**< ZW_THRMO_SETP_TYP_XXX */
+	uint8_t     precision;  /**< Decimal places of the value.  The decimal
                                  value 1025 with precision 2 is therefore equal to 10.25.*/
-    uint8_t     unit;	    /**< ZW_THRMO_SETP_UNIT_XXX */
-    uint8_t     size;	    /**< Data size: 1,2,or 4 bytes*/
-    uint8_t     data[4];	/**< Setpoint data (a signed number) with the first byte as MSB */
+	uint8_t     unit;	    /**< ZW_THRMO_SETP_UNIT_XXX */
+	uint8_t     size;	    /**< Data size: 1,2,or 4 bytes*/
+	uint8_t     data[4];	/**< Setpoint data (a signed number) with the first byte as MSB */
 }
 zwsetp_t, *zwsetp_p;
 
@@ -1637,7 +1637,7 @@ typedef struct
 	uint8_t     seqNo;          /**< Sequence number. Incremented each time a new report is issued by the device. */
 	uint8_t     keyAttr;        /**< Key attribute. ZW_CSC_KEY_ATTRIB_XXX.*/
 	uint8_t     sceneNo;        /**< Scene Number. Actual scene identifier.*/
-    uint8_t     slow_rfsh;      /**< Slow refresh of "Key Held Down" notification. Non-zero=enable; 0=disable.
+	uint8_t     slow_rfsh;      /**< Slow refresh of "Key Held Down" notification. Non-zero=enable; 0=disable.
                                      If disabled:
                                      A new "Key Held Down" notification MUST be sent by CSC every 200ms until the key is released.
                                      If not receiving a new "Key Held Down" notification within 400ms after the most recent

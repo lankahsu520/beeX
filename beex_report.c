@@ -203,7 +203,7 @@ static void do_report(IssueItem_t *n_issueitem)
 			send ++;
 		}
 
-		if ( (is_report == 1) && ( send == 0 ) )
+		if ((is_report == 1) && (send == 0))
 		{
 			DBG_IF_LN("please send (issue: 0x%08x) !!!", issueid);
 		}
@@ -253,7 +253,7 @@ void controller_gw_ex(Reporter_t *reporter, uint8_t act, char *data, unsigned sh
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = act; // value
-	if ( (data_len) && (data) )
+	if ((data_len) && (data))
 	{
 		SAFE_MEMCPY(n_issueitem.data+idx, data, data_len, data_len);
 		idx += data_len;
@@ -271,7 +271,7 @@ void controller_gw_cfg(Reporter_t *reporter, uint8_t param_num, uint32_t value)
 	char data[0xFF] = {0};
 
 	data[idx++] = param_num;
-	big_endian2byte(4, value, (unsigned char *)data+idx );
+	big_endian2byte(4, value, (unsigned char *)data+idx);
 	idx += 4;
 	controller_gw_ex(reporter, ZWAVE_EVT_GW_CFG, data, idx);
 }
@@ -322,7 +322,7 @@ void controller_act_gw_ex(Commander_t *commander, uint8_t act, char *data, unsig
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = act; // value
-	if ( (data_len) && (data) )
+	if ((data_len) && (data))
 	{
 		SAFE_MEMCPY(n_issueitem.data+idx, data, data_len, data_len);
 		idx += data_len;
@@ -340,7 +340,7 @@ void controller_act_gw_cfg(Commander_t *commander, uint8_t param_num, uint32_t v
 	char data[0xFF] = {0};
 
 	data[idx++] = param_num;
-	big_endian2byte(4, value, (unsigned char *)data+idx );
+	big_endian2byte(4, value, (unsigned char *)data+idx);
 	idx += 4;
 	controller_act_gw_ex(commander, ZWAVE_EVT_GW_CFG, data, idx);
 }
@@ -1170,7 +1170,7 @@ void controller_status_ready(Reporter_t *reporter, uint8_t last_op, uint16_t nod
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = last_op; // value
-	big_endian2byte(2, nodeid, (unsigned char *)n_issueitem.data+idx );
+	big_endian2byte(2, nodeid, (unsigned char *)n_issueitem.data+idx);
 	idx += 2;
 	n_issueitem.data_len = idx;
 
@@ -1227,28 +1227,28 @@ void controller_status_node_info(Reporter_t *reporter, zwnoded_p noded_p)
 	if (noded_p)
 	{
 		n_issueitem.data[idx++] = noded_p->propty; // value
-		big_endian2byte(2, noded_p->vid, (unsigned char *)n_issueitem.data+idx );
+		big_endian2byte(2, noded_p->vid, (unsigned char *)n_issueitem.data+idx);
 		idx += 2;
-		big_endian2byte(2, noded_p->type, (unsigned char *)n_issueitem.data+idx );
+		big_endian2byte(2, noded_p->type, (unsigned char *)n_issueitem.data+idx);
 		idx += 2;
-		big_endian2byte(2, noded_p->pid, (unsigned char *)n_issueitem.data+idx );
+		big_endian2byte(2, noded_p->pid, (unsigned char *)n_issueitem.data+idx);
 		idx += 2;
-		big_endian2byte(2, noded_p->proto_ver, (unsigned char *)n_issueitem.data+idx );
+		big_endian2byte(2, noded_p->proto_ver, (unsigned char *)n_issueitem.data+idx);
 		idx += 2;
-		big_endian2byte(2, noded_p->app_ver, (unsigned char *)n_issueitem.data+idx );
+		big_endian2byte(2, noded_p->app_ver, (unsigned char *)n_issueitem.data+idx);
 		idx += 2;
 		n_issueitem.data[idx++] = noded_p->lib_type; // value
 		n_issueitem.data[idx++] = noded_p->category; // value
 		n_issueitem.data[idx++] = noded_p->sensor; // value
 		n_issueitem.data[idx++] = noded_p->sleep_cap; // value
 		n_issueitem.data[idx++] = noded_p->listen; // value
-		big_endian2byte(4, noded_p->wkup_intv, (unsigned char *)n_issueitem.data+idx );
+		big_endian2byte(4, noded_p->wkup_intv, (unsigned char *)n_issueitem.data+idx);
 		idx += 4;
 		n_issueitem.data[idx++] = noded_p->s2_keys_valid; // value
 		n_issueitem.data[idx++] = noded_p->s2_grnt_keys; // value
-	//#ifdef DEVICE_BASIC_CLASS_SHOW
+		//#ifdef DEVICE_BASIC_CLASS_SHOW
 		n_issueitem.data[idx++] = noded_p->basic; // value
-	//#endif
+		//#endif
 	}
 	else
 	{
@@ -1272,11 +1272,11 @@ void controller_status_node_vendor(Reporter_t *reporter, uint16_t vid, uint16_t 
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = ZWAVE_EVT_NODE_VENDOR; // value
-	big_endian2byte(2, vid, (unsigned char *)n_issueitem.data+idx );
+	big_endian2byte(2, vid, (unsigned char *)n_issueitem.data+idx);
 	idx += 2;
-	big_endian2byte(2, ptype, (unsigned char *)n_issueitem.data+idx );
+	big_endian2byte(2, ptype, (unsigned char *)n_issueitem.data+idx);
 	idx += 2;
-	big_endian2byte(2, pid, (unsigned char *)n_issueitem.data+idx );
+	big_endian2byte(2, pid, (unsigned char *)n_issueitem.data+idx);
 	idx += 2;
 	n_issueitem.data_len = idx;
 
@@ -1335,9 +1335,9 @@ void controller_status_node_type(Reporter_t *reporter, zwplus_info_t *zwplus_inf
 	n_issueitem.data[idx++] = zwplus_info_p->zwplus_ver; // value
 	n_issueitem.data[idx++] = zwplus_info_p->node_type; // value
 	n_issueitem.data[idx++] = zwplus_info_p->role_type; // value
-	big_endian2byte(2, zwplus_info_p->instr_icon, (unsigned char *)n_issueitem.data+idx );
+	big_endian2byte(2, zwplus_info_p->instr_icon, (unsigned char *)n_issueitem.data+idx);
 	idx += 2;
-	big_endian2byte(2, zwplus_info_p->usr_icon, (unsigned char *)n_issueitem.data+idx );
+	big_endian2byte(2, zwplus_info_p->usr_icon, (unsigned char *)n_issueitem.data+idx);
 	idx += 2;
 	n_issueitem.data_len = idx;
 
@@ -1413,7 +1413,7 @@ void controller_status_nw_ex(Reporter_t *reporter, uint8_t act, char *data, unsi
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = act; // value
-	if ( (data_len) && (data) )
+	if ((data_len) && (data))
 	{
 		SAFE_MEMCPY(n_issueitem.data+idx, data, data_len, data_len);
 		idx += data_len;
@@ -1522,12 +1522,12 @@ void controller_status_nw_homeid(Reporter_t *reporter, zwnetd_p nw_desp, char *u
 	{
 		idx += sizeof(zwnetd_t);
 	}
-	big_endian2byte(2, ctl_id, (unsigned char *)n_issueitem.data+idx );
+	big_endian2byte(2, ctl_id, (unsigned char *)n_issueitem.data+idx);
 	idx += 2;
-	big_endian2byte(2, suc, (unsigned char *)n_issueitem.data+idx );
+	big_endian2byte(2, suc, (unsigned char *)n_issueitem.data+idx);
 	idx += 2;
 
-	if ( (uuid) && SAFE_STRLEN(uuid) )
+	if ((uuid) && SAFE_STRLEN(uuid))
 	{
 		SAFE_SPRINTF_EX(homeid, "%s", uuid);
 	}
@@ -1619,7 +1619,7 @@ void controller_act_nw_ex(Commander_t *commander, uint8_t act, char *data, unsig
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = act; // value
-	if ( (data_len) && (data) )
+	if ((data_len) && (data))
 	{
 		SAFE_MEMCPY(n_issueitem.data+idx, data, data_len, data_len);
 		idx += data_len;
@@ -1659,7 +1659,7 @@ void controller_act_nop(Commander_t *commander, char *data, unsigned short data_
 
 	// ** value **
 	idx = 0;
-	if ( (data_len) && (data) )
+	if ((data_len) && (data))
 	{
 		SAFE_MEMCPY(n_issueitem.data+idx, data, data_len, data_len);
 		idx += data_len;
@@ -2072,7 +2072,7 @@ void zwifd_av_set(Reporter_t *reporter, uint16_t *cmds, uint8_t num_cmds, uint8_
 	int i = 0;
 	for (i=0; i< num_cmds; i++)
 	{
-		big_endian2byte(2, cmds[i], (unsigned char *)n_issueitem.data +(idx+i*2) );
+		big_endian2byte(2, cmds[i], (unsigned char *)n_issueitem.data +(idx+i*2));
 		idx += 2;
 	}
 	n_issueitem.data_len = idx;
@@ -2092,7 +2092,7 @@ void zwifd_av_report(Reporter_t *reporter, uint16_t length, uint8_t *mask)
 
 	// ** value **
 	idx = 0;
-	big_endian2byte(2, length, (unsigned char *)n_issueitem.data + idx );
+	big_endian2byte(2, length, (unsigned char *)n_issueitem.data + idx);
 	idx += 2;
 
 	int i = 0;
@@ -2314,7 +2314,7 @@ void zwifd_bsensor_sup_report(Reporter_t *reporter, uint8_t type_len, uint8_t *t
 	// ** value **
 	idx = 0;
 	n_issueitem.data[idx++] = type_len; // value
- 	int i = 0;
+	int i = 0;
 	for (i=0; i< type_len; i++)
 	{
 		n_issueitem.data[idx++] = type[i]; // value
@@ -2377,7 +2377,7 @@ void zwifd_color_component_mask_report(Reporter_t *reporter, uint8_t colorCompon
 
 	// ** value **
 	idx = 0;
- 	n_issueitem.data[idx++] = colorComponentMask1; // value
+	n_issueitem.data[idx++] = colorComponentMask1; // value
 	n_issueitem.data[idx++] = colorComponentMask2; // value
 	n_issueitem.data_len = idx;
 
@@ -2397,8 +2397,8 @@ void zwifd_color_component_sup_report(Reporter_t *reporter, uint8_t *comp_id, ui
 
 	// ** value **
 	idx = 0;
- 	n_issueitem.data[idx++] = comp_cnt; // value
- 	memcpy( n_issueitem.data + idx, comp_id, comp_cnt);
+	n_issueitem.data[idx++] = comp_cnt; // value
+	memcpy(n_issueitem.data + idx, comp_id, comp_cnt);
 	idx += comp_cnt; // value
 	n_issueitem.data_len = idx;
 
@@ -3312,9 +3312,9 @@ void zwifd_usr_code_report(Reporter_t *reporter, zwusrcod_p usr_cod)
 
 	// ** value **
 	idx = 0;
- 	n_issueitem.data[idx++] = usr_cod->id; // value
- 	n_issueitem.data[idx++] = usr_cod->id_sts; // value
- 	n_issueitem.data[idx++] = usr_cod->code_len; // value
+	n_issueitem.data[idx++] = usr_cod->id; // value
+	n_issueitem.data[idx++] = usr_cod->id_sts; // value
+	n_issueitem.data[idx++] = usr_cod->code_len; // value
 	int i = 0;
 	for (i=0; i< usr_cod->code_len; i++)
 	{
@@ -3337,7 +3337,7 @@ void zwifd_usr_sup_report(Reporter_t *reporter, uint8_t  usr_num)
 
 	// ** value **
 	idx = 0;
- 	n_issueitem.data[idx++] = usr_num; // value
+	n_issueitem.data[idx++] = usr_num; // value
 	n_issueitem.data_len = idx;
 
 	do_report(&n_issueitem);

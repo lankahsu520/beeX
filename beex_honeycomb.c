@@ -32,7 +32,10 @@ int honeycomb_topic2issueitem(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueit
 
 		while (token)
 		{
-			if (topic_ary) SAFE_SPRINTF_EX(topic_ary[idx], "%s", token);
+			if (topic_ary)
+			{
+				SAFE_SPRINTF_EX(topic_ary[idx], "%s", token);
+			}
 			switch (idx)
 			{
 				case TOPIC_TOKEN_ID_METHODID:
@@ -66,7 +69,10 @@ int honeycomb_topic2issueitem(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueit
 			}
 			token = SAFE_STRTOK_R(NULL, "/", &saveptr);
 			idx++;
-			if (idx>=TOPIC_TOKEN_ID_MAX) break;
+			if (idx>=TOPIC_TOKEN_ID_MAX)
+			{
+				break;
+			}
 		}
 
 		commander_set_protocolid(commander, JVAL_PROTOCOLID_HONEYCOMB);
@@ -131,7 +137,8 @@ void honeycomb_get_helper(Honeycomb_t *honeycomb_ctx, char *topic, char *payload
 						honeycomb_publish_helper(honeycomb_ctx, topicx.topic_mac, (topicx.jmac), topic_issue_caller, userdata);
 					}
 					else if (idx == TOPIC_TOKEN_ID_MAC)
-					{ // all
+					{
+						// all
 						DBG_IF_LN("%s - all !!! (jmac: %p)", JVAL_ACTION_GET, topicx.jmac);
 						SAFE_SPRINTF_EX(topicx.topic_mac, "%d/%s", JVAL_METHODID_RESPONSE, honeycomb_ctx->iface_mac);
 						honeycomb_publish_helper(honeycomb_ctx, topicx.topic_mac, (honeycomb_ctx->jmac), topic_issue_caller, userdata);
@@ -201,21 +208,21 @@ void honeycomb_put_helper(Honeycomb_t *honeycomb_ctx, char *topic, char *payload
 		char topic_ary[TOPIC_TOKEN_ID_MAX][LEN_OF_TOPIC_TOKEN];
 		int idx = honeycomb_topic2issueitem(honeycomb_ctx, &n_issueitem, topic, topic_ary);
 		//DBG_IF_LN("(idx: %d)", idx);
-		if ( idx > TOPIC_TOKEN_ID_ISSUEID )
+		if (idx > TOPIC_TOKEN_ID_ISSUEID)
 		{
 			json_t *jobj = NULL;
 			json_t *jissueid = JSON_LOADS_EASY(payload);
 
-			DBG_DB_LN("(idx: %d, Commander_t: %d, %s,%s,%s,%d,%08X)", idx, commander->methodid, commander->id_to.c_macid, commander->id_to.c_uuid, commander->id_to.c_nodeid, commander->id_to.epid, n_issueitem.issueid );
+			DBG_DB_LN("(idx: %d, Commander_t: %d, %s,%s,%s,%d,%08X)", idx, commander->methodid, commander->id_to.c_macid, commander->id_to.c_uuid, commander->id_to.c_nodeid, commander->id_to.epid, n_issueitem.issueid);
 			switch (n_issueitem.issueid)
 			{
 				// 0x00000002
 				case JKEY_ISSUEID_ADDING:
-					{
-						const char *dsk = JSON_OBJ_GET_STR(jissueid, jobj, JKEY_REPORT_NODE_DSK);
-						controller_act_adding(commander, (char *)dsk);
-					}
-					break;
+				{
+					const char *dsk = JSON_OBJ_GET_STR(jissueid, jobj, JKEY_REPORT_NODE_DSK);
+					controller_act_adding(commander, (char *)dsk);
+				}
+				break;
 				// 0x00000003
 				case JKEY_ISSUEID_REMOVING:
 					controller_act_removing(commander);
@@ -230,126 +237,127 @@ void honeycomb_put_helper(Honeycomb_t *honeycomb_ctx, char *topic, char *payload
 					break;
 				// 0x00092501
 				case JKEY_ISSUEID_CC_SWITCH:
+				{
+					json_int_t tgt_val = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_TGT_VAL, 0);
+					json_int_t toggle = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_TOGGLE, 0);
+					if (toggle)
 					{
-						json_int_t tgt_val = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_TGT_VAL, 0);
-						json_int_t toggle = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_TOGGLE, 0);
-						if (toggle)
-						{
-							TopicX_t topicx = {0};
-							json_t *jissueid_db = honeycomb_lookup_jissueid_helper(honeycomb_ctx, &n_issueitem, ISSUE_TYPE_ID_COMMANDER, JSON_ACTID_READ, &topicx);
-							tgt_val = JSON_OBJ_GET_INT_DEF(jissueid_db, jobj, JKEY_COMM_VALUE, 0);
+						TopicX_t topicx = {0};
+						json_t *jissueid_db = honeycomb_lookup_jissueid_helper(honeycomb_ctx, &n_issueitem, ISSUE_TYPE_ID_COMMANDER, JSON_ACTID_READ, &topicx);
+						tgt_val = JSON_OBJ_GET_INT_DEF(jissueid_db, jobj, JKEY_COMM_VALUE, 0);
 
-							if (tgt_val==JVAL_DEFAULT_0)
-							{
-								tgt_val = JVAL_DEFAULT_255;
-							}
-							else
-							{
-								tgt_val = JVAL_DEFAULT_0;
-							}
+						if (tgt_val==JVAL_DEFAULT_0)
+						{
+							tgt_val = JVAL_DEFAULT_255;
 						}
-						zwifd_act_switch(commander, (uint8_t)tgt_val);
+						else
+						{
+							tgt_val = JVAL_DEFAULT_0;
+						}
 					}
-					break;
+					zwifd_act_switch(commander, (uint8_t)tgt_val);
+				}
+				break;
 				// 0x00092601
 				case JKEY_ISSUEID_CC_DIMMER:
+				{
+					json_int_t tgt_val = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_TGT_VAL, 0);
+					json_int_t dur = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_DUR, 0);
+					json_int_t toggle = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_TOGGLE, 0);
+					if (toggle)
 					{
-						json_int_t tgt_val = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_TGT_VAL, 0);
-						json_int_t dur = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_DUR, 0);
-						json_int_t toggle = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_TOGGLE, 0);
-						if (toggle)
-						{
-							TopicX_t topicx = {0};
-							json_t *jissueid_db = honeycomb_lookup_jissueid_helper(honeycomb_ctx, &n_issueitem, ISSUE_TYPE_ID_COMMANDER, JSON_ACTID_READ, &topicx);
-							tgt_val = JSON_OBJ_GET_INT_DEF(jissueid_db, jobj, JKEY_COMM_VALUE, 0);
+						TopicX_t topicx = {0};
+						json_t *jissueid_db = honeycomb_lookup_jissueid_helper(honeycomb_ctx, &n_issueitem, ISSUE_TYPE_ID_COMMANDER, JSON_ACTID_READ, &topicx);
+						tgt_val = JSON_OBJ_GET_INT_DEF(jissueid_db, jobj, JKEY_COMM_VALUE, 0);
 
-							if (tgt_val==JVAL_DEFAULT_0)
-							{
-								tgt_val = JVAL_DEFAULT_255;
-							}
-							else
-							{
-								tgt_val = JVAL_DEFAULT_0;
-							}
+						if (tgt_val==JVAL_DEFAULT_0)
+						{
+							tgt_val = JVAL_DEFAULT_255;
 						}
-						zwifd_act_switch_multilevel(commander, (uint8_t)tgt_val, (uint8_t)dur);
+						else
+						{
+							tgt_val = JVAL_DEFAULT_0;
+						}
 					}
-					break;
+					zwifd_act_switch_multilevel(commander, (uint8_t)tgt_val, (uint8_t)dur);
+				}
+				break;
 				// 0x000A9501
 				case JKEY_ISSUEID_CC_INFRARED:
+				{
+					json_int_t cmd = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_CMD, 0);
+					json_int_t state = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_STATE, 0);
+					const char *key = JSON_OBJ_GET_STR(jissueid, jobj, JKEY_COMM_KEY);
+					const char *data = JSON_OBJ_GET_STR(jissueid, jobj, JKEY_COMM_DATA);
+					ir_manager_t ir_manager =
 					{
-						json_int_t cmd = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_CMD, 0);
-						json_int_t state = JSON_OBJ_GET_INT_DEF(jissueid, jobj, JKEY_COMM_STATE, 0);
-						const char *key = JSON_OBJ_GET_STR(jissueid, jobj, JKEY_COMM_KEY);
-						const char *data = JSON_OBJ_GET_STR(jissueid, jobj, JKEY_COMM_DATA);
-						ir_manager_t ir_manager =
-						{
-							.cmd = (uint8_t)cmd,
-							.state = (uint8_t)state,
-							.key = "",
-							.size = 0,
-						};
-						if (key)
-						{
-							SAFE_MEMCPY(ir_manager.key, (char*)key, LEN_OF_NAME32, LEN_OF_NAME32);
-						}
-						if (data)
-						{
-							unsigned char *binary = NULL;
-							int binary_len = hexs2bin(data, &binary);
-							SAFE_MEMCPY(ir_manager.data, binary, binary_len, LEN_OF_BUF1024);
-							SAFE_FREE(binary);
-							ir_manager.size = binary_len;
-						}
-						zwifd_act_infrared(commander, &ir_manager);
+						.cmd = (uint8_t)cmd,
+						.state = (uint8_t)state,
+						.key = "",
+						.size = 0,
+					};
+					if (key)
+					{
+						SAFE_MEMCPY(ir_manager.key, (char*)key, LEN_OF_NAME32, LEN_OF_NAME32);
 					}
-					break;
+					if (data)
+					{
+						unsigned char *binary = NULL;
+						int binary_len = hexs2bin(data, &binary);
+						SAFE_MEMCPY(ir_manager.data, binary, binary_len, LEN_OF_BUF1024);
+						SAFE_FREE(binary);
+						ir_manager.size = binary_len;
+					}
+					zwifd_act_infrared(commander, &ir_manager);
+				}
+				break;
 				// 0x000A9502
 				case JKEY_ISSUEID_CC_INFRARED_CODE:
+				{
+					char *c_brand = topic_ary[TOPIC_TOKEN_ID_TOKEN_1];
+					char *c_model = topic_ary[TOPIC_TOKEN_ID_TOKEN_2];
+					char *c_key = topic_ary[TOPIC_TOKEN_ID_TOKEN_3];
+					const char *c_action = JSON_OBJ_GET_STR(jissueid, jobj, JKEY_COMM_ACTION);
+
+					if ((c_action) && (SAFE_STRCMP((char*)c_action, JVAL_ACTION_GET) == 0))
 					{
-						char *c_brand = topic_ary[TOPIC_TOKEN_ID_TOKEN_1];
-						char *c_model = topic_ary[TOPIC_TOKEN_ID_TOKEN_2];
-						char *c_key = topic_ary[TOPIC_TOKEN_ID_TOKEN_3];
-						const char *c_action = JSON_OBJ_GET_STR(jissueid, jobj, JKEY_COMM_ACTION);
+						//{"action":"GET"}
+						TopicX_t topicx = {0};
+						json_t *jissueid_db = honeycomb_lookup_jissueid_helper(honeycomb_ctx, &n_issueitem, ISSUE_TYPE_ID_COMMANDER, JSON_ACTID_READ, &topicx);
 
-						if ( (c_action) && (SAFE_STRCMP((char*)c_action, JVAL_ACTION_GET) == 0) )
-						{ //{"action":"GET"}
-							TopicX_t topicx = {0};
-							json_t *jissueid_db = honeycomb_lookup_jissueid_helper(honeycomb_ctx, &n_issueitem, ISSUE_TYPE_ID_COMMANDER, JSON_ACTID_READ, &topicx);
+						json_t *jbrand = JSON_OBJ_GET_OBJ(jissueid_db, c_brand);
+						json_t *jmodel = JSON_OBJ_GET_OBJ(jbrand, c_model);
+						const char *key = JSON_OBJ_GET_STR(jmodel, jobj, c_key);
 
-							json_t *jbrand = JSON_OBJ_GET_OBJ(jissueid_db, c_brand);
-							json_t *jmodel = JSON_OBJ_GET_OBJ(jbrand, c_model);
-							const char *key = JSON_OBJ_GET_STR(jmodel, jobj, c_key);
-
-							DBG_DB_LN("(c_brand: %s, c_model: %s, key: [%s])", c_brand, c_model, key);
+						DBG_DB_LN("(c_brand: %s, c_model: %s, key: [%s])", c_brand, c_model, key);
+						if (key)
+						{
+							ir_manager_t ir_manager =
+							{
+								.cmd = (uint8_t)'S',
+								.state = (uint8_t)9,
+								.key = "",
+								.size = 0,
+							};
 							if (key)
 							{
-								ir_manager_t ir_manager =
-								{
-									.cmd = (uint8_t)'S',
-									.state = (uint8_t)9,
-									.key = "",
-									.size = 0,
-								};
-								if (key)
-								{
-									SAFE_SNPRINTF((char*)ir_manager.key, sizeof(ir_manager.key), "%s/%s/%s", c_brand, c_model, c_key);
-									//SAFE_MEMCPY(ir_manager.key, (char*)c_key, SAFE_STRLEN(c_key), LEN_OF_NAME32);
-								}
-								if (key)
-								{
-									unsigned char *binary = NULL;
-									int binary_len = hexs2bin(key, &binary);
-									SAFE_MEMCPY(ir_manager.data, binary, binary_len, LEN_OF_BUF1024);
-									SAFE_FREE(binary);
-									ir_manager.size = binary_len;
-								}
-								DBG_IF_LN("(ir_manager.key: %s)", ir_manager.key);
-								zwifd_act_infrared(commander, &ir_manager);
+								SAFE_SNPRINTF((char*)ir_manager.key, sizeof(ir_manager.key), "%s/%s/%s", c_brand, c_model, c_key);
+								//SAFE_MEMCPY(ir_manager.key, (char*)c_key, SAFE_STRLEN(c_key), LEN_OF_NAME32);
 							}
+							if (key)
+							{
+								unsigned char *binary = NULL;
+								int binary_len = hexs2bin(key, &binary);
+								SAFE_MEMCPY(ir_manager.data, binary, binary_len, LEN_OF_BUF1024);
+								SAFE_FREE(binary);
+								ir_manager.size = binary_len;
+							}
+							DBG_IF_LN("(ir_manager.key: %s)", ir_manager.key);
+							zwifd_act_infrared(commander, &ir_manager);
 						}
 					}
-					break;
+				}
+				break;
 				default:
 					break;
 			}
@@ -366,7 +374,10 @@ void honeycomb_publish_helper(Honeycomb_t *honeycomb_ctx, char *topic, json_t *j
 		char *value = JSON_DUMPS_FLAGS(jvalue, JSON_FLAGS_BEEX);
 		//char *value = JSON_DUMPS_FLAGS(jvalue, JSON_FLAGS_EASY);
 
-		if (topic_issue_caller) topic_issue_caller(topic, value, userdata);
+		if (topic_issue_caller)
+		{
+			topic_issue_caller(topic, value, userdata);
+		}
 		SAFE_FREE(value);
 	}
 }
@@ -447,22 +458,22 @@ static void honeycomb_notify_adding(void *userdata, IssueItem_t *c_issueitem)
 			JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, JVAL_REPORT_START);
 			break;
 		case ZWAVE_EVT_ADDING_ADDED:
+		{
+			if (topicx.jnodeid)
 			{
-				if (topicx.jnodeid)
-				{
-					DBG_WN_LN("Added nodeid !!! (%s/%s/%s)", c_macid, c_uuid, c_nodeid);
-					JSON_OBJ_SET_INT(topicx.jnodeid, JKEY_REPORT_READY, 0);
-					JSON_OBJ_SET_STR(topicx.jnodeid, JKEY_COMM_STATUS, JVAL_NODE_ALIVE);
+				DBG_WN_LN("Added nodeid !!! (%s/%s/%s)", c_macid, c_uuid, c_nodeid);
+				JSON_OBJ_SET_INT(topicx.jnodeid, JKEY_REPORT_READY, 0);
+				JSON_OBJ_SET_STR(topicx.jnodeid, JKEY_COMM_STATUS, JVAL_NODE_ALIVE);
 
-					AddedNodeid_t *added_nodeid = (AddedNodeid_t*)SAFE_CALLOC(1, sizeof(AddedNodeid_t));
-					added_nodeid->jnodeid = topicx.jnodeid;
-					SAFE_SPRINTF_EX(added_nodeid->topic_nodeid, "%s", topicx.topic_nodeid);
-					clist_push(honeycomb_ctx->added_list, added_nodeid);
-				}
+				AddedNodeid_t *added_nodeid = (AddedNodeid_t*)SAFE_CALLOC(1, sizeof(AddedNodeid_t));
+				added_nodeid->jnodeid = topicx.jnodeid;
+				SAFE_SPRINTF_EX(added_nodeid->topic_nodeid, "%s", topicx.topic_nodeid);
+				clist_push(honeycomb_ctx->added_list, added_nodeid);
 			}
-			break;
+		}
+		break;
 		case ZWAVE_EVT_ADDING_DONE:
-			while (clist_length(honeycomb_ctx->added_list) > 0 )
+			while (clist_length(honeycomb_ctx->added_list) > 0)
 			{
 				AddedNodeid_t *added_nodeid = clist_pop(honeycomb_ctx->added_list);
 
@@ -751,12 +762,12 @@ static void honeycomb_notify_dimmer(void *userdata, IssueItem_t *c_issueitem)
 			JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, JVAL_COMM_UNKNOWN);
 			break;
 		default:
-			{
-				char tmpbuff[LEN_OF_VAL16] = "";
-				SAFE_SPRINTF(tmpbuff, "%d", curr_val);
-				JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, tmpbuff);
-			}
-			break;
+		{
+			char tmpbuff[LEN_OF_VAL16] = "";
+			SAFE_SPRINTF(tmpbuff, "%d", curr_val);
+			JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, tmpbuff);
+		}
+		break;
 	}
 
 	honeycomb_publish_helper(honeycomb_ctx, topicx.topic_issueid, (jissueid), honeycomb_ctx->topic_issue_caller, (void*)honeycomb_ctx);
@@ -780,7 +791,7 @@ static void honeycomb_notify_meter(void *userdata, IssueItem_t *c_issueitem)
 	uint8_t *prv_data = (unsigned char *)valp+idx;
 	idx+=4;
 	uint8_t rate_type = valp[idx++];
-	
+
 	int32_t value = byte2big_endian(size, data);
 	int32_t prv_value = byte2big_endian(size, prv_data);
 	int32_t precision = pow(10, prec);
@@ -868,90 +879,90 @@ static void honeycomb_notify_node(void *userdata, IssueItem_t *c_issueitem)
 				JSON_OBJ_SET_STR(topicx.jnodeid, JKEY_COMM_STATUS, JVAL_NODE_SLEEPING);
 				break;
 			case ZWAVE_EVT_NODE_INFO:
-				{
-					uint8_t propty = valp[idx++];
-					uint16_t vid = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
-					uint16_t ptype = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
-					uint16_t pid = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
-					uint16_t proto_ver = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
-					uint16_t app_ver = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
-					uint8_t lib_type = valp[idx++];
-					uint8_t category = valp[idx++];
-					uint8_t sensor = valp[idx++];
-					uint8_t sleep_cap = valp[idx++];
-					uint8_t listen = valp[idx++];
-					int32_t wkup_intv = (int32_t)byte2big_endian(4, (uint8_t *)valp+idx);
-					idx+=4;
-					uint8_t s2_keys_valid = valp[idx++];
-					uint8_t s2_grnt_keys = valp[idx++];
+			{
+				uint8_t propty = valp[idx++];
+				uint16_t vid = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
+				uint16_t ptype = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
+				uint16_t pid = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
+				uint16_t proto_ver = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
+				uint16_t app_ver = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
+				uint8_t lib_type = valp[idx++];
+				uint8_t category = valp[idx++];
+				uint8_t sensor = valp[idx++];
+				uint8_t sleep_cap = valp[idx++];
+				uint8_t listen = valp[idx++];
+				int32_t wkup_intv = (int32_t)byte2big_endian(4, (uint8_t *)valp+idx);
+				idx+=4;
+				uint8_t s2_keys_valid = valp[idx++];
+				uint8_t s2_grnt_keys = valp[idx++];
 
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_PROPTY, propty);
-					JSON_OBJ_SET_STR(jissueid, JKEY_REPORT_NODE_PROPTY_NAME, translate_node_propty(propty, 1));
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_VID, vid);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_PTYPE, ptype);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_PID, pid);
-					char c_proto_ver[LEN_OF_VAL16] = "";
-					SAFE_SPRINTF_EX(c_proto_ver, "%u.%02u", (unsigned)(proto_ver >> 8), (unsigned)(proto_ver & 0xFF));
-					JSON_OBJ_SET_STR(jissueid, JKEY_REPORT_NODE_PROTO_VER, c_proto_ver);
-					char c_app_ver[LEN_OF_VAL16] = "";
-					SAFE_SPRINTF_EX(c_app_ver, "%u.%02u", (unsigned)(app_ver >> 8), (unsigned)(app_ver & 0xFF));
-					JSON_OBJ_SET_STR(jissueid, JKEY_REPORT_NODE_APP_VER, c_app_ver);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_LIB_TYPE, lib_type);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_CATEGORY, category);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_SENSOR, sensor);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_SLEEP_CAP, sleep_cap);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_LISTEN, listen);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_WAKEUP_INTERVAL, wkup_intv);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_S2_KEYS_VALID, s2_keys_valid);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_S2_GRNT_KEYS, s2_grnt_keys);
-					JSON_OBJ_SET_STR(jissueid, JKEY_REPORT_NODE_S2_GRNT_KEYS_NAME, translate_requested_keys(s2_grnt_keys, 1));
-				}
-				break;
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_PROPTY, propty);
+				JSON_OBJ_SET_STR(jissueid, JKEY_REPORT_NODE_PROPTY_NAME, translate_node_propty(propty, 1));
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_VID, vid);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_PTYPE, ptype);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_PID, pid);
+				char c_proto_ver[LEN_OF_VAL16] = "";
+				SAFE_SPRINTF_EX(c_proto_ver, "%u.%02u", (unsigned)(proto_ver >> 8), (unsigned)(proto_ver & 0xFF));
+				JSON_OBJ_SET_STR(jissueid, JKEY_REPORT_NODE_PROTO_VER, c_proto_ver);
+				char c_app_ver[LEN_OF_VAL16] = "";
+				SAFE_SPRINTF_EX(c_app_ver, "%u.%02u", (unsigned)(app_ver >> 8), (unsigned)(app_ver & 0xFF));
+				JSON_OBJ_SET_STR(jissueid, JKEY_REPORT_NODE_APP_VER, c_app_ver);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_LIB_TYPE, lib_type);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_CATEGORY, category);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_SENSOR, sensor);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_SLEEP_CAP, sleep_cap);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_LISTEN, listen);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_WAKEUP_INTERVAL, wkup_intv);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_S2_KEYS_VALID, s2_keys_valid);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_S2_GRNT_KEYS, s2_grnt_keys);
+				JSON_OBJ_SET_STR(jissueid, JKEY_REPORT_NODE_S2_GRNT_KEYS_NAME, translate_requested_keys(s2_grnt_keys, 1));
+			}
+			break;
 			case ZWAVE_EVT_NODE_TYPE:
-				{
-					uint8_t zwplus_ver = valp[idx++];
-					uint8_t node_type = valp[idx++];
-					uint8_t role_type = valp[idx++];
-					uint16_t instr_icon = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
-					uint16_t usr_icon = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
+			{
+				uint8_t zwplus_ver = valp[idx++];
+				uint8_t node_type = valp[idx++];
+				uint8_t role_type = valp[idx++];
+				uint16_t instr_icon = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
+				uint16_t usr_icon = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
 
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_ZWPLUS_VER, zwplus_ver);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_TYPE, node_type);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_ROLE_TYPE, role_type);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_INSTR_ICON, instr_icon);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_USR_ICON, usr_icon);
-				}
-				break;
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_ZWPLUS_VER, zwplus_ver);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_TYPE, node_type);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_ROLE_TYPE, role_type);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_INSTR_ICON, instr_icon);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_USR_ICON, usr_icon);
+			}
+			break;
 			case ZWAVE_EVT_NODE_GENERIC:
-				{
-					uint8_t generic = valp[idx++];
-					uint8_t specific = valp[idx++];
+			{
+				uint8_t generic = valp[idx++];
+				uint8_t specific = valp[idx++];
 
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_GENERIC, generic);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_SPECIFIC, specific);
-				}
-				break;
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_GENERIC, generic);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_SPECIFIC, specific);
+			}
+			break;
 			case ZWAVE_EVT_NODE_VENDOR:
-				{
-					uint16_t vid = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
-					uint16_t ptype = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
-					uint16_t pid = byte2big_endian(2, (uint8_t *)valp+idx);
-					idx+=2;
+			{
+				uint16_t vid = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
+				uint16_t ptype = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
+				uint16_t pid = byte2big_endian(2, (uint8_t *)valp+idx);
+				idx+=2;
 
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_VID, vid);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_PTYPE, ptype);
-					JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_PID, pid);
-				}
-				break;
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_VID, vid);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_PTYPE, ptype);
+				JSON_OBJ_SET_INT(jissueid, JKEY_REPORT_NODE_VENDOR_PID, pid);
+			}
+			break;
 			default:
 				break;
 		}
@@ -1008,23 +1019,23 @@ static void honeycomb_notify_removing(void *userdata, IssueItem_t *c_issueitem)
 			honeycomb_publish_helper(honeycomb_ctx, topicx.topic_issueid, (jissueid), honeycomb_ctx->topic_issue_caller, (void*)honeycomb_ctx);
 			break;
 		case ZWAVE_EVT_REMOVING_REMOVED:
+		{
+			JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, JKEY_REPORT_OP_REMOVED);
+			if (topicx.juuid)
 			{
-				JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, JKEY_REPORT_OP_REMOVED);
-				if (topicx.juuid)
-				{
-					JSON_OBJ_DEL(topicx.juuid, c_nodeid);
-					DBG_WN_LN("Removed nodeid !!! (%s/%s/%s)", c_macid, c_uuid, c_nodeid);
+				JSON_OBJ_DEL(topicx.juuid, c_nodeid);
+				DBG_WN_LN("Removed nodeid !!! (%s/%s/%s)", c_macid, c_uuid, c_nodeid);
 
-					json_t *jvalue = JSON_OBJ_NEW();
-					honeycomb_publish_helper(honeycomb_ctx, topicx.topic_nodeid, jvalue, honeycomb_ctx->topic_del_node_caller, (void*)honeycomb_ctx);
-					JSON_FREE(jvalue);
-				}
-				else
-				{
-					honeycomb_publish_helper(honeycomb_ctx, topicx.topic_issueid, (jissueid), honeycomb_ctx->topic_issue_caller, (void*)honeycomb_ctx);
-				}
+				json_t *jvalue = JSON_OBJ_NEW();
+				honeycomb_publish_helper(honeycomb_ctx, topicx.topic_nodeid, jvalue, honeycomb_ctx->topic_del_node_caller, (void*)honeycomb_ctx);
+				JSON_FREE(jvalue);
 			}
-			break;
+			else
+			{
+				honeycomb_publish_helper(honeycomb_ctx, topicx.topic_issueid, (jissueid), honeycomb_ctx->topic_issue_caller, (void*)honeycomb_ctx);
+			}
+		}
+		break;
 		case ZWAVE_EVT_REMOVING_DONE:
 			JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, JVAL_REPORT_DONE);
 			honeycomb_save(honeycomb_ctx);
@@ -1069,24 +1080,24 @@ static void honeycomb_notify_reseting(void *userdata, IssueItem_t *c_issueitem)
 			honeycomb_publish_helper(honeycomb_ctx, topicx.topic_issueid, (jissueid), honeycomb_ctx->topic_issue_caller, (void*)honeycomb_ctx);
 			break;
 		case ZWAVE_EVT_RESETING_REMOVED:
-			{
-				JSON_OBJ_DEL(topicx.jmac, c_uuid);
+		{
+			JSON_OBJ_DEL(topicx.jmac, c_uuid);
 
-				honeycomb_save(honeycomb_ctx);
-				DBG_WN_LN("Removed uuid !!! (%s/%s)", c_macid, c_uuid);
+			honeycomb_save(honeycomb_ctx);
+			DBG_WN_LN("Removed uuid !!! (%s/%s)", c_macid, c_uuid);
 
-				honeycomb_publish_helper(honeycomb_ctx, topicx.topic_uuid, JSON_OBJ_NEW(), honeycomb_ctx->topic_del_uuid_caller, (void*)honeycomb_ctx);
-			}
-			break;
+			honeycomb_publish_helper(honeycomb_ctx, topicx.topic_uuid, JSON_OBJ_NEW(), honeycomb_ctx->topic_del_uuid_caller, (void*)honeycomb_ctx);
+		}
+		break;
 		case ZWAVE_EVT_RESETING_DONE:
-			{
-				JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, JVAL_REPORT_DONE);
-				honeycomb_save(honeycomb_ctx);
-				DBG_WN_LN("Added uuid !!! (%s/%s)", c_macid, c_uuid);
+		{
+			JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, JVAL_REPORT_DONE);
+			honeycomb_save(honeycomb_ctx);
+			DBG_WN_LN("Added uuid !!! (%s/%s)", c_macid, c_uuid);
 
-				honeycomb_publish_helper(honeycomb_ctx, topicx.topic_uuid, (topicx.juuid), honeycomb_ctx->topic_add_uuid_caller, (void*)honeycomb_ctx);
-			}
-			break;
+			honeycomb_publish_helper(honeycomb_ctx, topicx.topic_uuid, (topicx.juuid), honeycomb_ctx->topic_add_uuid_caller, (void*)honeycomb_ctx);
+		}
+		break;
 		case ZWAVE_EVT_RESETING_FAIL:
 			JSON_OBJ_SET_STR(jissueid, JKEY_COMM_VAL, JVAL_COMM_FAIL);
 			honeycomb_publish_helper(honeycomb_ctx, topicx.topic_issueid, (jissueid), honeycomb_ctx->topic_issue_caller, (void*)honeycomb_ctx);
@@ -1237,11 +1248,16 @@ static void honeycomb_notify_wake_up_interval(void *userdata, IssueItem_t *c_iss
 	//uint8_t val = (unsigned int)c_issueitem->data[idx];
 	char *valp = c_issueitem->data;
 
-	uint32_t imin = byte2big_endian(4, (uint8_t *)valp+idx); idx+=4;
-	uint32_t imax = byte2big_endian(4, (uint8_t *)valp+idx); idx+=4;
-	uint32_t idef = byte2big_endian(4, (uint8_t *)valp+idx); idx+=4;
-	uint32_t interval = byte2big_endian(4, (uint8_t *)valp+idx); idx+=4;
-	uint32_t cur = byte2big_endian(4, (uint8_t *)valp+idx); idx+=4;
+	uint32_t imin = byte2big_endian(4, (uint8_t *)valp+idx);
+	idx+=4;
+	uint32_t imax = byte2big_endian(4, (uint8_t *)valp+idx);
+	idx+=4;
+	uint32_t idef = byte2big_endian(4, (uint8_t *)valp+idx);
+	idx+=4;
+	uint32_t interval = byte2big_endian(4, (uint8_t *)valp+idx);
+	idx+=4;
+	uint32_t cur = byte2big_endian(4, (uint8_t *)valp+idx);
+	idx+=4;
 	uint8_t nodeid = valp[idx];
 
 	TopicX_t topicx = {0};
@@ -1356,7 +1372,8 @@ static void honeycomb_notify_infrared(void *userdata, IssueItem_t *c_issueitem)
 	honeycomb_publish_helper(honeycomb_ctx, topicx.topic_issueid, (jissueid), honeycomb_ctx->topic_issue_caller, (void*)honeycomb_ctx);
 }
 
-static Notify_t notify_honeycomb = {
+static Notify_t notify_honeycomb =
+{
 	//.watch_item_cb[NOTIFY_FN_ID_READY] = master_notify_ready,
 	.watch_item_cb[NOTIFY_FN_ID_ADDING] = honeycomb_notify_adding,
 	.watch_item_cb[NOTIFY_FN_ID_REMOVING] = honeycomb_notify_removing,
@@ -1402,7 +1419,7 @@ json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c
 	json_t *jmac = NULL;
 	json_t *juuid = NULL;
 
-	if ( (honeycomb_ctx) && (topicx_req) )
+	if ((honeycomb_ctx) && (topicx_req))
 	{
 		uint16_t methodid = JVAL_METHODID_EVENT;
 		char *c_macid = NULL;
@@ -1430,7 +1447,7 @@ json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c
 		{
 			DBG_ER_LN("Skip !!! (c_macid: %s)", c_macid);
 		}
-		else if ( (SAFE_STRCMP(honeycomb_ctx->iface_mac, c_macid) == 0) || (honeycomb_ctx->keepothers==1) )
+		else if ((SAFE_STRCMP(honeycomb_ctx->iface_mac, c_macid) == 0) || (honeycomb_ctx->keepothers==1))
 		{
 			if (act==JSON_ACTID_APPEND)
 			{
@@ -1482,7 +1499,7 @@ json_t *honeycomb_lookup_juuid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c
 json_t *honeycomb_lookup_jnodeid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_req)
 {
 	json_t *jnodeid = NULL;
-	if ( (honeycomb_ctx) && (topicx_req) )
+	if ((honeycomb_ctx) && (topicx_req))
 	{
 		json_t *juuid = honeycomb_lookup_juuid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_req);
 
@@ -1541,7 +1558,7 @@ json_t *honeycomb_lookup_jnodeid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t 
 json_t *honeycomb_lookup_jepid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_req)
 {
 	json_t *jepid = NULL;
-	if ( (honeycomb_ctx) && (topicx_req) )
+	if ((honeycomb_ctx) && (topicx_req))
 	{
 		json_t *jnodeid = honeycomb_lookup_jnodeid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_req);
 
@@ -1584,7 +1601,7 @@ json_t *honeycomb_lookup_jepid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c
 json_t *honeycomb_lookup_jissueid_helper(Honeycomb_t *honeycomb_ctx, IssueItem_t *c_issueitem, ISSUE_TYPE_ID itype, JSON_ACTID act, TopicX_t *topicx_req)
 {
 	json_t *jissueid = NULL;
-	if ( (honeycomb_ctx) && (topicx_req) )
+	if ((honeycomb_ctx) && (topicx_req))
 	{
 		json_t *jepid = honeycomb_lookup_jepid_helper(honeycomb_ctx, c_issueitem, itype, act, topicx_req);
 
@@ -1615,7 +1632,7 @@ static int honeycomb_restore_file(Honeycomb_t *honeycomb_ctx)
 {
 	int ret = 0;
 
-	if ( (honeycomb_ctx) && (SAFE_STRLEN(honeycomb_ctx->json_f_mctt) > 0) )
+	if ((honeycomb_ctx) && (SAFE_STRLEN(honeycomb_ctx->json_f_mctt) > 0))
 	{
 		JSON_FREE(honeycomb_ctx->jroot);
 		//SAFE_MEMSET(macro_ctx, 0, sizeof(MACRO_t));
@@ -1650,7 +1667,7 @@ void honeycomb_register(Honeycomb_t *honeycomb_ctx)
 
 void honeycomb_save(Honeycomb_t *honeycomb_ctx)
 {
-	if ( (honeycomb_ctx) && (SAFE_STRLEN(honeycomb_ctx->json_f_mctt) > 0) )
+	if ((honeycomb_ctx) && (SAFE_STRLEN(honeycomb_ctx->json_f_mctt) > 0))
 	{
 		DBG_IF_LN("(json_f_mctt: %s)", honeycomb_ctx->json_f_mctt);
 		//JSON_DUMP_FILE_EASY(honeycomb_ctx->jroot, honeycomb_ctx->json_f_mctt);
@@ -1668,7 +1685,7 @@ void honeycomb_stop(Honeycomb_t *honeycomb_ctx)
 
 void honeycomb_close(Honeycomb_t *honeycomb_ctx)
 {
-	if ( (honeycomb_ctx) && (honeycomb_ctx->isfree == 0) )
+	if ((honeycomb_ctx) && (honeycomb_ctx->isfree == 0))
 	{
 		honeycomb_ctx->isfree = 1;
 
@@ -1698,7 +1715,7 @@ void honeycomb_open(Honeycomb_t *honeycomb_ctx)
 		tracker_logging_set_on();
 	}
 
-	if ( (honeycomb_ctx) && (SAFE_STRLEN(honeycomb_ctx->json_f_mctt) > 0) )
+	if ((honeycomb_ctx) && (SAFE_STRLEN(honeycomb_ctx->json_f_mctt) > 0))
 	{
 		honeycomb_restore_file(honeycomb_ctx);
 
